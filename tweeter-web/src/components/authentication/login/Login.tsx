@@ -7,8 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthenticationFormLayout from "../AuthenticationFormLayout";
 import AuthenticationFields from "../AuthenticationFields";
 import { AuthToken, FakeData, User } from "tweeter-shared";
-import { ToastActionsContext } from "../../toaster/ToastContexts";
-import { ToastType } from "../../toaster/Toast";
+import { useMessageActions } from "../../toaster/messageHooks";
 
 interface Props {
   originalUrl?: string;
@@ -22,7 +21,7 @@ const Login = (props: Props) => {
 
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(UserInfoActionsContext);
-  const { displayToast } = useContext(ToastActionsContext);
+  const { displayErrorMessage } = useMessageActions();
 
   const checkSubmitButtonStatus = (): boolean => {
     return !alias || !password;
@@ -48,10 +47,8 @@ const Login = (props: Props) => {
         navigate(`/feed/${user.alias}`);
       }
     } catch (error) {
-      displayToast(
-        ToastType.Error,
+      displayErrorMessage(
         `Failed to log user in because of exception: ${error}`,
-        0,
       );
     } finally {
       setIsLoading(false);

@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useContext } from "react";
-import { ToastActionsContext } from "../toaster/ToastContexts";
-import { ToastType } from "../toaster/Toast";
+import { useMessageActions } from "../toaster/messageHooks";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
 
 interface OAuthProps {
@@ -15,7 +14,7 @@ interface OAuthProvider {
 }
 
 const OAuth = ({ heading }: OAuthProps) => {
-  const { displayToast } = useContext(ToastActionsContext);
+  const { displayInfoMessage } = useMessageActions();
 
   const providers: OAuthProvider[] = [
     { name: "Google", icon: "google" },
@@ -26,13 +25,7 @@ const OAuth = ({ heading }: OAuthProps) => {
   ];
 
   const displayInfoMessageWithDarkBackground = (message: string): void => {
-    displayToast(
-      ToastType.Info,
-      message,
-      3000,
-      undefined,
-      "text-white bg-primary",
-    );
+    displayInfoMessage(message, 3000, "text-white bg-primary");
   };
 
   const handleOAuthClick = (providerName: string) => {
