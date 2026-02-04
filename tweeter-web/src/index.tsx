@@ -16,5 +16,5 @@ root.render(
     <ToastInfoProvider>
       <App />
     </ToastInfoProvider>
-  </UserInfoProvider>
+  </UserInfoProvider>,
 );

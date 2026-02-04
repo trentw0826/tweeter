@@ -38,7 +38,7 @@ const UserItem = (props: Props) => {
       displayToast(
         ToastType.Error,
         `Failed to get user because of exception: ${error}`,
-        0
+        0,
       );
     }
   };
@@ -50,7 +50,7 @@ const UserItem = (props: Props) => {
 
   const getUser = async (
     authToken: AuthToken,
-    alias: string
+    alias: string,
   ): Promise<User | null> => {
     // TODO: Replace with the result of calling server
     return FakeData.instance.findUserByAlias(alias);

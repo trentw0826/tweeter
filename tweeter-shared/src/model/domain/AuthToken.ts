@@ -20,7 +20,7 @@ export class AuthToken {
       const charactersLength = characters.length;
       for (let i = 0; i < 64; i++) {
         result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
+          Math.floor(Math.random() * charactersLength),
         );
       }
 

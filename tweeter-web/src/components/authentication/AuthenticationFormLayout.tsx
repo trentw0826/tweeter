@@ -25,7 +25,7 @@ const AuthenticationFormLayout = (props: Props) => {
       message,
       3000,
       undefined,
-      "text-white bg-primary"
+      "text-white bg-primary",
     );
   };
 
@@ -53,7 +53,7 @@ const AuthenticationFormLayout = (props: Props) => {
               className="btn btn-link btn-floating mx-1"
               onClick={() =>
                 displayInfoMessageWithDarkBackground(
-                  "Google registration is not implemented."
+                  "Google registration is not implemented.",
                 )
               }
             >
@@ -70,7 +70,7 @@ const AuthenticationFormLayout = (props: Props) => {
               className="btn btn-link btn-floating mx-1"
               onClick={() =>
                 displayInfoMessageWithDarkBackground(
-                  "Facebook registration is not implemented."
+                  "Facebook registration is not implemented.",
                 )
               }
             >
@@ -87,7 +87,7 @@ const AuthenticationFormLayout = (props: Props) => {
               className="btn btn-link btn-floating mx-1"
               onClick={() =>
                 displayInfoMessageWithDarkBackground(
-                  "Twitter registration is not implemented."
+                  "Twitter registration is not implemented.",
                 )
               }
             >
@@ -104,7 +104,7 @@ const AuthenticationFormLayout = (props: Props) => {
               className="btn btn-link btn-floating mx-1"
               onClick={() =>
                 displayInfoMessageWithDarkBackground(
-                  "LinkedIn registration is not implemented."
+                  "LinkedIn registration is not implemented.",
                 )
               }
             >
@@ -121,7 +121,7 @@ const AuthenticationFormLayout = (props: Props) => {
               className="btn btn-link btn-floating mx-1"
               onClick={() =>
                 displayInfoMessageWithDarkBackground(
-                  "Github registration is not implemented."
+                  "Github registration is not implemented.",
                 )
               }
             >

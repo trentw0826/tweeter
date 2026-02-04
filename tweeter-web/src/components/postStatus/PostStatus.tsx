@@ -23,7 +23,7 @@ const PostStatus = () => {
       postingStatusToastId = displayToast(
         ToastType.Info,
         "Posting status...",
-        0
+        0,
       );
 
       const status = new Status(post, currentUser!, Date.now());
@@ -36,7 +36,7 @@ const PostStatus = () => {
       displayToast(
         ToastType.Error,
         `Failed to post the status because of exception: ${error}`,
-        0
+        0,
       );
     } finally {
       deleteToast(postingStatusToastId);
@@ -46,7 +46,7 @@ const PostStatus = () => {
 
   const postStatus = async (
     authToken: AuthToken,
-    newStatus: Status
+    newStatus: Status,
   ): Promise<void> => {
     // Pause so we can see the logging out message. Remove when connected to the server
     await new Promise((f) => setTimeout(f, 2000));

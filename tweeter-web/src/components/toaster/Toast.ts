@@ -21,7 +21,7 @@ export function makeToast(
   text: string,
   deleteAfterMillis: number,
   title?: string,
-  bootstrapClasses: string = ""
+  bootstrapClasses: string = "",
 ): Toast {
   return {
     id: uuid(),
@@ -30,6 +30,6 @@ export function makeToast(
     type: type,
     expirationMillisecond:
       deleteAfterMillis > 0 ? Date.now() + deleteAfterMillis : 0,
-    bootstrapClasses: bootstrapClasses
+    bootstrapClasses: bootstrapClasses,
   };
-};
+}

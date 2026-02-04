@@ -15,7 +15,7 @@ export class PostSegment {
     text: string,
     startPosition: number,
     endPosition: number,
-    type: Type
+    type: Type,
   ) {
     this._text = text;
     this._startPostion = startPosition;

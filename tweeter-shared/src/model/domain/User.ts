@@ -8,7 +8,7 @@ export class User {
     firstName: string,
     lastName: string,
     alias: string,
-    imageUrl: string
+    imageUrl: string,
   ) {
     this._firstName = firstName;
     this._lastName = lastName;
@@ -68,7 +68,7 @@ export class User {
         jsonObject._firstName,
         jsonObject._lastName,
         jsonObject._alias,
-        jsonObject._imageUrl
+        jsonObject._imageUrl,
       );
     } else {
       return null;

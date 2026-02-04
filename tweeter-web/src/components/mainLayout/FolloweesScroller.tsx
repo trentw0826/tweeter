@@ -59,7 +59,7 @@ const FolloweesScroller = () => {
         authToken!,
         displayedUser!.alias,
         PAGE_SIZE,
-        lastItem
+        lastItem,
       );
 
       setHasMoreItems(() => hasMore);
@@ -69,7 +69,7 @@ const FolloweesScroller = () => {
       displayToast(
         ToastType.Error,
         `Failed to load followees because of exception: ${error}`,
-        0
+        0,
       );
     }
   };
@@ -78,7 +78,7 @@ const FolloweesScroller = () => {
     authToken: AuthToken,
     userAlias: string,
     pageSize: number,
-    lastFollowee: User | null
+    lastFollowee: User | null,
   ): Promise<[User[], boolean]> => {
     // TODO: Replace with the result of calling server
     return FakeData.instance.getPageOfUsers(lastFollowee, pageSize, userAlias);
@@ -86,7 +86,7 @@ const FolloweesScroller = () => {
 
   const getUser = async (
     authToken: AuthToken,
-    alias: string
+    alias: string,
   ): Promise<User | null> => {
     // TODO: Replace with the result of calling server
     return FakeData.instance.findUserByAlias(alias);

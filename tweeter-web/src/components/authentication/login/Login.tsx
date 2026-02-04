@@ -50,7 +50,7 @@ const Login = (props: Props) => {
       displayToast(
         ToastType.Error,
         `Failed to log user in because of exception: ${error}`,
-        0
+        0,
       );
     } finally {
       setIsLoading(false);
@@ -59,7 +59,7 @@ const Login = (props: Props) => {
 
   const login = async (
     alias: string,
-    password: string
+    password: string,
   ): Promise<[User, AuthToken]> => {
     // TODO: Replace with the result of calling the server
     const user = FakeData.instance.firstUser;

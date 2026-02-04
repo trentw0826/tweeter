@@ -44,13 +44,25 @@ const AuthenticatedRoutes = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route index element={<Navigate to={`/feed/${displayedUser!.alias}`} />} />
+        <Route
+          index
+          element={<Navigate to={`/feed/${displayedUser!.alias}`} />}
+        />
         <Route path="feed/:displayedUser" element={<FeedScroller />} />
         <Route path="story/:displayedUser" element={<StoryScroller />} />
-        <Route path="followees/:displayedUser" element={<FolloweesScroller />} />
-        <Route path="followers/:displayedUser" element={<FollowersScroller />} />
+        <Route
+          path="followees/:displayedUser"
+          element={<FolloweesScroller />}
+        />
+        <Route
+          path="followers/:displayedUser"
+          element={<FollowersScroller />}
+        />
         <Route path="logout" element={<Navigate to="/login" />} />
-        <Route path="*" element={<Navigate to={`/feed/${displayedUser!.alias}`} />} />
+        <Route
+          path="*"
+          element={<Navigate to={`/feed/${displayedUser!.alias}`} />}
+        />
       </Route>
     </Routes>
   );

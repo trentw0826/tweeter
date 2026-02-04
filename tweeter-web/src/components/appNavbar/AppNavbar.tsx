@@ -31,7 +31,7 @@ const AppNavbar = () => {
       displayToast(
         ToastType.Error,
         `Failed to log user out because of exception: ${error}`,
-        0
+        0,
       );
     }
   };

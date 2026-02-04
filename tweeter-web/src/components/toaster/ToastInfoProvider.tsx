@@ -20,19 +20,19 @@ const ToastInfoProvider: React.FC<Props> = ({ children }) => {
       message: string,
       duration: number,
       title?: string,
-      bootstrapClasses?: string
+      bootstrapClasses?: string,
     ): string => {
       const toast = makeToast(
         toastType,
         message,
         duration,
         title,
-        bootstrapClasses
+        bootstrapClasses,
       );
       displayExistingToast(toast);
       return toast.id;
     },
-    [displayExistingToast]
+    [displayExistingToast],
   );
 
   const deleteToast = useCallback((id: string) => {
@@ -53,7 +53,7 @@ const ToastInfoProvider: React.FC<Props> = ({ children }) => {
       deleteToast,
       deleteAllToasts,
     }),
-    [displayExistingToast, displayToast, deleteToast, deleteAllToasts]
+    [displayExistingToast, displayToast, deleteToast, deleteAllToasts],
   );
 
   return (

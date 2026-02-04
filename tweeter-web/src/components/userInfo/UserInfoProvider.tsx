@@ -13,7 +13,7 @@ interface Props {
 const UserInfoProvider: React.FC<Props> = ({ children }) => {
   const saveToLocalStorage = (
     currentUser: User,
-    authToken: AuthToken
+    authToken: AuthToken,
   ): void => {
     localStorage.setItem(CURRENT_USER_KEY, currentUser.toJson());
     localStorage.setItem(AUTH_TOKEN_KEY, authToken.toJson());
@@ -48,7 +48,7 @@ const UserInfoProvider: React.FC<Props> = ({ children }) => {
       currentUser: User,
       displayedUser: User | null,
       authToken: AuthToken,
-      remember: boolean = false
+      remember: boolean = false,
     ) => {
       setUserInfo(() => {
         return {
@@ -62,7 +62,7 @@ const UserInfoProvider: React.FC<Props> = ({ children }) => {
         saveToLocalStorage(currentUser, authToken);
       }
     },
-    []
+    [],
   );
 
   const clearUserInfo = useCallback(() => {
@@ -89,7 +89,7 @@ const UserInfoProvider: React.FC<Props> = ({ children }) => {
       clearUserInfo,
       setDisplayedUser,
     }),
-    [updateUserInfo, clearUserInfo, setDisplayedUser]
+    [updateUserInfo, clearUserInfo, setDisplayedUser],
   );
 
   return (
