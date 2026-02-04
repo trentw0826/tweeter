@@ -1,6 +1,5 @@
 import "./UserInfoComponent.css";
-import { useContext } from "react";
-import { UserInfoContext, UserInfoActionsContext } from "./UserInfoContexts";
+import { useUserInfo, useUserInfoActions } from "./userInfoHooks";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMessageActions } from "../toaster/messageHooks";
@@ -15,8 +14,8 @@ const UserInfo = () => {
   const { displayInfoMessage, displayErrorMessage, deleteMessage } =
     useMessageActions();
 
-  const { currentUser, authToken, displayedUser } = useContext(UserInfoContext);
-  const { setDisplayedUser } = useContext(UserInfoActionsContext);
+  const { currentUser, authToken, displayedUser } = useUserInfo();
+  const { setDisplayedUser } = useUserInfoActions();
   const navigate = useNavigate();
   const location = useLocation();
 

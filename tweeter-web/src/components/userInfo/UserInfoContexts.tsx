@@ -4,7 +4,7 @@ import { UserInfo } from "./UserInfo";
 
 export const UserInfoContext = createContext<UserInfo>({} as UserInfo);
 
-interface UserInfoActions {
+export interface UserInfoActions {
   updateUserInfo: (
     currentUser: User,
     displayedUser: User | null,

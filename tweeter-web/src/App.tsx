@@ -1,6 +1,5 @@
 import "./App.css";
-import { useContext } from "react";
-import { UserInfoContext } from "./components/userInfo/UserInfoContexts";
+import { useUserInfo } from "./components/userInfo/userInfoHooks";
 import {
   BrowserRouter,
   Navigate,
@@ -18,7 +17,7 @@ import { AuthToken } from "tweeter-shared/dist/model/domain/AuthToken";
 import { User, FakeData, Status } from "tweeter-shared";
 
 const App = () => {
-  const { currentUser, authToken } = useContext(UserInfoContext);
+  const { currentUser, authToken } = useUserInfo();
 
   const isAuthenticated = (): boolean => {
     return !!currentUser && !!authToken;
@@ -39,7 +38,7 @@ const App = () => {
 };
 
 const AuthenticatedRoutes = () => {
-  const { displayedUser } = useContext(UserInfoContext);
+  const { displayedUser } = useUserInfo();
 
   const retrievePageOfFollowers = async (
     authToken: AuthToken,
