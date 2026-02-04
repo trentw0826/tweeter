@@ -229,7 +229,7 @@ export class Status {
 
   public get formattedDate(): string {
     let date: Date = new Date(this.timestamp);
-    return format(date, "MMMM dd, yyyy HH:mm:ss");
+    return format(date, "MMMM Do YYYY, h:mm a");
   }
 
   public set timestamp(value: number) {
