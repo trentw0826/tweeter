@@ -2,7 +2,7 @@ import { PostSegment, Type } from "./PostSegment";
 import { User } from "./User";
 import { format } from "date-fns";
 
-// Represents a status (post) made by a user. Contains the post text, the user who made the post, and the timestamp of when the post was made.
+// Represents a status made by a user. Contains the post text, the user who made the post, and the timestamp of when the post was made.
 export class Status {
   private _post: string;
   private _user: User;
