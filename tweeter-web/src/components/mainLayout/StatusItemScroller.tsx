@@ -1,19 +1,29 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useNavigate, useParams } from "react-router-dom";
+import { Status, AuthToken, User, FakeData } from "tweeter-shared";
+import { ToastType } from "../toaster/Toast";
+import { ToastActionsContext } from "../toaster/ToastContexts";
 import {
   UserInfoContext,
   UserInfoActionsContext,
 } from "../userInfo/UserInfoContexts";
-import { AuthToken, FakeData, Status, User } from "tweeter-shared";
-import { useState, useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { ToastActionsContext } from "../toaster/ToastContexts";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { ToastType } from "../toaster/Toast";
 import StatusItem from "../statusItem/StatusItem";
 
 export const PAGE_SIZE = 10;
 
-const StoryScroller = () => {
+interface Props {
+  itemDescription: string;
+  featurePath: string;
+  retrieveItemsPage: (
+    authToken: AuthToken,
+    userAlias: string,
+    pageSize: number,
+    lastItem: Status | null,
+  ) => Promise<[Status[], boolean]>;
+}
+
+const StatusItemScroller = (props: Props) => {
   const { displayToast } = useContext(ToastActionsContext);
   const [items, setItems] = useState<Status[]>([]);
   const [hasMoreItems, setHasMoreItems] = useState(true);
@@ -56,7 +66,7 @@ const StoryScroller = () => {
 
   const loadMoreItems = async (lastItem: Status | null) => {
     try {
-      const [newItems, hasMore] = await loadMoreStoryItems(
+      const [newItems, hasMore] = await props.retrieveItemsPage(
         authToken!,
         displayedUser!.alias,
         PAGE_SIZE,
@@ -69,20 +79,10 @@ const StoryScroller = () => {
     } catch (error) {
       displayToast(
         ToastType.Error,
-        `Failed to load story items because of exception: ${error}`,
+        `Failed to load ${props.itemDescription} because of exception: ${error}`,
         0,
       );
     }
-  };
-
-  const loadMoreStoryItems = async (
-    authToken: AuthToken,
-    userAlias: string,
-    pageSize: number,
-    lastItem: Status | null,
-  ): Promise<[Status[], boolean]> => {
-    // TODO: Replace with the result of calling server
-    return FakeData.instance.getPageOfStatuses(lastItem, pageSize);
   };
 
   const navigateToUser = async (event: React.MouseEvent): Promise<void> => {
@@ -96,7 +96,7 @@ const StoryScroller = () => {
       if (toUser) {
         if (!toUser.equals(displayedUser!)) {
           setDisplayedUser(toUser);
-          navigate(`/story/${toUser.alias}`);
+          navigate(`${props.featurePath}/${toUser.alias}`);
         }
       }
     } catch (error) {
@@ -134,7 +134,7 @@ const StoryScroller = () => {
           <StatusItem
             key={index}
             status={item}
-            featurePath="/story"
+            featurePath={props.featurePath}
             onUserClick={navigateToUser}
           />
         ))}
@@ -143,4 +143,4 @@ const StoryScroller = () => {
   );
 };
 
-export default StoryScroller;
+export default StatusItemScroller;

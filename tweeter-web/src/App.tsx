@@ -12,11 +12,10 @@ import Login from "./components/authentication/login/Login";
 import Register from "./components/authentication/register/Register";
 import MainLayout from "./components/mainLayout/MainLayout";
 import Toaster from "./components/toaster/Toaster";
-import FeedScroller from "./components/mainLayout/FeedScroller";
-import StoryScroller from "./components/mainLayout/StoryScroller";
 import UserItemScroller from "./components/mainLayout/userItemScroller";
+import StatusItemScroller from "./components/mainLayout/StatusItemScroller";
 import { AuthToken } from "tweeter-shared/dist/model/domain/AuthToken";
-import { User, FakeData } from "tweeter-shared";
+import { User, FakeData, Status } from "tweeter-shared";
 
 const App = () => {
   const { currentUser, authToken } = useContext(UserInfoContext);
@@ -62,6 +61,26 @@ const AuthenticatedRoutes = () => {
     return FakeData.instance.getPageOfUsers(lastFollower, pageSize, userAlias);
   };
 
+  const retrievePageOfFeedItems = async (
+    authToken: AuthToken,
+    userAlias: string,
+    pageSize: number,
+    lastItem: Status | null,
+  ): Promise<[Status[], boolean]> => {
+    // TODO: Replace with the result of calling server
+    return FakeData.instance.getPageOfStatuses(lastItem, pageSize);
+  };
+
+  const retrievePageOfStoryItems = async (
+    authToken: AuthToken,
+    userAlias: string,
+    pageSize: number,
+    lastItem: Status | null,
+  ): Promise<[Status[], boolean]> => {
+    // TODO: Replace with the result of calling server
+    return FakeData.instance.getPageOfStatuses(lastItem, pageSize);
+  };
+
   return (
     <Routes>
       <Route element={<MainLayout />}>
@@ -69,8 +88,28 @@ const AuthenticatedRoutes = () => {
           index
           element={<Navigate to={`/feed/${displayedUser!.alias}`} />}
         />
-        <Route path="feed/:displayedUser" element={<FeedScroller />} />
-        <Route path="story/:displayedUser" element={<StoryScroller />} />
+        <Route
+          path="feed/:displayedUser"
+          element={
+            <StatusItemScroller
+              key={`feed-${displayedUser?.alias}`}
+              itemDescription="feed items"
+              featurePath="/feed"
+              retrieveItemsPage={retrievePageOfFeedItems}
+            />
+          }
+        />
+        <Route
+          path="story/:displayedUser"
+          element={
+            <StatusItemScroller
+              key={`story-${displayedUser?.alias}`}
+              itemDescription="story items"
+              featurePath="/story"
+              retrieveItemsPage={retrievePageOfStoryItems}
+            />
+          }
+        />
         <Route
           path="followees/:displayedUser"
           element={
