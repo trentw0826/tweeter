@@ -12,10 +12,11 @@ import Login from "./components/authentication/login/Login";
 import Register from "./components/authentication/register/Register";
 import MainLayout from "./components/mainLayout/MainLayout";
 import Toaster from "./components/toaster/Toaster";
-import FolloweesScroller from "./components/mainLayout/FolloweesScroller";
-import FollowersScroller from "./components/mainLayout/FollowersScroller";
 import FeedScroller from "./components/mainLayout/FeedScroller";
 import StoryScroller from "./components/mainLayout/StoryScroller";
+import UserItemScroller from "./components/mainLayout/userItemScroller";
+import { AuthToken } from "tweeter-shared/dist/model/domain/AuthToken";
+import { User, FakeData } from "tweeter-shared";
 
 const App = () => {
   const { currentUser, authToken } = useContext(UserInfoContext);
@@ -41,6 +42,26 @@ const App = () => {
 const AuthenticatedRoutes = () => {
   const { displayedUser } = useContext(UserInfoContext);
 
+  const retrievePageOfFollowers = async (
+    authToken: AuthToken,
+    userAlias: string,
+    pageSize: number,
+    lastItem: User | null,
+  ): Promise<[User[], boolean]> => {
+    // TODO: Replace with the result of calling server
+    return FakeData.instance.getPageOfUsers(lastItem, pageSize, userAlias);
+  };
+
+  const retrievePageOfFollowees = async (
+    authToken: AuthToken,
+    userAlias: string,
+    pageSize: number,
+    lastFollower: User | null,
+  ): Promise<[User[], boolean]> => {
+    // TODO: Replace with the result of calling server
+    return FakeData.instance.getPageOfUsers(lastFollower, pageSize, userAlias);
+  };
+
   return (
     <Routes>
       <Route element={<MainLayout />}>
@@ -52,11 +73,25 @@ const AuthenticatedRoutes = () => {
         <Route path="story/:displayedUser" element={<StoryScroller />} />
         <Route
           path="followees/:displayedUser"
-          element={<FolloweesScroller />}
+          element={
+            <UserItemScroller
+              key={`followees-${displayedUser?.alias}`}
+              itemDescription="followees"
+              featurePath="/followees"
+              retrieveItemsPage={retrievePageOfFollowees}
+            />
+          }
         />
         <Route
           path="followers/:displayedUser"
-          element={<FollowersScroller />}
+          element={
+            <UserItemScroller
+              key={`followers-${displayedUser?.alias}`}
+              itemDescription="followers"
+              featurePath="/followers"
+              retrieveItemsPage={retrievePageOfFollowers}
+            />
+          }
         />
         <Route path="logout" element={<Navigate to="/login" />} />
         <Route
