@@ -5,6 +5,7 @@ import { UserInfoActionsContext } from "../../userInfo/UserInfoContexts";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthenticationFormLayout from "../AuthenticationFormLayout";
+import AuthenticationFields from "../AuthenticationFields";
 import { AuthToken, FakeData, User } from "tweeter-shared";
 import { ToastActionsContext } from "../../toaster/ToastContexts";
 import { ToastType } from "../../toaster/Toast";
@@ -73,31 +74,11 @@ const Login = (props: Props) => {
 
   const inputFieldFactory = () => {
     return (
-      <>
-        <div className="form-floating">
-          <input
-            type="text"
-            className="form-control"
-            size={50}
-            id="aliasInput"
-            placeholder="name@example.com"
-            onKeyDown={loginOnEnter}
-            onChange={(event) => setAlias(event.target.value)}
-          />
-          <label htmlFor="aliasInput">Alias</label>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            type="password"
-            className="form-control bottom"
-            id="passwordInput"
-            placeholder="Password"
-            onKeyDown={loginOnEnter}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <label htmlFor="passwordInput">Password</label>
-        </div>
-      </>
+      <AuthenticationFields
+        setAlias={setAlias}
+        setPassword={setPassword}
+        onEnter={loginOnEnter}
+      />
     );
   };
 
