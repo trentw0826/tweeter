@@ -2,6 +2,7 @@ import { PostSegment, Type } from "./PostSegment";
 import { User } from "./User";
 import { format } from "date-fns";
 
+// Represents a status (post) made by a user. Contains the post text, the user who made the post, and the timestamp of when the post was made.
 export class Status {
   private _post: string;
   private _user: User;
@@ -15,6 +16,7 @@ export class Status {
     this._segments = this.getPostSegments(post);
   }
 
+  // Parses the post text into segments (text, mentions, URLs, newlines)
   private getPostSegments(post: string): PostSegment[] {
     const segments: PostSegment[] = [];
 
@@ -51,6 +53,7 @@ export class Status {
     return segments;
   }
 
+  // Gets all references (mentions, URLs, newlines) in the post and sorts them by their position in the text
   private static getSortedReferences(post: string): PostSegment[] {
     const references = [
       ...Status.parseUrlReferences(post),
@@ -65,6 +68,7 @@ export class Status {
     return references;
   }
 
+  // Parses URL references in the post text
   private static parseUrlReferences(post: string): PostSegment[] {
     const references: PostSegment[] = [];
 
@@ -90,6 +94,7 @@ export class Status {
     return references;
   }
 
+  // Parses URLs from the post text
   private static parseUrls(post: string): string[] {
     const urls: string[] = [];
 
@@ -137,6 +142,7 @@ export class Status {
     return c.length === 1 && c.match(/[a-zA-Z]/g) != null;
   }
 
+  // Parses mention references in the post text
   private static parseMentionReferences(post: string): PostSegment[] {
     const references: PostSegment[] = [];
 
@@ -167,10 +173,12 @@ export class Status {
     return references;
   }
 
+  // Parses mentions (user aliases) from the post text
   private static parseMentions(post: string): string[] {
     const mentions: string[] = [];
 
     for (let word of post.split(/(\s+)/)) {
+      // A mention starts with "@"
       if (word.startsWith("@")) {
         // Remove all non-alphanumeric characters
         word.replaceAll(/[^a-zA-Z0-9]/g, "");
@@ -182,6 +190,7 @@ export class Status {
     return mentions;
   }
 
+  // Parses newline characters in the post text
   private static parseNewlines(post: string): PostSegment[] {
     const newlines: PostSegment[] = [];
 
@@ -235,6 +244,8 @@ export class Status {
     this._segments = value;
   }
 
+  // Two Status objects are equal if they have the same user, timestamp, and post text
+  // TODO compare by hash?
   public equals(other: Status): boolean {
     return (
       this._user.equals(other.user) &&

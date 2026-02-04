@@ -1,3 +1,4 @@
+// The supported types of post segments
 export enum Type {
   text = "Text",
   alias = "Alias",
@@ -5,6 +6,7 @@ export enum Type {
   newline = "Newline",
 }
 
+// Represents a segment of a post, which can be plain text, a user alias, a URL, or a newline
 export class PostSegment {
   private _text: string;
   private _startPostion: number;

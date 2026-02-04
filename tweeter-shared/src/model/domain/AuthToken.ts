@@ -1,14 +1,18 @@
 import { v4 as uuid } from "uuid";
+
+// Represents an authentication token used for user sessions.
 export class AuthToken {
   private _token: string;
   private _timestamp: number;
 
+  // Generates a new AuthToken with a unique token and the current timestamp.
   public static Generate(): AuthToken {
     const token: string = AuthToken.generateToken();
     const timestamp: number = Date.now();
     return new AuthToken(token, timestamp);
   }
 
+  // Static method to generate a unique token string, using UUID if available, otherwise a random string.
   private static generateToken(): string {
     try {
       return uuid().toString();

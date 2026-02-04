@@ -1,3 +1,4 @@
+// Represents a user in the Tweeter application
 export class User {
   private _firstName: string;
   private _lastName: string;
@@ -52,6 +53,7 @@ export class User {
     this._imageUrl = value;
   }
 
+  // Two users are considered equal if they have the same alias
   public equals(other: User): boolean {
     return this._alias === other._alias;
   }

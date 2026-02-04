@@ -1,5 +1,6 @@
 import { User } from "./User";
 
+// Represents a "follow" relationship between two users
 export class Follow {
   private _follower: User;
   private _followee: User;
