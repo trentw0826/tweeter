@@ -1,21 +1,19 @@
 import "./Toaster.css";
 import { useEffect } from "react";
-import { useContext } from "react";
-import { ToastListContext } from "./ToastContexts";
 import { Toast } from "react-bootstrap";
-import { useMessageActions } from "./messageHooks";
+import { useMessageList, useMessageActions } from "./messageHooks";
 
 interface Props {
   position: string;
 }
 
 const Toaster = ({ position }: Props) => {
-  const toastList = useContext(ToastListContext);
+  const messageList = useMessageList();
   const { deleteMessage } = useMessageActions();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (toastList.length) {
+      if (messageList.length) {
         deleteExpiredToasts();
       }
     }, 1000);
@@ -24,12 +22,12 @@ const Toaster = ({ position }: Props) => {
       clearInterval(interval);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [toastList]);
+  }, [messageList]);
 
   const deleteExpiredToasts = () => {
     const now = Date.now();
 
-    for (let toast of toastList) {
+    for (let toast of messageList) {
       if (
         toast.expirationMillisecond > 0 &&
         toast.expirationMillisecond < now
@@ -42,14 +40,14 @@ const Toaster = ({ position }: Props) => {
   return (
     <>
       <div className={`toaster-container ${position}`}>
-        {toastList.map((toast, i) => (
+        {messageList.map((message, i) => (
           <Toast
-            id={toast.id}
+            id={message.id}
             key={i}
-            className={toast.bootstrapClasses}
+            className={message.bootstrapClasses}
             autohide={false}
             show={true}
-            onClose={() => deleteMessage(toast.id)}
+            onClose={() => deleteMessage(message.id)}
           >
             <Toast.Header>
               <img
@@ -57,9 +55,9 @@ const Toaster = ({ position }: Props) => {
                 className="rounded me-2"
                 alt=""
               />
-              <strong className="me-auto">{toast.title}</strong>
+              <strong className="me-auto">{message.title}</strong>
             </Toast.Header>
-            <Toast.Body>{toast.text}</Toast.Body>
+            <Toast.Body>{message.text}</Toast.Body>
           </Toast>
         ))}
       </div>
