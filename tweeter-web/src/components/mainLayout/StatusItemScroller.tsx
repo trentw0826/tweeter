@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Status, AuthToken, User, FakeData } from "tweeter-shared";
 import { useMessageActions } from "../toaster/messageHooks";
 import { useUserInfo, useUserInfoActions } from "../userInfo/userInfoHooks";
+import { useNavigateToUser } from "../userInfo/useNavigateToUser";
 import StatusItem from "../statusItem/StatusItem";
 
 export const PAGE_SIZE = 10;
@@ -24,7 +25,7 @@ const StatusItemScroller = (props: Props) => {
   const [items, setItems] = useState<Status[]>([]);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [lastItem, setLastItem] = useState<Status | null>(null);
-  const navigate = useNavigate();
+  const { navigateToUser, getUser } = useNavigateToUser(props.featurePath);
 
   const addItems = (newItems: Status[]) =>
     setItems((previousItems) => [...previousItems, ...newItems]);
@@ -77,38 +78,6 @@ const StatusItemScroller = (props: Props) => {
         `Failed to load ${props.itemDescription} because of exception: ${error}`,
       );
     }
-  };
-
-  const navigateToUser = async (event: React.MouseEvent): Promise<void> => {
-    event.preventDefault();
-
-    try {
-      const alias = extractAlias(event.target.toString());
-
-      const toUser = await getUser(authToken!, alias);
-
-      if (toUser) {
-        if (!toUser.equals(displayedUser!)) {
-          setDisplayedUser(toUser);
-          navigate(`${props.featurePath}/${toUser.alias}`);
-        }
-      }
-    } catch (error) {
-      displayErrorMessage(`Failed to get user because of exception: ${error}`);
-    }
-  };
-
-  const extractAlias = (value: string): string => {
-    const index = value.indexOf("@");
-    return value.substring(index);
-  };
-
-  const getUser = async (
-    authToken: AuthToken,
-    alias: string,
-  ): Promise<User | null> => {
-    // TODO: Replace with the result of calling server
-    return FakeData.instance.findUserByAlias(alias);
   };
 
   return (
