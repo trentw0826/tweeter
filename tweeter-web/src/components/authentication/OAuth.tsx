@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { useContext } from "react";
 import { useMessageActions } from "../toaster/messageHooks";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
 
