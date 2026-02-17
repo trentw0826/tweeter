@@ -31,7 +31,7 @@ export abstract class UserItemPresenter {
     this._lastItem = item;
   }
 
-  public get hasMore(): boolean {
+  public get hasMoreItems(): boolean {
     return this._hasMoreItems;
   }
 

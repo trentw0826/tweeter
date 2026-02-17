@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useParams } from "react-router-dom";
 import { User, AuthToken } from "tweeter-shared";
@@ -30,7 +30,11 @@ const UserItemScroller = (props: Props) => {
     displayErrorMessage: (message: string) => displayErrorMessage(message),
   };
 
-  const presenter = props.presenterFactory(listener);
+  const presenterRef = useRef<UserItemPresenter | null>(null);
+  // Initially called with an empty presenter, but the first time the component renders, the presenter will be created using the presenterFactory function passed in through props. The presenter is stored in a ref so that it persists across renders without causing re-renders when it changes.
+  if (!presenterRef.current) {
+    presenterRef.current = props.presenterFactory(listener);
+  }
 
   // Update the displayed user context variable whenever the displayedUser url parameter changes. This allows browser forward and back buttons to work correctly.
   useEffect(() => {
@@ -55,18 +59,18 @@ const UserItemScroller = (props: Props) => {
 
   const reset = async () => {
     // setItems(() => []);
-    presenter.reset();
+    presenterRef.current!.reset();
   };
 
   const loadMoreItems = async () => {
-    presenter.loadMoreItems(authToken!, displayedUser!.alias);
+    presenterRef.current!.loadMoreItems(authToken!, displayedUser!.alias);
   };
 
   const getUser = async (
     authToken: AuthToken,
     alias: string,
   ): Promise<User | null> => {
-    return presenter.getUser(authToken, alias);
+    return presenterRef.current!.getUser(authToken, alias);
   };
 
   return (
@@ -75,7 +79,7 @@ const UserItemScroller = (props: Props) => {
         className="pr-0 mr-0"
         dataLength={items.length}
         next={loadMoreItems}
-        hasMore={presenter.hasMore}
+        hasMore={presenterRef.current!.hasMoreItems}
         loader={<h4>Loading...</h4>}
       >
         {items.map((item, index) => (
