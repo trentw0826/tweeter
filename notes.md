@@ -1,0 +1,3 @@
+- Migrated functionality into a MVP model
+  - Should presenters be called directly?
+- Implemented observer model for user-facing components
