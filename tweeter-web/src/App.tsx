@@ -14,7 +14,7 @@ import Toaster from "./components/toaster/Toaster";
 import UserItemScroller from "./components/mainLayout/UserItemScroller";
 import StatusItemScroller from "./components/mainLayout/StatusItemScroller";
 import { AuthToken } from "tweeter-shared/dist/model/domain/AuthToken";
-import { User, FakeData, Status } from "tweeter-shared";
+import { FakeData, Status } from "tweeter-shared";
 import { FolloweePresenter } from "./presenter/FolloweePresenter";
 import { UserItemView } from "./presenter/UserItemPresenter";
 import { FollowerPresenter } from "./presenter/FollowerPresenter";
@@ -98,7 +98,9 @@ const AuthenticatedRoutes = () => {
             <UserItemScroller
               key={`followees-${displayedUser?.alias}`}
               featurePath="/followees"
-              presenterFactory={(view: UserItemView) => new FolloweePresenter(view)}
+              presenterFactory={(view: UserItemView) =>
+                new FolloweePresenter(view)
+              }
             />
           }
         />
@@ -108,7 +110,9 @@ const AuthenticatedRoutes = () => {
             <UserItemScroller
               key={`followers-${displayedUser?.alias}`}
               featurePath="/followers"
-              presenterFactory={(view: UserItemView) => new FollowerPresenter(view)}
+              presenterFactory={(view: UserItemView) =>
+                new FollowerPresenter(view)
+              }
             />
           }
         />
