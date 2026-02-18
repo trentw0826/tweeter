@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useRef } from "react";
 import { useMessageActions } from "../toaster/messageHooks";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
+import { OAuthPresenter, OAuthView } from "../../presenter/OAuthPresenter";
 
 interface OAuthProps {
   heading: string;
@@ -14,6 +16,21 @@ interface OAuthProvider {
 
 const OAuth = ({ heading }: OAuthProps) => {
   const { displayInfoMessage } = useMessageActions();
+  const { displayErrorMessage } = useMessageActions();
+
+  const listener: OAuthView = {
+    displayInfoMessage: (
+      message: string,
+      duration: number,
+      bootstrapClasses?: string,
+    ) => displayInfoMessage(message, duration, bootstrapClasses),
+    displayErrorMessage: (message: string) => displayErrorMessage(message),
+  };
+
+  const presenterRef = useRef<OAuthPresenter | null>(null);
+  if (!presenterRef.current) {
+    presenterRef.current = new OAuthPresenter(listener);
+  }
 
   const providers: OAuthProvider[] = [
     { name: "Google", icon: "google" },
@@ -23,14 +40,8 @@ const OAuth = ({ heading }: OAuthProps) => {
     { name: "GitHub", icon: "github" },
   ];
 
-  const displayInfoMessageWithDarkBackground = (message: string): void => {
-    displayInfoMessage(message, 3000, "text-white bg-primary");
-  };
-
   const handleOAuthClick = (providerName: string) => {
-    displayInfoMessageWithDarkBackground(
-      `${providerName} registration is not implemented.`,
-    );
+    presenterRef.current!.handleOAuthClick(providerName);
   };
 
   return (

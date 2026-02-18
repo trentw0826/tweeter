@@ -44,4 +44,10 @@ export class AuthService {
     // TODO: Replace with the result of calling the server
     await new Promise((res) => setTimeout(res, 1000));
   }
+
+  public async oauthLogin(providerName: string): Promise<boolean> {
+    void providerName;
+    // TODO: Replace with the result of calling the server
+    return false;
+  }
 }
