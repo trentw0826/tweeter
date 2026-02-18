@@ -1,11 +1,15 @@
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthToken, User, FakeData } from "tweeter-shared";
+import { AuthToken, User } from "tweeter-shared";
 import { useUserInfo, useUserInfoActions } from "../userInfo/userInfoHooks";
 import { useMessageActions } from "../toaster/messageHooks";
+import {
+  NavigateToUserPresenter,
+  NavigateToUserView,
+} from "../../presenter/NavigateToUserPresenter";
 
 interface NavigateToUserReturn {
   navigateToUser: (event: React.MouseEvent) => Promise<void>;
-  getUser: (authToken: AuthToken, alias: string) => Promise<User | null>;
 }
 
 export const useNavigateToUser = (
@@ -16,37 +20,27 @@ export const useNavigateToUser = (
   const { setDisplayedUser } = useUserInfoActions();
   const navigate = useNavigate();
 
-  const extractAlias = (value: string): string => {
-    const index = value.indexOf("@");
-    return value.substring(index);
+  const listener: NavigateToUserView = {
+    displayErrorMessage: (message: string) => displayErrorMessage(message),
+    setDisplayedUser: (user: User) => setDisplayedUser(user),
+    navigateTo: (path: string) => navigate(path),
   };
 
-  const getUser = async (
-    authToken: AuthToken,
-    alias: string,
-  ): Promise<User | null> => {
-    // TODO: Replace with the result of calling server
-    return FakeData.instance.findUserByAlias(alias);
-  };
+  const presenterRef = useRef<NavigateToUserPresenter | null>(null);
+  if (!presenterRef.current) {
+    presenterRef.current = new NavigateToUserPresenter(listener);
+  }
 
   const navigateToUser = async (event: React.MouseEvent): Promise<void> => {
     event.preventDefault();
 
-    try {
-      const alias = extractAlias(event.target.toString());
-
-      const toUser = await getUser(authToken!, alias);
-
-      if (toUser) {
-        if (!toUser.equals(displayedUser!)) {
-          setDisplayedUser(toUser);
-          navigate(`${featurePath}/${toUser.alias}`);
-        }
-      }
-    } catch (error) {
-      displayErrorMessage(`Failed to get user because of exception: ${error}`);
-    }
+    await presenterRef.current!.navigateToUser(
+      event.target.toString(),
+      authToken!,
+      displayedUser!,
+      featurePath,
+    );
   };
 
-  return { navigateToUser, getUser };
+  return { navigateToUser };
 };
