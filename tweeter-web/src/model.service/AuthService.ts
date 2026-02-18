@@ -38,4 +38,10 @@ export class AuthService {
 
     return [user, FakeData.instance.authToken];
   }
+
+  public async logout(authToken: AuthToken): Promise<void> {
+    void authToken;
+    // TODO: Replace with the result of calling the server
+    await new Promise((res) => setTimeout(res, 1000));
+  }
 }

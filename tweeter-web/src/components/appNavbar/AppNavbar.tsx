@@ -3,8 +3,9 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Image from "react-bootstrap/Image";
 import { useMessageActions } from "../toaster/messageHooks";
-import { AuthToken } from "tweeter-shared";
 import { useUserInfo, useUserInfoActions } from "../userInfo/userInfoHooks";
+import { useRef } from "react";
+import { LogoutPresenter, LogoutView } from "../../presenter/LogoutPresenter";
 
 const AppNavbar = () => {
   const location = useLocation();
@@ -14,25 +15,22 @@ const AppNavbar = () => {
   const { displayInfoMessage, displayErrorMessage, deleteMessage } =
     useMessageActions();
 
-  const logOut = async () => {
-    const loggingOutToastId = displayInfoMessage("Logging Out...", 0);
-
-    try {
-      await logout(authToken!);
-
-      deleteMessage(loggingOutToastId);
-      clearUserInfo();
-      navigate("/login");
-    } catch (error) {
-      displayErrorMessage(
-        `Failed to log user out because of exception: ${error}`,
-      );
-    }
+  const listener: LogoutView = {
+    displayInfoMessage: (message: string, duration: number) =>
+      displayInfoMessage(message, duration),
+    deleteMessage: (messageId: string) => deleteMessage(messageId),
+    clearUserInfo: () => clearUserInfo(),
+    navigateTo: (url: string) => navigate(url),
+    displayErrorMessage: (message: string) => displayErrorMessage(message),
   };
 
-  const logout = async (authToken: AuthToken): Promise<void> => {
-    // Pause so we can see the logging out message. Delete when the call to the server is implemented.
-    await new Promise((res) => setTimeout(res, 1000));
+  const presenterRef = useRef<LogoutPresenter | null>(null);
+  if (!presenterRef.current) {
+    presenterRef.current = new LogoutPresenter(listener);
+  }
+
+  const logOut = async () => {
+    presenterRef.current!.logout(authToken!);
   };
 
   return (
