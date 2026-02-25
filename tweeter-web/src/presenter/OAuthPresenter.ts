@@ -1,13 +1,13 @@
 import { AuthService } from "../model.service/AuthService";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
+import { MessageView, Presenter, View } from "./Presenter";
 
-export interface OAuthView {
+export interface OAuthView extends View {
   displayInfoMessage: (
     message: string,
     duration: number,
     bootstrapClasses?: string,
   ) => void;
-  displayErrorMessage: (message: string) => void;
 }
 
 export interface OAuthProps {
@@ -19,8 +19,7 @@ export interface OAuthProvider {
   icon: IconName;
 }
 
-export class OAuthPresenter {
-  private _view: OAuthView;
+export class OAuthPresenter extends Presenter<OAuthView> {
   private _authService: AuthService;
   private readonly _providers: OAuthProvider[] = [
     { name: "Google", icon: "google" },
@@ -31,7 +30,7 @@ export class OAuthPresenter {
   ];
 
   public constructor(view: OAuthView) {
-    this._view = view;
+    super(view);
     this._authService = new AuthService();
   }
 
@@ -40,21 +39,22 @@ export class OAuthPresenter {
   }
 
   public async handleOAuthClick(provider: OAuthProvider): Promise<void> {
-    try {
-      const isAuthenticated = await this._authService.oauthLogin(provider.name);
-
-      if (!isAuthenticated) {
-        this._view.displayInfoMessage(
-          `${provider.name} registration is not implemented.`,
-          3000,
-          "text-white bg-primary",
+    await this.doFailureReportingOperation(
+      `authenticate with ${provider.name}`,
+      async () => {
+        const isAuthenticated = await this._authService.oauthLogin(
+          provider.name,
         );
-      }
-    } catch (error) {
-      this._view.displayErrorMessage(
-        `Failed to authenticate with ${provider.name} because of exception: ${error}`,
-      );
-    }
+
+        if (!isAuthenticated) {
+          this.view.displayInfoMessage(
+            `${provider.name} registration is not implemented.`,
+            3000,
+            "text-white bg-primary",
+          );
+        }
+      },
+    );
   }
 
   public getOAuthProviders(): OAuthProvider[] {

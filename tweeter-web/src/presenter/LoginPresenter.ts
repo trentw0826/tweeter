@@ -11,19 +11,14 @@ export class LoginPresenter extends AuthPresenter {
     rememberMe: boolean,
     originalUrl?: string,
   ): Promise<void> {
-    try {
-      this.view.setIsLoading(true);
+    this.view.setIsLoading(true);
 
+    await this.doFailureReportingOperation("log user in", async () => {
       const [user, authToken] = await this.authService.login(alias, password);
-
       this.view.updateUserInfo(user, authToken, rememberMe);
       this.view.navigateTo(originalUrl ?? `/feed/${user.alias}`);
-    } catch (error) {
-      this.view.displayErrorMessage(
-        `Failed to log user in because of exception: ${error}`,
-      );
-    } finally {
-      this.view.setIsLoading(false);
-    }
+    });
+
+    this.view.setIsLoading(false);
   }
 }
