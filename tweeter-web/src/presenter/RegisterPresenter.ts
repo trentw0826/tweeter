@@ -87,9 +87,7 @@ export class RegisterPresenter extends AuthPresenter {
     imageFileExtension: string,
     rememberMe: boolean,
   ): Promise<void> {
-    this.view.setIsLoading(true);
-
-    await this.doFailureReportingOperation("register user", async () => {
+    await this.doLoadingOperation(this.view, "register user", async () => {
       const [user, authToken] = await this.authService.register(
         firstName,
         lastName,
@@ -102,7 +100,5 @@ export class RegisterPresenter extends AuthPresenter {
       this.view.updateUserInfo(user, authToken, rememberMe);
       this.view.navigateTo(`/feed/${user.alias}`);
     });
-
-    this.view.setIsLoading(false);
   }
 }

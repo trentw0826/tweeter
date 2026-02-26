@@ -34,4 +34,27 @@ export abstract class Presenter<V extends View> {
       );
     }
   }
+
+  protected async doLoadingOperation(
+    view: { setIsLoading: (value: boolean) => void },
+    operationDescription: string,
+    operation: () => Promise<void>,
+  ): Promise<void> {
+    view.setIsLoading(true);
+    await this.doFailureReportingOperation(operationDescription, operation);
+    view.setIsLoading(false);
+  }
+
+  protected async doLoadingOperationWithToast(
+    view: { setIsLoading: (value: boolean) => void } & MessageView,
+    toastMessage: string,
+    operationDescription: string,
+    operation: () => Promise<void>,
+  ): Promise<void> {
+    view.setIsLoading(true);
+    const toastId = view.displayInfoMessage(toastMessage, 0);
+    await this.doFailureReportingOperation(operationDescription, operation);
+    view.deleteMessage(toastId);
+    view.setIsLoading(false);
+  }
 }

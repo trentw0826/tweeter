@@ -1,23 +1,17 @@
 import { AuthToken, User } from "tweeter-shared";
-import { UserService } from "../model.service/UserService";
-import { Presenter, View } from "./Presenter";
+import { UserServicePresenter } from "./UserServicePresenter";
+import { View } from "./Presenter";
 
 export interface NavigateToUserView extends View {
   setDisplayedUser: (user: User) => void;
   navigateTo: (path: string) => void;
 }
 
-export class NavigateToUserPresenter extends Presenter<NavigateToUserView> {
-  private _userService: UserService;
+export class NavigateToUserPresenter extends UserServicePresenter<NavigateToUserView> {
   private _selectedUserAlias: string = "";
 
   public constructor(view: NavigateToUserView) {
     super(view);
-    this._userService = new UserService();
-  }
-
-  protected get userService(): UserService {
-    return this._userService;
   }
 
   public extractAlias(value: string): string {
@@ -35,7 +29,7 @@ export class NavigateToUserPresenter extends Presenter<NavigateToUserView> {
       const alias = this.extractAlias(eventTargetString);
       this._selectedUserAlias = alias;
 
-      const toUser = await this._userService.getUser(authToken, alias);
+      const toUser = await this.userService.getUser(authToken, alias);
 
       if (toUser) {
         if (!toUser.equals(displayedUser)) {

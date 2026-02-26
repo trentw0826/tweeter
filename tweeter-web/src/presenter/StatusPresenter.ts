@@ -32,20 +32,17 @@ export class PostStatusPresenter extends Presenter<PostStatusView> {
     authToken: AuthToken,
     currentUser: User,
   ): Promise<void> {
-    let postingStatusToastId = "";
+    await this.doLoadingOperationWithToast(
+      this.view,
+      "Posting status...",
+      "post the status",
+      async () => {
+        const status = new Status(post, currentUser, Date.now());
+        await this._statusService.postStatus(authToken, status);
 
-    this.view.setIsLoading(true);
-    postingStatusToastId = this.view.displayInfoMessage("Posting status...", 0);
-
-    await this.doFailureReportingOperation("post the status", async () => {
-      const status = new Status(post, currentUser, Date.now());
-      await this._statusService.postStatus(authToken, status);
-
-      this.view.clearPost();
-      this.view.displayInfoMessage("Status posted!", 2000);
-    });
-
-    this.view.deleteMessage(postingStatusToastId);
-    this.view.setIsLoading(false);
+        this.view.clearPost();
+        this.view.displayInfoMessage("Status posted!", 2000);
+      },
+    );
   }
 }

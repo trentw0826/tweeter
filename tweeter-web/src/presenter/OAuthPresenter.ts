@@ -1,6 +1,6 @@
-import { AuthService } from "../model.service/AuthService";
+import { AuthPresenter } from "./AuthPresenter";
 import { IconName } from "@fortawesome/fontawesome-svg-core";
-import { MessageView, Presenter, View } from "./Presenter";
+import { MessageView, View } from "./Presenter";
 
 export interface OAuthView extends View {
   displayInfoMessage: (
@@ -19,8 +19,7 @@ export interface OAuthProvider {
   icon: IconName;
 }
 
-export class OAuthPresenter extends Presenter<OAuthView> {
-  private _authService: AuthService;
+export class OAuthPresenter extends AuthPresenter<OAuthView> {
   private readonly _providers: OAuthProvider[] = [
     { name: "Google", icon: "google" },
     { name: "Facebook", icon: "facebook" },
@@ -31,7 +30,6 @@ export class OAuthPresenter extends Presenter<OAuthView> {
 
   public constructor(view: OAuthView) {
     super(view);
-    this._authService = new AuthService();
   }
 
   public getProviders(): OAuthProvider[] {
@@ -42,7 +40,7 @@ export class OAuthPresenter extends Presenter<OAuthView> {
     await this.doFailureReportingOperation(
       `authenticate with ${provider.name}`,
       async () => {
-        const isAuthenticated = await this._authService.oauthLogin(
+        const isAuthenticated = await this.authService.oauthLogin(
           provider.name,
         );
 

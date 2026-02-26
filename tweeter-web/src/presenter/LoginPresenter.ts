@@ -11,14 +11,10 @@ export class LoginPresenter extends AuthPresenter {
     rememberMe: boolean,
     originalUrl?: string,
   ): Promise<void> {
-    this.view.setIsLoading(true);
-
-    await this.doFailureReportingOperation("log user in", async () => {
+    await this.doLoadingOperation(this.view, "log user in", async () => {
       const [user, authToken] = await this.authService.login(alias, password);
       this.view.updateUserInfo(user, authToken, rememberMe);
       this.view.navigateTo(originalUrl ?? `/feed/${user.alias}`);
     });
-
-    this.view.setIsLoading(false);
   }
 }

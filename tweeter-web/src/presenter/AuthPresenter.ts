@@ -12,10 +12,12 @@ export interface AuthView extends View {
   navigateTo: (url: string) => void;
 }
 
-export abstract class AuthPresenter extends Presenter<AuthView> {
+export abstract class AuthPresenter<
+  V extends View = AuthView,
+> extends Presenter<V> {
   private _authService: AuthService;
 
-  protected constructor(view: AuthView) {
+  protected constructor(view: V) {
     super(view);
     this._authService = new AuthService();
   }
