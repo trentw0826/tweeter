@@ -5,14 +5,12 @@ import { User, AuthToken } from "tweeter-shared";
 import { useMessageActions } from "../toaster/messageHooks";
 import { useUserInfo, useUserInfoActions } from "../userInfo/userInfoHooks";
 import UserItem from "../userItem/UserItem";
-import {
-  UserItemPresenter,
-  UserItemView,
-} from "../../presenter/UserItemPresenter";
+import { UserItemPresenter } from "../../presenter/UserItemPresenter";
+import { PagedItemView } from "../../presenter/PagedItemPresenter";
 
 interface Props {
   featurePath: string;
-  presenterFactory: (view: UserItemView) => UserItemPresenter;
+  presenterFactory: (view: PagedItemView<User>) => UserItemPresenter;
 }
 
 const UserItemScroller = (props: Props) => {
@@ -24,7 +22,7 @@ const UserItemScroller = (props: Props) => {
   const { displayedUser: displayedUserAliasParam } = useParams();
 
   // The observer in the observer pattern that the presenter will call when it has new data to display or an error to display. The presenter is responsible for calling these functions at the appropriate times, and the component is responsible for implementing them in a way that updates the UI.
-  const listener: UserItemView = {
+  const listener: PagedItemView<User> = {
     addItems: (newItems: User[]) =>
       setItems((previousItems) => [...previousItems, ...newItems]),
     displayErrorMessage: (message: string) => displayErrorMessage(message),

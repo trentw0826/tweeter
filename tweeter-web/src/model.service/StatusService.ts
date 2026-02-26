@@ -1,7 +1,8 @@
 import { AuthToken, Status } from "tweeter-shared";
 import { FakeData } from "tweeter-shared/dist/util/FakeData";
+import { Service } from "./Service";
 
-export class StatusService {
+export class StatusService implements Service {
   public async retrievePageOfFeedItems(
     authToken: AuthToken,
     userAlias: string,
