@@ -15,7 +15,7 @@ export class PostStatusPresenter extends Presenter<PostStatusView> {
     this._statusService = new StatusService();
   }
 
-  protected get statusService(): StatusService {
+  public get statusService(): StatusService {
     return this._statusService;
   }
 
@@ -38,7 +38,7 @@ export class PostStatusPresenter extends Presenter<PostStatusView> {
       "post the status",
       async () => {
         const status = new Status(post, currentUser, Date.now());
-        await this._statusService.postStatus(authToken, status);
+        await this.statusService.postStatus(authToken, status);
 
         this.view.clearPost();
         this.view.displayInfoMessage("Status posted!", 2000);
