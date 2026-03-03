@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMessageActions } from "../toaster/messageHooks";
 import {
   OAuthPresenter,
@@ -9,6 +10,7 @@ import {
 } from "../../presenter/OAuthPresenter";
 
 const OAuth = ({ heading }: OAuthProps) => {
+  const navigate = useNavigate();
   const { displayInfoMessage } = useMessageActions();
   const { displayErrorMessage } = useMessageActions();
 
@@ -19,6 +21,7 @@ const OAuth = ({ heading }: OAuthProps) => {
       bootstrapClasses?: string,
     ) => displayInfoMessage(message, duration, bootstrapClasses),
     displayErrorMessage: (message: string) => displayErrorMessage(message),
+    navigateTo: (url: string) => navigate(url),
   };
 
   const presenterRef = useRef<OAuthPresenter | null>(null);
