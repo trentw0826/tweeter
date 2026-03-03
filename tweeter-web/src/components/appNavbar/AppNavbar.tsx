@@ -5,7 +5,10 @@ import Image from "react-bootstrap/Image";
 import { useMessageActions } from "../toaster/messageHooks";
 import { useUserInfo, useUserInfoActions } from "../userInfo/userInfoHooks";
 import { useRef } from "react";
-import { LogoutPresenter, LogoutView } from "../../presenter/LogoutPresenter";
+import {
+  AppNavbarPresenter,
+  AppNavbarView,
+} from "../../presenter/AppNavbarPresenter";
 
 const AppNavbar = () => {
   const location = useLocation();
@@ -15,7 +18,7 @@ const AppNavbar = () => {
   const { displayInfoMessage, displayErrorMessage, deleteMessage } =
     useMessageActions();
 
-  const listener: LogoutView = {
+  const listener: AppNavbarView = {
     displayInfoMessage: (message: string, duration: number) =>
       displayInfoMessage(message, duration),
     deleteMessage: (messageId: string) => deleteMessage(messageId),
@@ -24,9 +27,9 @@ const AppNavbar = () => {
     displayErrorMessage: (message: string) => displayErrorMessage(message),
   };
 
-  const presenterRef = useRef<LogoutPresenter | null>(null);
+  const presenterRef = useRef<AppNavbarPresenter | null>(null);
   if (!presenterRef.current) {
-    presenterRef.current = new LogoutPresenter(listener);
+    presenterRef.current = new AppNavbarPresenter(listener);
   }
 
   const logOut = async () => {
