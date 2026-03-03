@@ -4,7 +4,6 @@ import { View } from "./Presenter";
 
 export interface NavigateToUserView extends View {
   setDisplayedUser: (user: User) => void;
-  navigateTo: (path: string) => void;
 }
 
 export class NavigateToUserPresenter extends UserServicePresenter<NavigateToUserView> {

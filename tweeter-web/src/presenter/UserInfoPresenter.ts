@@ -9,7 +9,6 @@ export interface UserInfoView extends MessageView {
   setFollowerCount: (count: number) => void;
   setIsLoading: (value: boolean) => void;
   setDisplayedUser: (user: User) => void;
-  navigateTo: (path: string) => void;
 }
 
 export class UserInfoPresenter extends UserServicePresenter<UserInfoView> {

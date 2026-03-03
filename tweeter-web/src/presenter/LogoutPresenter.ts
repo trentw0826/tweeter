@@ -4,7 +4,6 @@ import { MessageView } from "./Presenter";
 
 export interface LogoutView extends MessageView {
   clearUserInfo: () => void;
-  navigateTo: (url: string) => void;
 }
 
 export class LogoutPresenter extends AuthPresenter<LogoutView> {

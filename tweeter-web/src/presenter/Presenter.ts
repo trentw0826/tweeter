@@ -1,5 +1,6 @@
 export interface View {
   displayErrorMessage(message: string): void;
+  navigateTo(url: string): void;
 }
 
 export interface MessageView extends View {

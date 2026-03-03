@@ -4,7 +4,6 @@ import { MessageView } from "./Presenter";
 
 export interface AppNavbarView extends MessageView {
   clearUserInfo: () => void;
-  navigateTo: (url: string) => void;
 }
 
 export class AppNavbarPresenter extends AuthPresenter<AppNavbarView> {

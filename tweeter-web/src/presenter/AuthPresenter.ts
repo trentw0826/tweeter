@@ -9,7 +9,6 @@ export interface AuthView extends View {
     authToken: AuthToken,
     rememberMe: boolean,
   ) => void;
-  navigateTo: (url: string) => void;
 }
 
 export abstract class AuthPresenter<
