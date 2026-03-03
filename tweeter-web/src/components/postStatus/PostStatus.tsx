@@ -7,7 +7,11 @@ import {
   PostStatusPresenter,
 } from "../../presenter/StatusPresenter";
 
-const PostStatus = () => {
+interface Props {
+  presenter?: PostStatusPresenter;
+}
+
+const PostStatus = (props: Props) => {
   const { displayInfoMessage, displayErrorMessage, deleteMessage } =
     useMessageActions();
 
@@ -25,11 +29,12 @@ const PostStatus = () => {
     deleteMessage: (toastId: string) => deleteMessage(toastId),
     setIsLoading: (value: boolean) => setIsLoading(value),
     clearPost: () => setPost(""),
+    navigateTo: (_url: string) => {},
   };
 
   const presenterRef = useRef<PostStatusPresenter | null>(null);
   if (!presenterRef.current) {
-    presenterRef.current = new PostStatusPresenter(listener);
+    presenterRef.current = props.presenter ?? new PostStatusPresenter(listener);
   }
 
   const submitPost = async (event: React.MouseEvent) => {
