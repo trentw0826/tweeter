@@ -22,7 +22,7 @@ export abstract class AuthPresenter<
     this._authService = new AuthService();
   }
 
-  protected get authService(): AuthService {
+  public get authService(): AuthService {
     return this._authService;
   }
 }
