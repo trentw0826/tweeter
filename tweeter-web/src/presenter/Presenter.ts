@@ -30,7 +30,7 @@ export abstract class Presenter<V extends View> {
       await operation();
     } catch (error) {
       this._view.displayErrorMessage(
-        `Failed operation "${operationDescription}" because of exception: ${error}`,
+        `Failed operation "${operationDescription}" because of exception: ${(error as Error).message}`,
       );
     }
   }
