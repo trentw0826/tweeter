@@ -16,7 +16,8 @@ const AuthenticationFields = ({
           type="text"
           className="form-control"
           size={50}
-          id="aliasInput"
+          id="alias"
+          aria-label="Alias"
           placeholder="name@example.com"
           onKeyDown={onEnter}
           onChange={(event) => setAlias(event.target.value)}
@@ -28,6 +29,7 @@ const AuthenticationFields = ({
           type="password"
           className="form-control bottom"
           id="passwordInput"
+          aria-label="password"
           placeholder="Password"
           onKeyDown={onEnter}
           onChange={(event) => setPassword(event.target.value)}
