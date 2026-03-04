@@ -1,3 +1,7 @@
+// Re-export Service so the View layer can import it from the Presenter layer
+// rather than reaching directly into the model.service layer.
+export type { Service } from "../model.service/Service";
+
 export interface View {
   displayErrorMessage(message: string): void;
   navigateTo(url: string): void;

@@ -7,7 +7,7 @@ import {
   PagedItemPresenter,
   PagedItemView,
 } from "../../presenter/PagedItemPresenter";
-import { Service } from "../../model.service/Service";
+import { Service } from "../../presenter/Presenter";
 
 interface Props<T, U extends Service> {
   featurePath: string;
