@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1233px" preserveAspectRatio="none" style="width:6389px;height:1233px;" version="1.1" viewBox="0 0 6389 1233" width="6389px" zoomAndPan="magnify"><defs><filter height="300%" id="f1ib30zcwkvnle" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="261" x="3057.5" y="19.2419">Tweeter MVP — Class Diagram</text><!--MD5=[effc59d2198ad78a92198312d87f9175]
+cluster View Layer (React Components)--><rect fill="#E8F5E9" filter="url(#f1ib30zcwkvnle)" height="842.5" style="stroke:#000000;stroke-width:1.5;" width="1908" x="4469" y="65.0158"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="220" x="5313" y="81.9818">View Layer (React Components)</text><!--MD5=[80f180767a30bfcac26136f29807e3cc]
+cluster Presenter Layer--><rect fill="#E3F2FD" filter="url(#f1ib30zcwkvnle)" height="1052" style="stroke:#000000;stroke-width:1.5;" width="2975" x="1470" y="31.5158"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="109" x="2903" y="48.4818">Presenter Layer</text><!--MD5=[7e44899c89abfb2bd1f059f74a3d26a4]
+cluster Model Layer (Services)--><rect fill="#FFF8E1" filter="url(#f1ib30zcwkvnle)" height="258" style="stroke:#000000;stroke-width:1.5;" width="1439" x="7" y="963.5158"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="155" x="649" y="980.4818">Model Layer (Services)</text><!--MD5=[c045e12321b83266d36d22b9096c24ea]
+class View--><rect codeLine="14" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="View" style="stroke:#A80036;stroke-width:1.5;" width="254" x="5028" y="810.5158"/><ellipse cx="5123.25" cy="831.86" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5119.1719,827.6256 L5119.1719,825.4693 L5126.5625,825.4693 L5126.5625,827.6256 L5124.0938,827.6256 L5124.0938,835.7037 L5126.5625,835.7037 L5126.5625,837.86 L5119.1719,837.86 L5119.1719,835.7037 L5121.6406,835.7037 L5121.6406,827.6256 L5119.1719,827.6256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="5141.75" y="828.3439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="25" x="5158.75" y="844.6881">View</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5029" x2="5281" y1="853.2041" y2="853.2041"/><ellipse cx="5039" cy="864.2041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="228" x="5048" y="868.963">displayErrorMessage(message: String): void</text><ellipse cx="5039" cy="879.186" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="146" x="5048" y="883.9449">navigateTo(url: String): void</text><!--MD5=[49feb4884a66ed250f9a27795111a05a]
+class MessageView--><rect codeLine="19" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="MessageView" style="stroke:#A80036;stroke-width:1.5;" width="467" x="5400.5" y="572.5158"/><ellipse cx="5594.25" cy="593.86" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5590.1719,589.6256 L5590.1719,587.4693 L5597.5625,587.4693 L5597.5625,589.6256 L5595.0938,589.6256 L5595.0938,597.7037 L5597.5625,597.7037 L5597.5625,599.86 L5590.1719,599.86 L5590.1719,597.7037 L5592.6406,597.7037 L5592.6406,589.6256 L5590.1719,589.6256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="5620.75" y="590.3439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="71" x="5614.75" y="606.6881">MessageView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5401.5" x2="5866.5" y1="615.2041" y2="615.2041"/><ellipse cx="5411.5" cy="626.2041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="441" x="5420.5" y="630.963">displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): String</text><ellipse cx="5411.5" cy="641.186" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="206" x="5420.5" y="645.9449">deleteMessage(messageId: String): void</text><!--MD5=[9a1a2a2b25c4ea71a3436461d7aef460]
+class AuthView--><rect codeLine="24" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="AuthView" style="stroke:#A80036;stroke-width:1.5;" width="448" x="4485" y="572.5158"/><ellipse cx="4677.25" cy="593.86" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4673.1719,589.6256 L4673.1719,587.4693 L4680.5625,587.4693 L4680.5625,589.6256 L4678.0938,589.6256 L4678.0938,597.7037 L4680.5625,597.7037 L4680.5625,599.86 L4673.1719,599.86 L4673.1719,597.7037 L4675.6406,597.7037 L4675.6406,589.6256 L4673.1719,589.6256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="4695.75" y="590.3439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="50" x="4700.25" y="606.6881">AuthView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="4486" x2="4932" y1="615.2041" y2="615.2041"/><ellipse cx="4496" cy="626.2041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="179" x="4505" y="630.963">setIsLoading(value: Boolean): void</text><ellipse cx="4496" cy="641.186" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="422" x="4505" y="645.9449">updateUserInfo(user: User, authToken: AuthToken, rememberMe: Boolean): void</text><!--MD5=[c80237f63d4fcea9c42208396f2a5689]
+class LogoutView--><rect codeLine="29" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="65.6701" id="LogoutView" style="stroke:#A80036;stroke-width:1.5;" width="132" x="5405" y="326.5158"/><ellipse cx="5436.65" cy="347.86" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5432.5719,343.6256 L5432.5719,341.4693 L5439.9625,341.4693 L5439.9625,343.6256 L5437.4938,343.6256 L5437.4938,351.7037 L5439.9625,351.7037 L5439.9625,353.86 L5432.5719,353.86 L5432.5719,351.7037 L5435.0406,351.7037 L5435.0406,343.6256 L5432.5719,343.6256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="5456.35" y="344.3439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="63" x="5454.35" y="360.6881">LogoutView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5406" x2="5536" y1="369.2041" y2="369.2041"/><ellipse cx="5416" cy="380.2041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="106" x="5425" y="384.963">clearUserInfo(): void</text><!--MD5=[a0afd471dda8ad163d86ec6d622e9639]
+class AppNavbarView--><rect codeLine="33" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="65.6701" id="AppNavbarView" style="stroke:#A80036;stroke-width:1.5;" width="132" x="5813" y="326.5158"/><ellipse cx="5834.3" cy="347.86" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5830.2219,343.6256 L5830.2219,341.4693 L5837.6125,341.4693 L5837.6125,343.6256 L5835.1438,343.6256 L5835.1438,351.7037 L5837.6125,351.7037 L5837.6125,353.86 L5830.2219,353.86 L5830.2219,351.7037 L5832.6906,351.7037 L5832.6906,343.6256 L5830.2219,343.6256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="5863.2" y="344.3439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="86" x="5849.7" y="360.6881">AppNavbarView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5814" x2="5944" y1="369.2041" y2="369.2041"/><ellipse cx="5824" cy="380.2041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="106" x="5833" y="384.963">clearUserInfo(): void</text><!--MD5=[f0bae261f3c6a852c442899c71a02250]
+class PostStatusView--><rect codeLine="37" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="PostStatusView" style="stroke:#A80036;stroke-width:1.5;" width="205" x="5572.5" y="319.0158"/><ellipse cx="5630.25" cy="340.36" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5626.1719,336.1256 L5626.1719,333.9693 L5633.5625,333.9693 L5633.5625,336.1256 L5631.0938,336.1256 L5631.0938,344.2037 L5633.5625,344.2037 L5633.5625,346.36 L5626.1719,346.36 L5626.1719,344.2037 L5628.6406,344.2037 L5628.6406,336.1256 L5626.1719,336.1256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="5661.75" y="336.8439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="81" x="5650.75" y="353.1881">PostStatusView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5573.5" x2="5776.5" y1="361.7041" y2="361.7041"/><ellipse cx="5583.5" cy="372.7041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="179" x="5592.5" y="377.463">setIsLoading(value: Boolean): void</text><ellipse cx="5583.5" cy="387.686" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="83" x="5592.5" y="392.4449">clearPost(): void</text><!--MD5=[922a6486571f3a6adb8cb5438c5ed272]
+class UserInfoView--><rect codeLine="42" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="125.5977" id="UserInfoView" style="stroke:#A80036;stroke-width:1.5;" width="208" x="5980" y="296.5158"/><ellipse cx="6044.25" cy="317.86" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M6040.1719,313.6256 L6040.1719,311.4693 L6047.5625,311.4693 L6047.5625,313.6256 L6045.0938,313.6256 L6045.0938,321.7037 L6047.5625,321.7037 L6047.5625,323.86 L6040.1719,323.86 L6040.1719,321.7037 L6042.6406,321.7037 L6042.6406,313.6256 L6040.1719,313.6256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="6070.75" y="314.3439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="71" x="6064.75" y="330.6881">UserInfoView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5981" x2="6187" y1="339.2041" y2="339.2041"/><ellipse cx="5991" cy="350.2041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="182" x="6000" y="354.963">setIsFollower(value: Boolean): void</text><ellipse cx="5991" cy="365.186" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="179" x="6000" y="369.9449">setFolloweeCount(count: int): void</text><ellipse cx="5991" cy="380.1679" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="178" x="6000" y="384.9268">setFollowerCount(count: int): void</text><ellipse cx="5991" cy="395.1497" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="179" x="6000" y="399.9087">setIsLoading(value: Boolean): void</text><ellipse cx="5991" cy="410.1316" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="178" x="6000" y="414.8905">setDisplayedUser(user: User): void</text><!--MD5=[84aacd99213a23fce95de68b4ab3c826]
+class NavigateToUserView--><rect codeLine="50" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="65.6701" id="NavigateToUserView" style="stroke:#A80036;stroke-width:1.5;" width="204" x="5161" y="580.0158"/><ellipse cx="5203.9" cy="601.36" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5199.8219,597.1256 L5199.8219,594.9693 L5207.2125,594.9693 L5207.2125,597.1256 L5204.7438,597.1256 L5204.7438,605.2037 L5207.2125,605.2037 L5207.2125,607.36 L5199.8219,607.36 L5199.8219,605.2037 L5202.2906,605.2037 L5202.2906,597.1256 L5199.8219,597.1256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="5249.6" y="597.8439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="110" x="5224.1" y="614.1881">NavigateToUserView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5162" x2="5364" y1="622.7041" y2="622.7041"/><ellipse cx="5172" cy="633.7041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="178" x="5181" y="638.463">setDisplayedUser(user: User): void</text><!--MD5=[eda1eb11e24d57def3ff555f7217950a]
+class OAuthView--><rect codeLine="54" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="65.6701" id="OAuthView" style="stroke:#A80036;stroke-width:1.5;" width="458" x="5903" y="580.0158"/><ellipse cx="6098.25" cy="601.36" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M6094.1719,597.1256 L6094.1719,594.9693 L6101.5625,594.9693 L6101.5625,597.1256 L6099.0938,597.1256 L6099.0938,605.2037 L6101.5625,605.2037 L6101.5625,607.36 L6094.1719,607.36 L6094.1719,605.2037 L6096.6406,605.2037 L6096.6406,597.1256 L6094.1719,597.1256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="6118.75" y="597.8439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="6118.75" y="614.1881">OAuthView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5904" x2="6360" y1="622.7041" y2="622.7041"/><ellipse cx="5914" cy="633.7041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="432" x="5923" y="638.463">displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): void</text><!--MD5=[204ce5a289c404e58b7fc327acf7e7ad]
+class PagedItemView--><rect codeLine="58" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="65.6701" id="PagedItemView" style="stroke:#A80036;stroke-width:1.5;" width="158" x="4968" y="580.0158"/><ellipse cx="5001.9" cy="601.36" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4997.8219,597.1256 L4997.8219,594.9693 L5005.2125,594.9693 L5005.2125,597.1256 L5002.7438,597.1256 L5002.7438,605.2037 L5005.2125,605.2037 L5005.2125,607.36 L4997.8219,607.36 L4997.8219,605.2037 L5000.2906,605.2037 L5000.2906,597.1256 L4997.8219,597.1256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="5032.6" y="597.8439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="84" x="5020.1" y="614.1881">PagedItemView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="4969" x2="5125" y1="622.7041" y2="622.7041"/><ellipse cx="4979" cy="633.7041" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="132" x="4988" y="638.463">addItems(items: T[]): void</text><!--MD5=[5b90e4d4f77308a929aa4d17d3ae3119]
+class Login--><rect codeLine="63" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="Login" style="stroke:#A80036;stroke-width:1.5;" width="164" x="4485" y="319.0158"/><ellipse cx="4513.05" cy="340.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4516.0188,346.0006 Q4515.4406,346.2975 4514.8,346.4381 Q4514.1594,346.5943 4513.4563,346.5943 Q4510.9563,346.5943 4509.6281,344.9537 Q4508.3156,343.2975 4508.3156,340.1725 Q4508.3156,337.0475 4509.6281,335.3912 Q4510.9563,333.735 4513.4563,333.735 Q4514.1594,333.735 4514.8,333.8912 Q4515.4563,334.0475 4516.0188,334.3443 L4516.0188,337.0631 Q4515.3938,336.485 4514.8,336.2193 Q4514.2063,335.9381 4513.5813,335.9381 Q4512.2375,335.9381 4511.55,337.0162 Q4510.8625,338.0787 4510.8625,340.1725 Q4510.8625,342.2662 4511.55,343.3443 Q4512.2375,344.4068 4513.5813,344.4068 Q4514.2063,344.4068 4514.8,344.1412 Q4515.3938,343.86 4516.0188,343.2818 L4516.0188,346.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="4527.95" y="336.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="30" x="4566.45" y="353.1881">Login</text><line style="stroke:#A80036;stroke-width:1.5;" x1="4486" x2="4648" y1="361.7041" y2="361.7041"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4493" y="369.7041"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="95" x="4505" y="377.463">listener: AuthView</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4493" y="384.686"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="138" x="4505" y="392.4449">presenter: LoginPresenter</text><!--MD5=[8a8146ff89b20cc2efd6e16e3c0a6394]
+class Register--><rect codeLine="68" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="Register" style="stroke:#A80036;stroke-width:1.5;" width="177" x="4684.5" y="319.0158"/><ellipse cx="4718.4" cy="340.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4721.3688,346.0006 Q4720.7906,346.2975 4720.15,346.4381 Q4719.5094,346.5943 4718.8063,346.5943 Q4716.3063,346.5943 4714.9781,344.9537 Q4713.6656,343.2975 4713.6656,340.1725 Q4713.6656,337.0475 4714.9781,335.3912 Q4716.3063,333.735 4718.8063,333.735 Q4719.5094,333.735 4720.15,333.8912 Q4720.8063,334.0475 4721.3688,334.3443 L4721.3688,337.0631 Q4720.7438,336.485 4720.15,336.2193 Q4719.5563,335.9381 4718.9313,335.9381 Q4717.5875,335.9381 4716.9,337.0162 Q4716.2125,338.0787 4716.2125,340.1725 Q4716.2125,342.2662 4716.9,343.3443 Q4717.5875,344.4068 4718.9313,344.4068 Q4719.5563,344.4068 4720.15,344.1412 Q4720.7438,343.86 4721.3688,343.2818 L4721.3688,346.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="4734.6" y="336.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="46" x="4765.1" y="353.1881">Register</text><line style="stroke:#A80036;stroke-width:1.5;" x1="4685.5" x2="4860.5" y1="361.7041" y2="361.7041"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4692.5" y="369.7041"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="95" x="4704.5" y="377.463">listener: AuthView</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4692.5" y="384.686"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="151" x="4704.5" y="392.4449">presenter: RegisterPresenter</text><!--MD5=[75a4caea005b0a0b51f9a29c209b0beb]
+class AppNavbar--><rect codeLine="73" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="AppNavbar" style="stroke:#A80036;stroke-width:1.5;" width="193" x="4709.5" y="103.0158"/><ellipse cx="4750.6" cy="124.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4753.5688,130.0006 Q4752.9906,130.2975 4752.35,130.4381 Q4751.7094,130.5943 4751.0063,130.5943 Q4748.5063,130.5943 4747.1781,128.9537 Q4745.8656,127.2975 4745.8656,124.1725 Q4745.8656,121.0475 4747.1781,119.3912 Q4748.5063,117.735 4751.0063,117.735 Q4751.7094,117.735 4752.35,117.8912 Q4753.0063,118.0475 4753.5688,118.3443 L4753.5688,121.0631 Q4752.9438,120.485 4752.35,120.2193 Q4751.7563,119.9381 4751.1313,119.9381 Q4749.7875,119.9381 4749.1,121.0162 Q4748.4125,122.0787 4748.4125,124.1725 Q4748.4125,126.2662 4749.1,127.3443 Q4749.7875,128.4068 4751.1313,128.4068 Q4751.7563,128.4068 4752.35,128.1412 Q4752.9438,127.86 4753.5688,127.2818 L4753.5688,130.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="4768.4" y="120.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="63" x="4790.4" y="137.1881">AppNavbar</text><line style="stroke:#A80036;stroke-width:1.5;" x1="4710.5" x2="4901.5" y1="145.7041" y2="145.7041"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4717.5" y="153.7041"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="129" x="4729.5" y="161.463">listener: AppNavbarView</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4717.5" y="168.686"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="167" x="4729.5" y="176.4449">presenter: AppNavbarPresenter</text><!--MD5=[ea97d04a53f63abf26fafff631f4b1ae]
+class PostStatus--><rect codeLine="78" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="PostStatus" style="stroke:#A80036;stroke-width:1.5;" width="189" x="4485.5" y="103.0158"/><ellipse cx="4524.8" cy="124.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4527.7688,130.0006 Q4527.1906,130.2975 4526.55,130.4381 Q4525.9094,130.5943 4525.2063,130.5943 Q4522.7063,130.5943 4521.3781,128.9537 Q4520.0656,127.2975 4520.0656,124.1725 Q4520.0656,121.0475 4521.3781,119.3912 Q4522.7063,117.735 4525.2063,117.735 Q4525.9094,117.735 4526.55,117.8912 Q4527.2063,118.0475 4527.7688,118.3443 L4527.7688,121.0631 Q4527.1438,120.485 4526.55,120.2193 Q4525.9563,119.9381 4525.3313,119.9381 Q4523.9875,119.9381 4523.3,121.0162 Q4522.6125,122.0787 4522.6125,124.1725 Q4522.6125,126.2662 4523.3,127.3443 Q4523.9875,128.4068 4525.3313,128.4068 Q4525.9563,128.4068 4526.55,128.1412 Q4527.1438,127.86 4527.7688,127.2818 L4527.7688,130.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="4542.2" y="120.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="59" x="4566.2" y="137.1881">PostStatus</text><line style="stroke:#A80036;stroke-width:1.5;" x1="4486.5" x2="4673.5" y1="145.7041" y2="145.7041"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4493.5" y="153.7041"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="125" x="4505.5" y="161.463">listener: PostStatusView</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4493.5" y="168.686"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="163" x="4505.5" y="176.4449">presenter: PostStatusPresenter</text><!--MD5=[5e9d860517d1260a47a2aff328379df9]
+class UserInfoComponent--><rect codeLine="83" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="UserInfoComponent" style="stroke:#A80036;stroke-width:1.5;" width="180" x="5109" y="103.0158"/><ellipse cx="5139.3" cy="124.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5142.2688,130.0006 Q5141.6906,130.2975 5141.05,130.4381 Q5140.4094,130.5943 5139.7063,130.5943 Q5137.2063,130.5943 5135.8781,128.9537 Q5134.5656,127.2975 5134.5656,124.1725 Q5134.5656,121.0475 5135.8781,119.3912 Q5137.2063,117.735 5139.7063,117.735 Q5140.4094,117.735 5141.05,117.8912 Q5141.7063,118.0475 5142.2688,118.3443 L5142.2688,121.0631 Q5141.6438,120.485 5141.05,120.2193 Q5140.4563,119.9381 5139.8313,119.9381 Q5138.4875,119.9381 5137.8,121.0162 Q5137.1125,122.0787 5137.1125,124.1725 Q5137.1125,126.2662 5137.8,127.3443 Q5138.4875,128.4068 5139.8313,128.4068 Q5140.4563,128.4068 5141.05,128.1412 Q5141.6438,127.86 5142.2688,127.2818 L5142.2688,130.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="5160.2" y="120.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="114" x="5156.7" y="137.1881">UserInfoComponent</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5110" x2="5288" y1="145.7041" y2="145.7041"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5117" y="153.7041"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="116" x="5129" y="161.463">listener: UserInfoView</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5117" y="168.686"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="154" x="5129" y="176.4449">presenter: UserInfoPresenter</text><!--MD5=[2778f389ef0e9b35393ab74fe96ae75c]
+class ItemScroller--><rect codeLine="88" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="ItemScroller" style="stroke:#A80036;stroke-width:1.5;" width="220" x="4897" y="319.0158"/><ellipse cx="4951.25" cy="340.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4954.2188,346.0006 Q4953.6406,346.2975 4953,346.4381 Q4952.3594,346.5943 4951.6563,346.5943 Q4949.1563,346.5943 4947.8281,344.9537 Q4946.5156,343.2975 4946.5156,340.1725 Q4946.5156,337.0475 4947.8281,335.3912 Q4949.1563,333.735 4951.6563,333.735 Q4952.3594,333.735 4953,333.8912 Q4953.6563,334.0475 4954.2188,334.3443 L4954.2188,337.0631 Q4953.5938,336.485 4953,336.2193 Q4952.4063,335.9381 4951.7813,335.9381 Q4950.4375,335.9381 4949.75,337.0162 Q4949.0625,338.0787 4949.0625,340.1725 Q4949.0625,342.2662 4949.75,343.3443 Q4950.4375,344.4068 4951.7813,344.4068 Q4952.4063,344.4068 4953,344.1412 Q4953.5938,343.86 4954.2188,343.2818 L4954.2188,346.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="4969.75" y="336.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="69" x="4988.75" y="353.1881">ItemScroller</text><line style="stroke:#A80036;stroke-width:1.5;" x1="4898" x2="5116" y1="361.7041" y2="361.7041"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4905" y="369.7041"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="145" x="4917" y="377.463">listener: PagedItemView&lt;T&gt;</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="4905" y="384.686"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="194" x="4917" y="392.4449">presenter: PagedItemPresenter&lt;T,U&gt;</text><!--MD5=[a497b640a44c5b9d7f002181704f36cb]
+class StatusItemScroller--><rect codeLine="93" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="42.6882" id="StatusItemScroller" style="stroke:#A80036;stroke-width:1.5;" width="136" x="4938" y="122.0158"/><ellipse cx="4953" cy="143.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4955.9688,149.0006 Q4955.3906,149.2975 4954.75,149.4381 Q4954.1094,149.5943 4953.4063,149.5943 Q4950.9063,149.5943 4949.5781,147.9537 Q4948.2656,146.2975 4948.2656,143.1725 Q4948.2656,140.0475 4949.5781,138.3912 Q4950.9063,136.735 4953.4063,136.735 Q4954.1094,136.735 4954.75,136.8912 Q4955.4063,137.0475 4955.9688,137.3443 L4955.9688,140.0631 Q4955.3438,139.485 4954.75,139.2193 Q4954.1563,138.9381 4953.5313,138.9381 Q4952.1875,138.9381 4951.5,140.0162 Q4950.8125,141.0787 4950.8125,143.1725 Q4950.8125,145.2662 4951.5,146.3443 Q4952.1875,147.4068 4953.5313,147.4068 Q4954.1563,147.4068 4954.75,147.1412 Q4955.3438,146.86 4955.9688,146.2818 L4955.9688,149.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="4965.5" y="139.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="104" x="4967" y="156.1881">StatusItemScroller</text><!--MD5=[0345e869e55d739228d2753aa5d877fb]
+class UserItemScroller--><rect codeLine="94" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="42.6882" id="UserItemScroller" style="stroke:#A80036;stroke-width:1.5;" width="135" x="5324.5" y="122.0158"/><ellipse cx="5339.5" cy="143.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5342.4688,149.0006 Q5341.8906,149.2975 5341.25,149.4381 Q5340.6094,149.5943 5339.9063,149.5943 Q5337.4063,149.5943 5336.0781,147.9537 Q5334.7656,146.2975 5334.7656,143.1725 Q5334.7656,140.0475 5336.0781,138.3912 Q5337.4063,136.735 5339.9063,136.735 Q5340.6094,136.735 5341.25,136.8912 Q5341.9063,137.0475 5342.4688,137.3443 L5342.4688,140.0631 Q5341.8438,139.485 5341.25,139.2193 Q5340.6563,138.9381 5340.0313,138.9381 Q5338.6875,138.9381 5338,140.0162 Q5337.3125,141.0787 5337.3125,143.1725 Q5337.3125,145.2662 5338,146.3443 Q5338.6875,147.4068 5340.0313,147.4068 Q5340.6563,147.4068 5341.25,147.1412 Q5341.8438,146.86 5342.4688,146.2818 L5342.4688,149.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="107" x="5351.5" y="139.8439">«React Component»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="96" x="5357" y="156.1881">UserItemScroller</text><!--MD5=[da7712a812fbe44cb0b77892b2a50ad2]
+class useNavigateToUser--><rect codeLine="96" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="80.652" id="useNavigateToUser" style="stroke:#A80036;stroke-width:1.5;" width="217" x="5152.5" y="319.0158"/><ellipse cx="5201.25" cy="340.36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M5204.2188,346.0006 Q5203.6406,346.2975 5203,346.4381 Q5202.3594,346.5943 5201.6563,346.5943 Q5199.1563,346.5943 5197.8281,344.9537 Q5196.5156,343.2975 5196.5156,340.1725 Q5196.5156,337.0475 5197.8281,335.3912 Q5199.1563,333.735 5201.6563,333.735 Q5202.3594,333.735 5203,333.8912 Q5203.6563,334.0475 5204.2188,334.3443 L5204.2188,337.0631 Q5203.5938,336.485 5203,336.2193 Q5202.4063,335.9381 5201.7813,335.9381 Q5200.4375,335.9381 5199.75,337.0162 Q5199.0625,338.0787 5199.0625,340.1725 Q5199.0625,342.2662 5199.75,343.3443 Q5200.4375,344.4068 5201.7813,344.4068 Q5202.4063,344.4068 5203,344.1412 Q5203.5938,343.86 5204.2188,343.2818 L5204.2188,346.0006 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="72" x="5241.25" y="336.8439">«React Hook»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="111" x="5221.75" y="353.1881">useNavigateToUser</text><line style="stroke:#A80036;stroke-width:1.5;" x1="5153.5" x2="5368.5" y1="361.7041" y2="361.7041"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5160.5" y="369.7041"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="153" x="5172.5" y="377.463">listener: NavigateToUserView</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="5160.5" y="384.686"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="191" x="5172.5" y="392.4449">presenter: NavigateToUserPresenter</text><!--MD5=[3de993ac3dd18e6abf686ebe9c2e07b2]
+class Presenter--><rect codeLine="129" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="107.9276" id="Presenter" style="stroke:#A80036;stroke-width:1.5;" width="562" x="1681" y="89.5158"/><ellipse cx="1890.75" cy="105.5158" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1890.8594,100.8596 L1889.7031,105.9377 L1892.0313,105.9377 L1890.8594,100.8596 Z M1889.375,98.6252 L1892.3594,98.6252 L1895.7188,111.0158 L1893.2656,111.0158 L1892.5,107.9533 L1889.2188,107.9533 L1888.4688,111.0158 L1886.0313,111.0158 L1889.375,98.6252 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="51" x="1911.25" y="110.1719">Presenter</text><rect fill="#FFFFFF" height="18.3441" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" width="81" x="2165" y="86.5158"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="79" x="2166" y="100.3439">V extends View</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1682" x2="2242" y1="121.5158" y2="121.5158"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1689" y="129.5158"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="1701" y="137.2748">view: V</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1682" x2="2242" y1="144.4977" y2="144.4977"/><polygon fill="#FFFF44" points="1692,150.4977,1696,154.4977,1692,158.4977,1688,154.4977" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="430" x="1701" y="160.2566">doFailureReportingOperation(desc: String, op: ()=&gt;Promise&lt;void&gt;): Promise&lt;void&gt;</text><polygon fill="#FFFF44" points="1692,165.4796,1696,169.4796,1692,173.4796,1688,169.4796" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="414" x="1701" y="175.2385">doLoadingOperation(view, desc: String, op: ()=&gt;Promise&lt;void&gt;): Promise&lt;void&gt;</text><polygon fill="#FFFF44" points="1692,180.4615,1696,184.4615,1692,188.4615,1688,184.4615" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="536" x="1701" y="190.2204">doLoadingOperationWithToast(view, toast: String, desc: String, op: ()=&gt;Promise&lt;void&gt;): Promise&lt;void&gt;</text><polygon fill="none" points="1991.486,197.4434,2007.2186,211.6379,1994.933,218.3508" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2001.0758" x2="2003" y1="214.9943" y2="218.5158"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2243" x2="2263.03" y1="143.5134" y2="143.5158"/><line style="stroke:#A80036;stroke-width:1.0;" x1="1860.5319" x2="1810.06" y1="197.4434" y2="224.2858"/><path d="M2298,112.0158 L2298,139.5158 L2263.03,143.5158 L2298,147.5158 L2298,175.1339 A0,0 0 0 0 2298,175.1339 L2498,175.1339 A0,0 0 0 0 2498,175.1339 L2498,122.0158 L2488,112.0158 L2298,112.0158 A0,0 0 0 0 2298,112.0158 " fill="#FBFB77" filter="url(#f1ib30zcwkvnle)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2488,112.0158 L2488,122.0158 L2498,122.0158 L2488,112.0158 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="165" x="2304" y="130.9129">Re-exports Service interface</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="2304" y="148.6189">so View layer can depend only</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="132" x="2304" y="166.3249">on the Presenter layer</text><!--MD5=[7ef8b3c73a3035f8a29428f731349a06]
+class AuthPresenter--><rect codeLine="142" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="54.9819" id="AuthPresenter" style="stroke:#A80036;stroke-width:1.5;" width="254" x="1986" y="332.0158"/><ellipse cx="2001" cy="348.0158" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2001.1094,343.3596 L1999.9531,348.4377 L2002.2813,348.4377 L2001.1094,343.3596 Z M1999.625,341.1252 L2002.6094,341.1252 L2005.9688,353.5158 L2003.5156,353.5158 L2002.75,350.4533 L1999.4688,350.4533 L1998.7188,353.5158 L1996.2813,353.5158 L1999.625,341.1252 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="76" x="2015" y="352.6719">AuthPresenter</text><rect fill="#FFFFFF" height="18.3441" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" width="144" x="2099" y="329.0158"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="142" x="2100" y="342.8439">V extends View = AuthView</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1987" x2="2239" y1="364.0158" y2="364.0158"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1994" y="372.0158"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="129" x="2006" y="379.7748">authService: AuthService</text><polygon fill="none" points="2124.2187,386.9977,2138.2566,402.8703,2125.2944,408.16" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2131.7755" x2="2133" y1="405.5152" y2="408.5158"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2091.8495" x2="2076.37" y1="332.0158" y2="311.8958"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2050.4821" x2="2004.64" y1="386.9977" y2="407.1558"/><!--MD5=[1621d00626e7838985672cdbc7a232a2]
+class LoginPresenter--><rect codeLine="146" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="54.9819" id="LoginPresenter" style="stroke:#A80036;stroke-width:1.5;" width="368" x="2473" y="585.5158"/><ellipse cx="2610.25" cy="601.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2613.2188,607.1565 Q2612.6406,607.4533 2612,607.594 Q2611.3594,607.7502 2610.6563,607.7502 Q2608.1563,607.7502 2606.8281,606.1096 Q2605.5156,604.4533 2605.5156,601.3283 Q2605.5156,598.2033 2606.8281,596.5471 Q2608.1563,594.8908 2610.6563,594.8908 Q2611.3594,594.8908 2612,595.0471 Q2612.6563,595.2033 2613.2188,595.5002 L2613.2188,598.219 Q2612.5938,597.6408 2612,597.3752 Q2611.4063,597.094 2610.7813,597.094 Q2609.4375,597.094 2608.75,598.1721 Q2608.0625,599.2346 2608.0625,601.3283 Q2608.0625,603.4221 2608.75,604.5002 Q2609.4375,605.5627 2610.7813,605.5627 Q2611.4063,605.5627 2612,605.2971 Q2612.5938,605.0158 2613.2188,604.4377 L2613.2188,607.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="85" x="2630.75" y="606.1719">LoginPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="2474" x2="2840" y1="617.5158" y2="617.5158"/><ellipse cx="2484" cy="628.5158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="342" x="2493" y="633.2748">login(alias, password, rememberMe, originalUrl?): Promise&lt;void&gt;</text><!--MD5=[54b91cb7192b5a012e9cc7f6c28c5947]
+class RegisterPresenter--><rect codeLine="150" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="84.9457" id="RegisterPresenter" style="stroke:#A80036;stroke-width:1.5;" width="371" x="3138.5" y="570.5158"/><ellipse cx="3269.25" cy="586.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M3272.2188,592.1565 Q3271.6406,592.4533 3271,592.594 Q3270.3594,592.7502 3269.6563,592.7502 Q3267.1563,592.7502 3265.8281,591.1096 Q3264.5156,589.4533 3264.5156,586.3283 Q3264.5156,583.2033 3265.8281,581.5471 Q3267.1563,579.8908 3269.6563,579.8908 Q3270.3594,579.8908 3271,580.0471 Q3271.6563,580.2033 3272.2188,580.5002 L3272.2188,583.219 Q3271.5938,582.6408 3271,582.3752 Q3270.4063,582.094 3269.7813,582.094 Q3268.4375,582.094 3267.75,583.1721 Q3267.0625,584.2346 3267.0625,586.3283 Q3267.0625,588.4221 3267.75,589.5002 Q3268.4375,590.5627 3269.7813,590.5627 Q3270.4063,590.5627 3271,590.2971 Q3271.5938,590.0158 3272.2188,589.4377 L3272.2188,592.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="101" x="3289.75" y="591.1719">RegisterPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="3139.5" x2="3508.5" y1="602.5158" y2="602.5158"/><ellipse cx="3149.5" cy="613.5158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="345" x="3158.5" y="618.2748">processImageFile(file?): Promise&lt;ImageFileProcessingResult|null&gt;</text><ellipse cx="3149.5" cy="628.4977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="169" x="3158.5" y="633.2566">isRegisterFormValid(...): Boolean</text><ellipse cx="3149.5" cy="643.4796" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="140" x="3158.5" y="648.2385">register(...): Promise&lt;void&gt;</text><!--MD5=[3d7e49e3cef56ecc383e411d0aaa1f99]
+class LogoutPresenter--><rect codeLine="156" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="54.9819" id="LogoutPresenter" style="stroke:#A80036;stroke-width:1.5;" width="270" x="1863" y="585.5158"/><ellipse cx="1947.25" cy="601.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1950.2188,607.1565 Q1949.6406,607.4533 1949,607.594 Q1948.3594,607.7502 1947.6563,607.7502 Q1945.1563,607.7502 1943.8281,606.1096 Q1942.5156,604.4533 1942.5156,601.3283 Q1942.5156,598.2033 1943.8281,596.5471 Q1945.1563,594.8908 1947.6563,594.8908 Q1948.3594,594.8908 1949,595.0471 Q1949.6563,595.2033 1950.2188,595.5002 L1950.2188,598.219 Q1949.5938,597.6408 1949,597.3752 Q1948.4063,597.094 1947.7813,597.094 Q1946.4375,597.094 1945.75,598.1721 Q1945.0625,599.2346 1945.0625,601.3283 Q1945.0625,603.4221 1945.75,604.5002 Q1946.4375,605.5627 1947.7813,605.5627 Q1948.4063,605.5627 1949,605.2971 Q1949.5938,605.0158 1950.2188,604.4377 L1950.2188,607.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="93" x="1967.75" y="606.1719">LogoutPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1864" x2="2132" y1="617.5158" y2="617.5158"/><ellipse cx="1874" cy="628.5158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="244" x="1883" y="633.2748">logout(authToken: AuthToken): Promise&lt;void&gt;</text><!--MD5=[5d3fa9c24ce0c8643354bcfa7d40676a]
+class AppNavbarPresenter--><rect codeLine="160" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="54.9819" id="AppNavbarPresenter" style="stroke:#A80036;stroke-width:1.5;" width="270" x="2168" y="585.5158"/><ellipse cx="2239.75" cy="601.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2242.7188,607.1565 Q2242.1406,607.4533 2241.5,607.594 Q2240.8594,607.7502 2240.1563,607.7502 Q2237.6563,607.7502 2236.3281,606.1096 Q2235.0156,604.4533 2235.0156,601.3283 Q2235.0156,598.2033 2236.3281,596.5471 Q2237.6563,594.8908 2240.1563,594.8908 Q2240.8594,594.8908 2241.5,595.0471 Q2242.1563,595.2033 2242.7188,595.5002 L2242.7188,598.219 Q2242.0938,597.6408 2241.5,597.3752 Q2240.9063,597.094 2240.2813,597.094 Q2238.9375,597.094 2238.25,598.1721 Q2237.5625,599.2346 2237.5625,601.3283 Q2237.5625,603.4221 2238.25,604.5002 Q2238.9375,605.5627 2240.2813,605.5627 Q2240.9063,605.5627 2241.5,605.2971 Q2242.0938,605.0158 2242.7188,604.4377 L2242.7188,607.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="118" x="2260.25" y="606.1719">AppNavbarPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="2169" x2="2437" y1="617.5158" y2="617.5158"/><ellipse cx="2179" cy="628.5158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="244" x="2188" y="633.2748">logout(authToken: AuthToken): Promise&lt;void&gt;</text><!--MD5=[c21f685d31e542a45dbdbc82c0b479a3]
+class OAuthPresenter--><rect codeLine="164" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="69.9638" id="OAuthPresenter" style="stroke:#A80036;stroke-width:1.5;" width="342" x="1486" y="578.0158"/><ellipse cx="1607.75" cy="594.0158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1610.7188,599.6565 Q1610.1406,599.9533 1609.5,600.094 Q1608.8594,600.2502 1608.1563,600.2502 Q1605.6563,600.2502 1604.3281,598.6096 Q1603.0156,596.9533 1603.0156,593.8283 Q1603.0156,590.7033 1604.3281,589.0471 Q1605.6563,587.3908 1608.1563,587.3908 Q1608.8594,587.3908 1609.5,587.5471 Q1610.1563,587.7033 1610.7188,588.0002 L1610.7188,590.719 Q1610.0938,590.1408 1609.5,589.8752 Q1608.9063,589.594 1608.2813,589.594 Q1606.9375,589.594 1606.25,590.6721 Q1605.5625,591.7346 1605.5625,593.8283 Q1605.5625,595.9221 1606.25,597.0002 Q1606.9375,598.0627 1608.2813,598.0627 Q1608.9063,598.0627 1609.5,597.7971 Q1610.0938,597.5158 1610.7188,596.9377 L1610.7188,599.6565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="90" x="1628.25" y="598.6719">OAuthPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1487" x2="1827" y1="610.0158" y2="610.0158"/><ellipse cx="1497" cy="621.0158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="316" x="1506" y="625.7748">handleOAuthClick(provider: OAuthProvider): Promise&lt;void&gt;</text><ellipse cx="1497" cy="635.9977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="168" x="1506" y="640.7566">getProviders(): OAuthProvider[]</text><!--MD5=[9a8670339a279a4a32112e191ab7b7ad]
+class UserServicePresenter--><rect codeLine="170" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="54.9819" id="UserServicePresenter" style="stroke:#A80036;stroke-width:1.5;" width="227" x="2876.5" y="332.0158"/><ellipse cx="2891.5" cy="348.0158" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2891.6094,343.3596 L2890.4531,348.4377 L2892.7813,348.4377 L2891.6094,343.3596 Z M2890.125,341.1252 L2893.1094,341.1252 L2896.4688,353.5158 L2894.0156,353.5158 L2893.25,350.4533 L2889.9688,350.4533 L2889.2188,353.5158 L2886.7813,353.5158 L2890.125,341.1252 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="112" x="2905.5" y="352.6719">UserServicePresenter</text><rect fill="#FFFFFF" height="18.3441" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" width="81" x="3025.5" y="329.0158"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="79" x="3026.5" y="342.8439">V extends View</text><line style="stroke:#A80036;stroke-width:1.5;" x1="2877.5" x2="3102.5" y1="364.0158" y2="364.0158"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="2884.5" y="372.0158"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="127" x="2896.5" y="379.7748">userService: UserService</text><polygon fill="none" points="3023.6562,386.9977,3043.5739,394.2285,3034.7174,405.0712" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="3039.1457" x2="3050" y1="399.6498" y2="408.5158"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2876.5" x2="2856.38" y1="342.5685" y2="339.5658"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2876.5" x2="2856.31" y1="372.0624" y2="374.2958"/><!--MD5=[425057cd0c8d3134e69339e2915f0fc6]
+class NavigateToUserPresenter--><rect codeLine="174" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="69.9638" id="NavigateToUserPresenter" style="stroke:#A80036;stroke-width:1.5;" width="471" x="3958.5" y="578.0158"/><ellipse cx="4116.75" cy="594.0158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M4119.7188,599.6565 Q4119.1406,599.9533 4118.5,600.094 Q4117.8594,600.2502 4117.1563,600.2502 Q4114.6563,600.2502 4113.3281,598.6096 Q4112.0156,596.9533 4112.0156,593.8283 Q4112.0156,590.7033 4113.3281,589.0471 Q4114.6563,587.3908 4117.1563,587.3908 Q4117.8594,587.3908 4118.5,587.5471 Q4119.1563,587.7033 4119.7188,588.0002 L4119.7188,590.719 Q4119.0938,590.1408 4118.5,589.8752 Q4117.9063,589.594 4117.2813,589.594 Q4115.9375,589.594 4115.25,590.6721 Q4114.5625,591.7346 4114.5625,593.8283 Q4114.5625,595.9221 4115.25,597.0002 Q4115.9375,598.0627 4117.2813,598.0627 Q4117.9063,598.0627 4118.5,597.7971 Q4119.0938,597.5158 4119.7188,596.9377 L4119.7188,599.6565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="146" x="4137.25" y="598.6719">NavigateToUserPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="3959.5" x2="4428.5" y1="610.0158" y2="610.0158"/><ellipse cx="3969.5" cy="621.0158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="445" x="3978.5" y="625.7748">navigateToUser(eventTarget, authToken, displayedUser, featurePath): Promise&lt;void&gt;</text><ellipse cx="3969.5" cy="635.9977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="170" x="3978.5" y="640.7566">extractAlias(value: String): String</text><!--MD5=[17552db84d5eb922a3dc970fe1ee0792]
+class UserInfoPresenter--><rect codeLine="179" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="137.8913" id="UserInfoPresenter" style="stroke:#A80036;stroke-width:1.5;" width="227" x="2876.5" y="544.0158"/><ellipse cx="2933.75" cy="560.0158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2936.7188,565.6565 Q2936.1406,565.9533 2935.5,566.094 Q2934.8594,566.2502 2934.1563,566.2502 Q2931.6563,566.2502 2930.3281,564.6096 Q2929.0156,562.9533 2929.0156,559.8283 Q2929.0156,556.7033 2930.3281,555.0471 Q2931.6563,553.3908 2934.1563,553.3908 Q2934.8594,553.3908 2935.5,553.5471 Q2936.1563,553.7033 2936.7188,554.0002 L2936.7188,556.719 Q2936.0938,556.1408 2935.5,555.8752 Q2934.9063,555.594 2934.2813,555.594 Q2932.9375,555.594 2932.25,556.6721 Q2931.5625,557.7346 2931.5625,559.8283 Q2931.5625,561.9221 2932.25,563.0002 Q2932.9375,564.0627 2934.2813,564.0627 Q2934.9063,564.0627 2935.5,563.7971 Q2936.0938,563.5158 2936.7188,562.9377 L2936.7188,565.6565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="104" x="2954.25" y="564.6719">UserInfoPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="2877.5" x2="3102.5" y1="576.0158" y2="576.0158"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="2884.5" y="584.0158"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="148" x="2896.5" y="591.7748">followService: FollowService</text><line style="stroke:#A80036;stroke-width:1.5;" x1="2877.5" x2="3102.5" y1="598.9977" y2="598.9977"/><ellipse cx="2887.5" cy="609.9977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="200" x="2896.5" y="614.7566">loadFollowerStatus(...): Promise&lt;void&gt;</text><ellipse cx="2887.5" cy="624.9796" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="201" x="2896.5" y="629.7385">loadFolloweeCount(...): Promise&lt;void&gt;</text><ellipse cx="2887.5" cy="639.9615" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="200" x="2896.5" y="644.7204">loadFollowerCount(...): Promise&lt;void&gt;</text><ellipse cx="2887.5" cy="654.9434" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="132" x="2896.5" y="659.7023">follow(...): Promise&lt;void&gt;</text><ellipse cx="2887.5" cy="669.9253" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="146" x="2896.5" y="674.6842">unfollow(...): Promise&lt;void&gt;</text><!--MD5=[e6b56265c719d3201203c6f59739d5e3]
+class PagedItemPresenter--><rect codeLine="189" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="182.837" id="PagedItemPresenter" style="stroke:#A80036;stroke-width:1.5;" width="338" x="3565" y="521.5158"/><ellipse cx="3620.75" cy="537.5158" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M3620.8594,532.8596 L3619.7031,537.9377 L3622.0313,537.9377 L3620.8594,532.8596 Z M3619.375,530.6252 L3622.3594,530.6252 L3625.7188,543.0158 L3623.2656,543.0158 L3622.5,539.9533 L3619.2188,539.9533 L3618.4688,543.0158 L3616.0313,543.0158 L3619.375,530.6252 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="110" x="3641.25" y="542.1719">PagedItemPresenter</text><rect fill="#FFFFFF" height="18.3441" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" width="106" x="3800" y="518.5158"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="104" x="3801" y="532.3439">T, U extends Service</text><line style="stroke:#A80036;stroke-width:1.5;" x1="3566" x2="3902" y1="553.5158" y2="553.5158"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3573" y="561.5158"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="50" x="3585" y="569.2748">service: U</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3573" y="576.4977"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="124" x="3585" y="584.2566">hasMoreItems: Boolean</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="3573" y="591.4796"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="80" x="3585" y="599.2385">lastItem: T|null</text><line style="stroke:#A80036;stroke-width:1.5;" x1="3566" x2="3902" y1="606.4615" y2="606.4615"/><ellipse cx="3576" cy="617.4615" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="279" x="3585" y="622.2204">loadMoreItems(authToken, userAlias): Promise&lt;void&gt;</text><ellipse cx="3576" cy="632.4434" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="243" x="3585" y="637.2023">getUser(authToken, alias): Promise&lt;User|null&gt;</text><ellipse cx="3576" cy="647.4253" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="61" x="3585" y="652.1842">reset(): void</text><polygon fill="#FFFF44" points="3576,657.4072,3580,661.4072,3576,665.4072,3572,661.4072" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="86" x="3585" y="667.1661">serviceFactory(): U</text><polygon fill="#FFFF44" points="3576,672.3891,3580,676.3891,3576,680.3891,3572,676.3891" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="117" x="3585" y="682.148">itemDescription(): String</text><polygon fill="#FFFF44" points="3576,687.3709,3580,691.3709,3576,695.3709,3572,691.3709" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" font-style="italic" lengthAdjust="spacing" textLength="312" x="3585" y="697.1299">retrieveMoreItems(authToken, userAlias): Promise&lt;[T[], Boolean]&gt;</text><polygon fill="none" points="3565,653.2453,3547.1699,664.6946,3543.9216,651.0767" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="3545.5458" x2="3545" y1="657.8857" y2="658.0158"/><line style="stroke:#A80036;stroke-width:1.0;" x1="3569.5434" x2="3544.79" y1="521.5158" y2="507.7558"/><line style="stroke:#A80036;stroke-width:1.0;" x1="3899.2136" x2="3927.84" y1="521.5158" y2="505.6758"/><!--MD5=[4bbdaeb11c3dc0a09ed7f1f4f1a9064c]
+class StatusItemPresenter--><rect codeLine="201" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="54.9819" id="StatusItemPresenter" style="stroke:#A80036;stroke-width:1.5;" width="182" x="2477" y="823.5158"/><ellipse cx="2510.45" cy="839.5158" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2510.5594,834.8596 L2509.4031,839.9377 L2511.7313,839.9377 L2510.5594,834.8596 Z M2509.075,832.6252 L2512.0594,832.6252 L2515.4188,845.0158 L2512.9656,845.0158 L2512.2,841.9533 L2508.9188,841.9533 L2508.1688,845.0158 L2505.7313,845.0158 L2509.075,832.6252 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="109" x="2528.55" y="844.1719">StatusItemPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="2478" x2="2658" y1="855.5158" y2="855.5158"/><polygon fill="#FFFF44" points="2488,861.5158,2492,865.5158,2488,869.5158,2484,865.5158" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="156" x="2497" y="871.2748">serviceFactory(): StatusService</text><polygon fill="none" points="2563.5125,878.4977,2567.199,899.3642,2553.3819,897.1088" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2560.2905" x2="2560" y1="898.2365" y2="900.0158"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2639.8908" x2="2679.3" y1="823.5158" y2="808.4458"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2477" x2="2456.83" y1="856.0156" y2="857.1258"/><!--MD5=[194da24d425ad926d08868287c8b28c1]
+class UserItemPresenter--><rect codeLine="205" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="54.9819" id="UserItemPresenter" style="stroke:#A80036;stroke-width:1.5;" width="185" x="2736.5" y="823.5158"/><ellipse cx="2775.35" cy="839.5158" fill="#A9DCDF" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2775.4594,834.8596 L2774.3031,839.9377 L2776.6313,839.9377 L2775.4594,834.8596 Z M2773.975,832.6252 L2776.9594,832.6252 L2780.3188,845.0158 L2777.8656,845.0158 L2777.1,841.9533 L2773.8188,841.9533 L2773.0688,845.0158 L2770.6313,845.0158 L2773.975,832.6252 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="100" x="2794.65" y="844.1719">UserItemPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="2737.5" x2="2920.5" y1="855.5158" y2="855.5158"/><polygon fill="#FFFF44" points="2747.5,861.5158,2751.5,865.5158,2747.5,869.5158,2743.5,865.5158" style="stroke:#B38D22;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="159" x="2756.5" y="871.2748">serviceFactory(): FollowService</text><polygon fill="none" points="2834.0484,878.4977,2844.5457,896.9045,2830.7759,899.4331" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2837.6608" x2="2838" y1="898.1688" y2="900.0158"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2921.5" x2="2941.63" y1="845.3557" y2="844.1258"/><line style="stroke:#A80036;stroke-width:1.0;" x1="2780.6848" x2="2745.38" y1="878.4977" y2="898.5858"/><!--MD5=[cc904d6cac7853200c34c93d90068586]
+class FeedPresenter--><rect codeLine="209" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="32" id="FeedPresenter" style="stroke:#A80036;stroke-width:1.5;" width="114" x="2399" y="1035.5158"/><ellipse cx="2414" cy="1051.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2416.9688,1057.1565 Q2416.3906,1057.4533 2415.75,1057.594 Q2415.1094,1057.7502 2414.4063,1057.7502 Q2411.9063,1057.7502 2410.5781,1056.1096 Q2409.2656,1054.4533 2409.2656,1051.3283 Q2409.2656,1048.2033 2410.5781,1046.5471 Q2411.9063,1044.8908 2414.4063,1044.8908 Q2415.1094,1044.8908 2415.75,1045.0471 Q2416.4063,1045.2033 2416.9688,1045.5002 L2416.9688,1048.219 Q2416.3438,1047.6408 2415.75,1047.3752 Q2415.1563,1047.094 2414.5313,1047.094 Q2413.1875,1047.094 2412.5,1048.1721 Q2411.8125,1049.2346 2411.8125,1051.3283 Q2411.8125,1053.4221 2412.5,1054.5002 Q2413.1875,1055.5627 2414.5313,1055.5627 Q2415.1563,1055.5627 2415.75,1055.2971 Q2416.3438,1055.0158 2416.9688,1054.4377 L2416.9688,1057.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="82" x="2428" y="1056.1719">FeedPresenter</text><!--MD5=[6204197f155543e03ee64905067c6ebc]
+class StoryPresenter--><rect codeLine="210" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="32" id="StoryPresenter" style="stroke:#A80036;stroke-width:1.5;" width="116" x="2548" y="1035.5158"/><ellipse cx="2563" cy="1051.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2565.9688,1057.1565 Q2565.3906,1057.4533 2564.75,1057.594 Q2564.1094,1057.7502 2563.4063,1057.7502 Q2560.9063,1057.7502 2559.5781,1056.1096 Q2558.2656,1054.4533 2558.2656,1051.3283 Q2558.2656,1048.2033 2559.5781,1046.5471 Q2560.9063,1044.8908 2563.4063,1044.8908 Q2564.1094,1044.8908 2564.75,1045.0471 Q2565.4063,1045.2033 2565.9688,1045.5002 L2565.9688,1048.219 Q2565.3438,1047.6408 2564.75,1047.3752 Q2564.1563,1047.094 2563.5313,1047.094 Q2562.1875,1047.094 2561.5,1048.1721 Q2560.8125,1049.2346 2560.8125,1051.3283 Q2560.8125,1053.4221 2561.5,1054.5002 Q2562.1875,1055.5627 2563.5313,1055.5627 Q2564.1563,1055.5627 2564.75,1055.2971 Q2565.3438,1055.0158 2565.9688,1054.4377 L2565.9688,1057.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="84" x="2577" y="1056.1719">StoryPresenter</text><!--MD5=[7cf47e7e87bce11c283d0ddd7622a390]
+class FolloweePresenter--><rect codeLine="211" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="32" id="FolloweePresenter" style="stroke:#A80036;stroke-width:1.5;" width="136" x="2722" y="1035.5158"/><ellipse cx="2737" cy="1051.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2739.9688,1057.1565 Q2739.3906,1057.4533 2738.75,1057.594 Q2738.1094,1057.7502 2737.4063,1057.7502 Q2734.9063,1057.7502 2733.5781,1056.1096 Q2732.2656,1054.4533 2732.2656,1051.3283 Q2732.2656,1048.2033 2733.5781,1046.5471 Q2734.9063,1044.8908 2737.4063,1044.8908 Q2738.1094,1044.8908 2738.75,1045.0471 Q2739.4063,1045.2033 2739.9688,1045.5002 L2739.9688,1048.219 Q2739.3438,1047.6408 2738.75,1047.3752 Q2738.1563,1047.094 2737.5313,1047.094 Q2736.1875,1047.094 2735.5,1048.1721 Q2734.8125,1049.2346 2734.8125,1051.3283 Q2734.8125,1053.4221 2735.5,1054.5002 Q2736.1875,1055.5627 2737.5313,1055.5627 Q2738.1563,1055.5627 2738.75,1055.2971 Q2739.3438,1055.0158 2739.9688,1054.4377 L2739.9688,1057.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="104" x="2751" y="1056.1719">FolloweePresenter</text><!--MD5=[4cb409d7d13b7e8e2c2ea8e18a977452]
+class FollowerPresenter--><rect codeLine="212" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="32" id="FollowerPresenter" style="stroke:#A80036;stroke-width:1.5;" width="134" x="2893" y="1035.5158"/><ellipse cx="2908" cy="1051.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2910.9688,1057.1565 Q2910.3906,1057.4533 2909.75,1057.594 Q2909.1094,1057.7502 2908.4063,1057.7502 Q2905.9063,1057.7502 2904.5781,1056.1096 Q2903.2656,1054.4533 2903.2656,1051.3283 Q2903.2656,1048.2033 2904.5781,1046.5471 Q2905.9063,1044.8908 2908.4063,1044.8908 Q2909.1094,1044.8908 2909.75,1045.0471 Q2910.4063,1045.2033 2910.9688,1045.5002 L2910.9688,1048.219 Q2910.3438,1047.6408 2909.75,1047.3752 Q2909.1563,1047.094 2908.5313,1047.094 Q2907.1875,1047.094 2906.5,1048.1721 Q2905.8125,1049.2346 2905.8125,1051.3283 Q2905.8125,1053.4221 2906.5,1054.5002 Q2907.1875,1055.5627 2908.5313,1055.5627 Q2909.1563,1055.5627 2909.75,1055.2971 Q2910.3438,1055.0158 2910.9688,1054.4377 L2910.9688,1057.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="102" x="2922" y="1056.1719">FollowerPresenter</text><!--MD5=[1737b2bc1f40a0f5e19c73dcb055bea4]
+class PostStatusPresenter--><rect codeLine="214" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="92.9457" id="PostStatusPresenter" style="stroke:#A80036;stroke-width:1.5;" width="202" x="1729" y="313.0158"/><ellipse cx="1769.2" cy="329.0158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1772.1688,334.6565 Q1771.5906,334.9533 1770.95,335.094 Q1770.3094,335.2502 1769.6063,335.2502 Q1767.1063,335.2502 1765.7781,333.6096 Q1764.4656,331.9533 1764.4656,328.8283 Q1764.4656,325.7033 1765.7781,324.0471 Q1767.1063,322.3908 1769.6063,322.3908 Q1770.3094,322.3908 1770.95,322.5471 Q1771.6063,322.7033 1772.1688,323.0002 L1772.1688,325.719 Q1771.5438,325.1408 1770.95,324.8752 Q1770.3563,324.594 1769.7313,324.594 Q1768.3875,324.594 1767.7,325.6721 Q1767.0125,326.7346 1767.0125,328.8283 Q1767.0125,330.9221 1767.7,332.0002 Q1768.3875,333.0627 1769.7313,333.0627 Q1770.3563,333.0627 1770.95,332.7971 Q1771.5438,332.5158 1772.1688,331.9377 L1772.1688,334.6565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="114" x="1788.8" y="333.6719">PostStatusPresenter</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1730" x2="1930" y1="345.0158" y2="345.0158"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="1737" y="353.0158"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="143" x="1749" y="360.7748">statusService: StatusService</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1730" x2="1930" y1="367.9977" y2="367.9977"/><ellipse cx="1740" cy="378.9977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="176" x="1749" y="383.7566">isPostButtonDisabled(...): Boolean</text><ellipse cx="1740" cy="393.9796" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="158" x="1749" y="398.7385">submitPost(...): Promise&lt;void&gt;</text><!--MD5=[dbb8b4f13c7b21394f9d757e58732f45]
+class Service--><rect codeLine="243" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="42.6882" id="Service" style="stroke:#A80036;stroke-width:1.5;" width="87" x="671.5" y="1162.5158"/><ellipse cx="686.5" cy="1183.86" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M682.4219,1179.6256 L682.4219,1177.4693 L689.8125,1177.4693 L689.8125,1179.6256 L687.3438,1179.6256 L687.3438,1187.7037 L689.8125,1187.7037 L689.8125,1189.86 L682.4219,1189.86 L682.4219,1187.7037 L684.8906,1187.7037 L684.8906,1179.6256 L682.4219,1179.6256 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="59" x="698.5" y="1180.3439">«interface»</text><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="37" x="709.5" y="1196.6881">Service</text><!--MD5=[b4f586f7c628b5a371c8c0ac9af5f898]
+class AuthService--><rect codeLine="245" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="99.9276" id="AuthService" style="stroke:#A80036;stroke-width:1.5;" width="295" x="23.5" y="1001.5158"/><ellipse cx="133.25" cy="1017.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M136.2188,1023.1565 Q135.6406,1023.4533 135,1023.594 Q134.3594,1023.7502 133.6563,1023.7502 Q131.1563,1023.7502 129.8281,1022.1096 Q128.5156,1020.4533 128.5156,1017.3283 Q128.5156,1014.2033 129.8281,1012.5471 Q131.1563,1010.8908 133.6563,1010.8908 Q134.3594,1010.8908 135,1011.0471 Q135.6563,1011.2033 136.2188,1011.5002 L136.2188,1014.219 Q135.5938,1013.6408 135,1013.3752 Q134.4063,1013.094 133.7813,1013.094 Q132.4375,1013.094 131.75,1014.1721 Q131.0625,1015.2346 131.0625,1017.3283 Q131.0625,1019.4221 131.75,1020.5002 Q132.4375,1021.5627 133.7813,1021.5627 Q134.4063,1021.5627 135,1021.2971 Q135.5938,1021.0158 136.2188,1020.4377 L136.2188,1023.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="67" x="153.75" y="1022.1719">AuthService</text><line style="stroke:#A80036;stroke-width:1.5;" x1="24.5" x2="317.5" y1="1033.5158" y2="1033.5158"/><ellipse cx="34.5" cy="1044.5158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="269" x="43.5" y="1049.2748">login(alias, password): Promise&lt;[User, AuthToken]&gt;</text><ellipse cx="34.5" cy="1059.4977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="212" x="43.5" y="1064.2566">register(...): Promise&lt;[User, AuthToken]&gt;</text><ellipse cx="34.5" cy="1074.4796" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="181" x="43.5" y="1079.2385">logout(authToken): Promise&lt;void&gt;</text><ellipse cx="34.5" cy="1089.4615" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="247" x="43.5" y="1094.2204">oauthLogin(providerName): Promise&lt;Boolean&gt;</text><!--MD5=[e4ac4745f81aec2db60ad4ddae80b659]
+class UserService--><rect codeLine="252" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="99.9276" id="UserService" style="stroke:#A80036;stroke-width:1.5;" width="347" x="353.5" y="1001.5158"/><ellipse cx="488.75" cy="1017.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M491.7188,1023.1565 Q491.1406,1023.4533 490.5,1023.594 Q489.8594,1023.7502 489.1563,1023.7502 Q486.6563,1023.7502 485.3281,1022.1096 Q484.0156,1020.4533 484.0156,1017.3283 Q484.0156,1014.2033 485.3281,1012.5471 Q486.6563,1010.8908 489.1563,1010.8908 Q489.8594,1010.8908 490.5,1011.0471 Q491.1563,1011.2033 491.7188,1011.5002 L491.7188,1014.219 Q491.0938,1013.6408 490.5,1013.3752 Q489.9063,1013.094 489.2813,1013.094 Q487.9375,1013.094 487.25,1014.1721 Q486.5625,1015.2346 486.5625,1017.3283 Q486.5625,1019.4221 487.25,1020.5002 Q487.9375,1021.5627 489.2813,1021.5627 Q489.9063,1021.5627 490.5,1021.2971 Q491.0938,1021.0158 491.7188,1020.4377 L491.7188,1023.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="68" x="509.25" y="1022.1719">UserService</text><line style="stroke:#A80036;stroke-width:1.5;" x1="354.5" x2="699.5" y1="1033.5158" y2="1033.5158"/><ellipse cx="364.5" cy="1044.5158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="243" x="373.5" y="1049.2748">getUser(authToken, alias): Promise&lt;User|null&gt;</text><ellipse cx="364.5" cy="1059.4977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="321" x="373.5" y="1064.2566">isFollower(authToken, user, selectedUser): Promise&lt;Boolean&gt;</text><ellipse cx="364.5" cy="1074.4796" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="262" x="373.5" y="1079.2385">getFolloweeCount(authToken, user): Promise&lt;int&gt;</text><ellipse cx="364.5" cy="1089.4615" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="261" x="373.5" y="1094.2204">getFollowerCount(authToken, user): Promise&lt;int&gt;</text><!--MD5=[35010bd2b26cc99c39ae7fd9adea0efb]
+class FollowService--><rect codeLine="259" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="99.9276" id="FollowService" style="stroke:#A80036;stroke-width:1.5;" width="323" x="1106.5" y="1001.5158"/><ellipse cx="1225.75" cy="1017.5158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1228.7188,1023.1565 Q1228.1406,1023.4533 1227.5,1023.594 Q1226.8594,1023.7502 1226.1563,1023.7502 Q1223.6563,1023.7502 1222.3281,1022.1096 Q1221.0156,1020.4533 1221.0156,1017.3283 Q1221.0156,1014.2033 1222.3281,1012.5471 Q1223.6563,1010.8908 1226.1563,1010.8908 Q1226.8594,1010.8908 1227.5,1011.0471 Q1228.1563,1011.2033 1228.7188,1011.5002 L1228.7188,1014.219 Q1228.0938,1013.6408 1227.5,1013.3752 Q1226.9063,1013.094 1226.2813,1013.094 Q1224.9375,1013.094 1224.25,1014.1721 Q1223.5625,1015.2346 1223.5625,1017.3283 Q1223.5625,1019.4221 1224.25,1020.5002 Q1224.9375,1021.5627 1226.2813,1021.5627 Q1226.9063,1021.5627 1227.5,1021.2971 Q1228.0938,1021.0158 1228.7188,1020.4377 L1228.7188,1023.1565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="76" x="1246.25" y="1022.1719">FollowService</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1107.5" x2="1428.5" y1="1033.5158" y2="1033.5158"/><ellipse cx="1117.5" cy="1044.5158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="296" x="1126.5" y="1049.2748">retrievePageOfFollowers(...): Promise&lt;[User[], Boolean]&gt;</text><ellipse cx="1117.5" cy="1059.4977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="297" x="1126.5" y="1064.2566">retrievePageOfFollowees(...): Promise&lt;[User[], Boolean]&gt;</text><ellipse cx="1117.5" cy="1074.4796" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="256" x="1126.5" y="1079.2385">follow(authToken, userToFollow): Promise&lt;void&gt;</text><ellipse cx="1117.5" cy="1089.4615" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="283" x="1126.5" y="1094.2204">unfollow(authToken, userToUnfollow): Promise&lt;void&gt;</text><!--MD5=[719d7e88a32bb371d3a6760c91d4e3b8]
+class StatusService--><rect codeLine="266" fill="#FEFECE" filter="url(#f1ib30zcwkvnle)" height="84.9457" id="StatusService" style="stroke:#A80036;stroke-width:1.5;" width="336" x="735" y="1009.0158"/><ellipse cx="860.75" cy="1025.0158" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M863.7188,1030.6565 Q863.1406,1030.9533 862.5,1031.094 Q861.8594,1031.2502 861.1563,1031.2502 Q858.6563,1031.2502 857.3281,1029.6096 Q856.0156,1027.9533 856.0156,1024.8283 Q856.0156,1021.7033 857.3281,1020.0471 Q858.6563,1018.3908 861.1563,1018.3908 Q861.8594,1018.3908 862.5,1018.5471 Q863.1563,1018.7033 863.7188,1019.0002 L863.7188,1021.719 Q863.0938,1021.1408 862.5,1020.8752 Q861.9063,1020.594 861.2813,1020.594 Q859.9375,1020.594 859.25,1021.6721 Q858.5625,1022.7346 858.5625,1024.8283 Q858.5625,1026.9221 859.25,1028.0002 Q859.9375,1029.0627 861.2813,1029.0627 Q861.9063,1029.0627 862.5,1028.7971 Q863.0938,1028.5158 863.7188,1027.9377 L863.7188,1030.6565 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="76" x="881.25" y="1029.6719">StatusService</text><line style="stroke:#A80036;stroke-width:1.5;" x1="736" x2="1070" y1="1041.0158" y2="1041.0158"/><ellipse cx="746" cy="1052.0158" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="307" x="755" y="1056.7748">retrievePageOfFeedItems(...): Promise&lt;[Status[], Boolean]&gt;</text><ellipse cx="746" cy="1066.9977" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="310" x="755" y="1071.7566">retrievePageOfStoryItems(...): Promise&lt;[Status[], Boolean]&gt;</text><ellipse cx="746" cy="1081.9796" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="238" x="755" y="1086.7385">postStatus(authToken, status): Promise&lt;void&gt;</text><!--MD5=[6cf885425fb693063914719fda18e3fd]
+link MessageView to View--><path codeLine="102" d="M5553.83,653.5158 C5471.19,694.2258 5342.24,757.7658 5253.46,801.5058 " fill="none" id="MessageView-to-View" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5256.47,807.8258,5235.44,810.3858,5250.28,795.2658,5256.47,807.8258" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[5713f469c5e085261fabec438524f642]
+link AuthView to View--><path codeLine="103" d="M4783.65,653.5158 C4860.27,694.0558 4979.65,757.2358 5062.28,800.9558 " fill="none" id="AuthView-to-View" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5065.7,794.8458,5080.11,810.3858,5059.15,807.2158,5065.7,794.8458" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a3b98f0fb677a543ae278792888858f6]
+link LogoutView to MessageView--><path codeLine="104" d="M5491.81,392.6258 C5518.37,433.6058 5564.78,505.2158 5597.33,555.4458 " fill="none" id="LogoutView-to-MessageView" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5603.21,551.6458,5608.22,572.2358,5591.46,559.2558,5603.21,551.6458" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[eaf1789a2d94c5136ab356c8edfbce65]
+link AppNavbarView to MessageView--><path codeLine="105" d="M5847.72,392.6258 C5807.18,434.2358 5735.9,507.4158 5686.88,557.7358 " fill="none" id="AppNavbarView-to-MessageView" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5691.72,562.7958,5672.75,572.2358,5681.7,553.0258,5691.72,562.7958" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[acdb36057df9a509445f5a903a3d5850]
+link PostStatusView to MessageView--><path codeLine="106" d="M5668.55,400.0858 C5661.88,440.9658 5651.4,505.2558 5643.73,552.3158 " fill="none" id="PostStatusView-to-MessageView" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5650.61,553.6458,5640.48,572.2558,5636.79,551.3958,5650.61,553.6458" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[22f427e178dbb706f7ec64cc96b4f93b]
+link UserInfoView to MessageView--><path codeLine="107" d="M5979.91,418.6858 C5901.97,462.2458 5796.49,521.2058 5722.57,562.5158 " fill="none" id="UserInfoView-to-MessageView" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5725.83,568.7058,5704.96,572.3558,5719,556.4858,5725.83,568.7058" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[65f00bf8dabc4d0e143f72447d36f1d4]
+link NavigateToUserView to View--><path codeLine="108" d="M5248.21,646.3358 C5231.09,683.7558 5202.55,746.1158 5181.55,791.9958 " fill="none" id="NavigateToUserView-to-View" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5187.9,794.9458,5173.21,810.2158,5175.17,789.1158,5187.9,794.9458" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[c395970ea4720414d8bca08e85d7f2fa]
+link OAuthView to View--><path codeLine="109" d="M6071.73,646.1158 C6022.7,670.9558 5951.06,704.4058 5885,724.5158 C5687.84,784.5258 5451.45,818.5858 5302.21,835.6658 " fill="none" id="OAuthView-to-View" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5302.85,842.6358,5282.2,837.9158,5301.29,828.7258,5302.85,842.6358" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[7025442cca7125d5e4466ae991dd9a27]
+link PagedItemView to View--><path codeLine="110" d="M5061.79,646.3358 C5078.91,683.7558 5107.45,746.1158 5128.45,791.9958 " fill="none" id="PagedItemView-to-View" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="5134.83,789.1158,5136.79,810.2158,5122.1,794.9458,5134.83,789.1158" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[23a84a52134af3e1f7400a30c4c35957]
+link Login to AuthView--><path codeLine="113" d="M4589.34,400.0858 C4612.84,441.7058 4650.03,507.5758 4676.71,554.8358 " fill="none" id="Login-to-AuthView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="4682.81,551.3958,4686.55,572.2558,4670.62,558.2858,4682.81,551.3958" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[8b462410283fe41ecfce9d419491e47f]
+link Register to AuthView--><path codeLine="114" d="M4762.93,400.0858 C4752.5,441.0558 4736.09,505.5458 4724.11,552.6258 " fill="none" id="Register-to-AuthView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="4730.83,554.6058,4719.12,572.2558,4717.27,551.1458,4730.83,554.6058" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d895079a046618fbc1f13af8d57a467b]
+link AppNavbar to AppNavbarView--><path codeLine="115" d="M4856.52,184.0458 C4875.68,196.9558 4898.35,209.9258 4921,217.5158 C5076.59,269.6758 5126.12,227.5658 5289,247.5158 C5340.86,253.8658 5353.13,260.2858 5405,266.5158 C5491.3,276.8858 5713.54,266.1958 5795,296.5158 C5806.68,300.8658 5818.14,307.3458 5828.66,314.4958 " fill="none" id="AppNavbar-to-AppNavbarView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="5832.94,308.9658,5844.82,326.5058,5824.59,320.2058,5832.94,308.9658" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[abdbf68f8831370b251a588029be6797]
+link PostStatus to PostStatusView--><path codeLine="116" d="M4629.36,184.1958 C4647.94,197.0458 4669.94,209.9258 4692,217.5158 C4840.05,268.4658 4887.26,231.4458 5043,247.5158 C5112.92,254.7358 5130.08,259.3358 5200,266.5158 C5357.51,282.6958 5402.85,252.6658 5555,296.5158 C5567.13,300.0058 5579.46,304.7758 5591.37,310.1258 " fill="none" id="PostStatus-to-PostStatusView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="5594.66,303.9358,5609.66,318.9058,5588.6,316.5558,5594.66,303.9358" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a8da87ee6b37dfc9e2bc57de0384dfd2]
+link UserInfoComponent to UserInfoView--><path codeLine="117" d="M5247.08,184.1758 C5264.89,196.8658 5285.9,209.6458 5307,217.5158 C5576.09,317.9158 5677.69,215.3758 5960.35,296.5058 " fill="none" id="UserInfoComponent-to-UserInfoView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="5962.51,289.8458,5979.68,302.2558,5958.51,303.2658,5962.51,289.8458" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[03d55cde5f0e77ef31daa5f5388c5953]
+link ItemScroller to PagedItemView--><path codeLine="118" d="M5013.29,400.0858 C5020.16,443.2558 5031.17,512.5158 5038.73,560.0358 " fill="none" id="ItemScroller-to-PagedItemView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="5045.66,559.0058,5041.89,579.8558,5031.83,561.2058,5045.66,559.0058" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a54ac1a72083f69055ba61e8d739cc17]
+link useNavigateToUser to NavigateToUserView--><path codeLine="119" d="M5261.31,400.0858 C5261.66,443.1558 5262.21,512.2058 5262.58,559.7158 " fill="none" id="useNavigateToUser-to-NavigateToUserView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="5269.58,559.8058,5262.74,579.8558,5255.59,559.9158,5269.58,559.8058" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[cf93d82ba16fa0a5dd4e3a0e06628caa]
+link StatusItemScroller to ItemScroller--><path codeLine="121" d="M5006.1,165.0358 C5006.25,199.0858 5006.58,268.0258 5006.79,313.7358 " fill="none" id="StatusItemScroller-to-ItemScroller" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="5006.81,318.9158,5010.7585,309.8931,5006.7814,313.9159,5002.7586,309.9388,5006.81,318.9158" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="5007" y="262.4129">uses</text><!--MD5=[f2dde2e9ab9344718649922cdae95a20]
+link UserItemScroller to ItemScroller--><path codeLine="122" d="M5371.31,165.2058 C5354.86,180.8958 5330.75,202.2958 5307,217.5158 C5236.18,262.9158 5211.08,260.6258 5135,296.5158 C5121.36,302.9558 5106.94,309.8458 5092.88,316.6158 " fill="none" id="UserItemScroller-to-ItemScroller" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="5088.14,318.9058,5097.9844,318.6093,5092.6458,316.7385,5094.5166,311.3999,5088.14,318.9058" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="5253" y="262.4129">uses</text><!--MD5=[cca2579643316d4ccabd13157b3d1914]
+reverse link Presenter to AuthPresenter--><path codeLine="221" d="M2003,218.5158 C2003,218.5158 2044.37,271.1758 2076.37,311.8958 " fill="none" id="Presenter-backto-AuthPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[96d5e935229cbbb41a0d1e7091ca612d]
+reverse link Presenter to UserServicePresenter--><path codeLine="222" d="M2003,218.5158 C2003,218.5158 2586.74,301.3158 2856.38,339.5658 " fill="none" id="Presenter-backto-UserServicePresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[1be631c66f1fcef907b5ca99fa6bd6bc]
+reverse link AuthPresenter to LoginPresenter--><path codeLine="223" d="M2133,408.5158 C2133,408.5158 2317.92,444.5158 2456,501.5158 C2513.42,525.2158 2575.5,561.0658 2615.24,585.4558 " fill="none" id="AuthPresenter-backto-LoginPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[ba83e629939aaeeb64820521cb2eb73a]
+reverse link AuthPresenter to RegisterPresenter--><path codeLine="224" d="M2133,408.5158 C2133,408.5158 2910.08,437.1558 3121,501.5158 C3171.85,517.0358 3224.45,546.0858 3263.35,570.5158 " fill="none" id="AuthPresenter-backto-RegisterPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[88497449d3e23dd093a52131e6c535f6]
+reverse link AuthPresenter to LogoutPresenter--><path codeLine="225" d="M2133,408.5158 C2133,408.5158 2052.24,530.2458 2015.65,585.4158 " fill="none" id="AuthPresenter-backto-LogoutPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[998cf60d155a7d6426131bdeeab81ef0]
+reverse link AuthPresenter to AppNavbarPresenter--><path codeLine="226" d="M2133,408.5158 C2133,408.5158 2234.69,530.2458 2280.78,585.4158 " fill="none" id="AuthPresenter-backto-AppNavbarPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[1665266af8201468489d86cccb870efd]
+reverse link AuthPresenter to OAuthPresenter--><path codeLine="227" d="M2133,408.5158 C2133,408.5158 1968.37,446.6958 1846,501.5158 C1797.44,523.2758 1745.47,554.2758 1708.34,577.9158 " fill="none" id="AuthPresenter-backto-OAuthPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[57149d973ce773995531e069914311fd]
+reverse link Presenter to PostStatusPresenter--><path codeLine="228" d="M2003,218.5158 C2003,218.5158 1937.1,271.8458 1886.65,312.6758 " fill="none" id="Presenter-backto-PostStatusPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[613600f19d04f85baef82e3f618b8892]
+reverse link UserServicePresenter to NavigateToUserPresenter--><path codeLine="229" d="M3050,408.5158 C3050,408.5158 3350.16,447.1758 3591,471.5158 C3746.33,487.2158 3789.68,463.0958 3941,501.5158 C4008.94,518.7658 4081.83,552.3758 4131.83,578.0158 " fill="none" id="UserServicePresenter-backto-NavigateToUserPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[2eea3c09fbb3a94182621591cc74d35b]
+reverse link UserServicePresenter to UserInfoPresenter--><path codeLine="230" d="M3050,408.5158 C3050,408.5158 3027.5,484.8158 3010.06,543.9658 " fill="none" id="UserServicePresenter-backto-UserInfoPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[9d1d7661cc6a0f235c14e318720d61ed]
+reverse link UserServicePresenter to PagedItemPresenter--><path codeLine="231" d="M3050,408.5158 C3050,408.5158 3195.48,449.0758 3314,471.5158 C3407.93,489.2958 3436.11,471.8858 3527,501.5158 C3532.91,503.4458 3538.84,505.5258 3544.79,507.7558 " fill="none" id="UserServicePresenter-backto-PagedItemPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[aa02c8c329336e1bc667dff5f572de72]
+reverse link PagedItemPresenter to StatusItemPresenter--><path codeLine="232" d="M3545,658.0158 C3545,658.0158 3550.4,704.7758 3527,724.5158 C3456.36,784.1058 2789.23,783.5158 2699,803.5158 C2692.52,804.9558 2685.92,806.6158 2679.3,808.4458 " fill="none" id="PagedItemPresenter-backto-StatusItemPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[3873744e0bedcb64d4c8e19df7fee1fd]
+reverse link PagedItemPresenter to UserItemPresenter--><path codeLine="233" d="M3545,658.0158 C3545,658.0158 3549.57,703.8158 3527,724.5158 C3443.18,801.3858 3116.81,832.6658 2941.63,844.1258 " fill="none" id="PagedItemPresenter-backto-UserItemPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d023352d900559b212fcb55fb6b3046e]
+reverse link StatusItemPresenter to FeedPresenter--><path codeLine="234" d="M2560,900.0158 C2560,900.0158 2492.98,996.9958 2466.54,1035.2558 " fill="none" id="StatusItemPresenter-backto-FeedPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[1662f6d0dbe5b64f7f3577a164c9f050]
+reverse link StatusItemPresenter to StoryPresenter--><path codeLine="235" d="M2560,900.0158 C2560,900.0158 2589.64,996.9958 2601.34,1035.2558 " fill="none" id="StatusItemPresenter-backto-StoryPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[3cdc2f4d677460424e45251c3981f3b2]
+reverse link UserItemPresenter to FolloweePresenter--><path codeLine="236" d="M2838,900.0158 C2838,900.0158 2807.07,996.9958 2794.87,1035.2558 " fill="none" id="UserItemPresenter-backto-FolloweePresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[1bb4e370664d057dbe442cb01d932c1a]
+reverse link UserItemPresenter to FollowerPresenter--><path codeLine="237" d="M2838,900.0158 C2838,900.0158 2916.61,996.9958 2947.63,1035.2558 " fill="none" id="UserItemPresenter-backto-FollowerPresenter" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[8d13ba8e09bc8575b37e9e0fe6706efa]
+link AuthService to Service--><path codeLine="272" d="M318.82,1097.0158 C324.61,1098.5658 330.35,1100.0758 336,1101.5158 C446.12,1129.6658 575.88,1156.1358 651.45,1170.9058 " fill="none" id="AuthService-to-Service" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="652.96,1164.0658,671.26,1174.7458,650.3,1177.8058,652.96,1164.0658" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d936dfffce9d980fb0d0c3a4002f83c2]
+link UserService to Service--><path codeLine="273" d="M597.81,1101.6658 C621.39,1118.0358 647.05,1135.8458 668.33,1150.6158 " fill="none" id="UserService-to-Service" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="672.59,1145.0558,685.03,1162.2158,664.61,1156.5558,672.59,1145.0558" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[c5466c0cd08dd700d19ed1516938e3ed]
+link FollowService to Service--><path codeLine="274" d="M1106.19,1096.9758 C1100.06,1098.5358 1093.98,1100.0458 1088,1101.5158 C979.81,1128.0458 852.92,1154.8658 778.51,1170.1658 " fill="none" id="FollowService-to-Service" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="779.52,1177.0958,758.52,1174.2558,776.71,1163.3858,779.52,1177.0958" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[5a66b227ec909c4f3a5f00ddb2bcb657]
+link StatusService to Service--><path codeLine="275" d="M843,1094.1658 C816.62,1112.4758 786.12,1133.6458 761.51,1150.7258 " fill="none" id="StatusService-to-Service" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="none" points="765.2,1156.6958,744.78,1162.3458,757.22,1145.1958,765.2,1156.6958" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[4e5a009d1bfb1bf3f2a0268d8be1a9f1]
+link AuthPresenter to AuthService--><path codeLine="281" d="M2004.64,407.1558 C1986.36,413.3758 1967.36,418.8558 1949,422.5158 C1848.27,442.6158 1109.55,394.1858 1025,452.5158 C897.75,540.3058 1004.53,668.5758 891,773.5158 C700.37,949.7258 573.07,849.7458 336,955.5158 C308.18,967.9258 279,983.7158 253.05,998.8458 " fill="none" id="AuthPresenter-to-AuthService" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="248.58,1001.4558,258.3673,1000.356,252.8937,998.9276,254.3221,993.4541,248.58,1001.4558" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="909" y="769.4129">uses</text><!--MD5=[0770f13004273b2da014edd7dbdaab47]
+link UserServicePresenter to UserService--><path codeLine="282" d="M2856.31,374.2958 C2713.33,388.5258 2479.88,410.3258 2278,422.5158 C2179.46,428.4658 1483.42,420.5858 1390,452.5158 C1159.24,531.3858 1145.57,634.7958 945,773.5158 C828.82,853.8658 691.99,943.6458 607.36,998.6158 " fill="none" id="UserServicePresenter-to-UserService" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="603.12,1001.3658,612.85,999.8404,607.3194,998.652,608.5078,993.1213,603.12,1001.3658" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="973" y="769.4129">uses</text><!--MD5=[de09a3d0844fdc17584c1e9b50f1ad00]
+link UserInfoPresenter to FollowService--><path codeLine="283" d="M2923.57,682.0758 C2904.21,698.3858 2882.03,714.0758 2859,724.5158 C2790.22,755.7058 1587.04,905.8558 1515,928.5158 C1459.75,945.8958 1401.5,974.1258 1355.46,999.0558 " fill="none" id="UserInfoPresenter-to-FollowService" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1351.04,1001.4658,1360.8574,1000.679,1355.4322,999.0766,1357.0346,993.6514,1351.04,1001.4658" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="2357" y="856.4129">uses</text><!--MD5=[33fee3a8e0c63b278fc562bd3f18c0db]
+link PostStatusPresenter to StatusService--><path codeLine="284" d="M1728.89,364.2858 C1510.35,373.3958 1009.17,399.8558 954,452.5158 C800.64,598.9058 858.85,890.3758 889.19,1003.8158 " fill="none" id="PostStatusPresenter-to-StatusService" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="890.53,1008.7558,892.0259,999.0213,889.2168,1003.9314,884.3067,1001.1223,890.53,1008.7558" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="27" x="855" y="769.4129">uses</text><!--MD5=[0586f7ebc7c48e109f548334f05e3379]
+link StatusItemPresenter to StatusService--><path codeLine="285" d="M2456.83,857.1258 C2240.43,867.4558 1747.55,892.9258 1334,928.5158 C1224.86,937.9058 1193.94,924.0858 1089,955.5158 C1049.27,967.4158 1007.92,987.6358 974.32,1006.3758 " fill="none" id="StatusItemPresenter-to-StatusService" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="969.85,1008.8958,979.6578,1007.9972,974.2147,1006.4567,975.7552,1001.0137,969.85,1008.8958" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="1335" y="943.4129">instantiates via serviceFactory</text><!--MD5=[9ac7735868553d6b4d85e79c2ad931a5]
+link UserItemPresenter to FollowService--><path codeLine="286" d="M2745.38,898.5858 C2729.72,905.4558 2713.18,911.5458 2697,915.5158 C2432.04,980.4958 1735.24,891.7058 1470,955.5158 C1431.42,964.7958 1391.38,981.8558 1357.22,998.9858 " fill="none" id="UserItemPresenter-to-FollowService" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1352.66,1001.2858,1362.4963,1000.7883,1357.1206,999.0269,1358.882,993.6513,1352.66,1001.2858" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="2606" y="943.4129">instantiates via serviceFactory</text><!--MD5=[e5bf4898989937a2bc071cfbbb5bd481]
+link Login to LoginPresenter--><path codeLine="289" d="M4501.94,400.0758 C4484.09,409.0958 4464.32,417.4958 4445,422.5158 C4276.47,466.3058 3835.86,442.9558 3662,452.5158 C3544.1,458.9958 3514.84,464.0058 3397,471.5158 C3277.5,479.1358 2974.14,468.6358 2859,501.5158 C2798.92,518.6658 2736.9,556.0658 2697.71,582.5958 " fill="none" id="Login-to-LoginPresenter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="2693.52,585.4558,2703.2096,583.6918,2697.6514,582.6396,2698.7036,577.0815,2693.52,585.4558" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="84" x="3663" y="467.4129">creates &amp; calls</text><!--MD5=[4c6adc8a79e0ec46d9a64cd81cbe7090]
+link Register to RegisterPresenter--><path codeLine="290" d="M4716.4,400.1558 C4701.03,409.0558 4683.93,417.3758 4667,422.5158 C4560.48,454.8358 4278.05,444.9258 4167,452.5158 C4024.91,462.2258 3664.61,461.2758 3528,501.5158 C3478.62,516.0658 3427.7,543.6258 3389.09,567.5858 " fill="none" id="Register-to-RegisterPresenter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="3384.44,570.4858,3394.1886,569.0842,3388.6736,567.8256,3389.9322,562.3105,3384.44,570.4858" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="84" x="4168" y="467.4129">creates &amp; calls</text><!--MD5=[e73cde81067d86d8b67dc0d1ae3ac2a2]
+link AppNavbar to AppNavbarPresenter--><path codeLine="291" d="M4756,184.1558 C4737.02,197.0858 4714.52,210.0258 4692,217.5158 C4232.79,370.2458 4083.08,215.3058 3606,296.5158 C3394.92,332.4458 3351.28,382.1358 3141,422.5158 C2840.04,480.3058 2741.71,390.6458 2456,501.5158 C2409.08,519.7258 2363.38,555.8658 2334.33,581.8558 " fill="none" id="AppNavbar-to-AppNavbarPresenter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="2330.52,585.2958,2339.879,582.2285,2334.2294,581.9431,2334.5147,576.2935,2330.52,585.2958" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="84" x="3607" y="364.9129">creates &amp; calls</text><!--MD5=[e67fb97edd3721f97a7f3a7d3233f52f]
+link PostStatus to PostStatusPresenter--><path codeLine="292" d="M4521.06,184.1958 C4498.29,197.3758 4471.39,210.4858 4445,217.5158 C4317.63,251.4658 3390.76,243.3858 3259,247.5158 C2676.66,265.7758 2512.22,147.3758 1949,296.5158 C1935.96,299.9658 1922.74,305.0258 1910.07,310.7958 " fill="none" id="PostStatus-to-PostStatusPresenter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1905.44,312.9458,1915.2872,312.7629,1909.9706,310.8306,1911.9028,305.514,1905.44,312.9458" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="84" x="3260" y="262.4129">creates &amp; calls</text><!--MD5=[9b2e4c9e1c9c2661259bb410327e0993]
+link UserInfoComponent to UserInfoPresenter--><path codeLine="293" d="M5151.72,184.0958 C5134.03,196.8558 5113.09,209.7058 5092,217.5158 C4943.13,272.6558 4539.12,273.8458 4382,296.5158 C3941.93,360.0258 3837.15,408.5658 3397,471.5158 C3274.85,488.9858 3234.43,452.9558 3121,501.5158 C3099.13,510.8758 3078.14,525.1658 3059.62,540.3958 " fill="none" id="UserInfoComponent-to-UserInfoPresenter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="3055.46,543.8658,3064.9357,541.1805,3059.3023,540.6663,3059.8165,535.0329,3055.46,543.8658" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="84" x="4383" y="364.9129">creates &amp; calls</text><!--MD5=[393d647efdc5de4842f6695a8d686274]
+link ItemScroller to PagedItemPresenter--><path codeLine="294" d="M4937.05,400.0858 C4918.68,408.8758 4898.53,417.1658 4879,422.5158 C4778.13,450.1658 4041.31,471.8858 3941,501.5158 C3936.62,502.8058 3932.24,504.1958 3927.84,505.6758 " fill="none" id="ItemScroller-to-PagedItemPresenter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="3923.08,507.3158,3932.8897,508.1936,3927.8119,505.7004,3930.305,500.6226,3923.08,507.3158" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="25" x="4535" y="467.4129">calls</text><!--MD5=[55e77551542f3c6ad082886a7310c3c1]
+link useNavigateToUser to NavigateToUserPresenter--><path codeLine="295" d="M5191.08,400.1258 C5173.26,408.7458 5153.82,416.9458 5135,422.5158 C4849.17,507.0858 4757.8,427.7458 4469,501.5158 C4398.95,519.4058 4322.95,550.9458 4268.64,575.7658 " fill="none" id="useNavigateToUser-to-NavigateToUserPresenter" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="4263.78,577.9958,4273.6281,577.8758,4268.324,575.9096,4270.2902,570.6055,4263.78,577.9958" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="84" x="4998" y="467.4129">creates &amp; calls</text><!--MD5=[94ac34da17b748a109eb6ac0e62bba58]
+reverse link Presenter to View--><path codeLine="298" d="M1810.06,224.2858 C1610.24,338.8558 1302.8,554.8758 1468,724.5158 C1525.71,783.7858 4362.36,799.7158 4445,803.5158 C4649.07,812.9058 4885.77,829.5658 5027.79,840.1858 " fill="none" id="Presenter-backto-View" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1821.57,217.7258,1814.3765,217.2228,1811.1454,223.6696,1818.3389,224.1726,1821.57,217.7258" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="108" x="1501" y="467.4129">holds reference to</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="1801.3015" y="239.2836">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="5012.8249" y="835.9371">1</text><!--MD5=[b3eff307cc8d042e844fbf70a827f955]
+@startuml TweeterClassDiagram
+
+title Tweeter MVP — Class Diagram
+
+skinparam packageStyle rectangle
+skinparam groupInheritance 2
+hide empty members
+
+' ============================================================
+' LAYER PACKAGES (colour-coded)
+' ============================================================
+package "View Layer (React Components)" #E8F5E9 {
+
+  ' - - - - View Interfaces (defined in presenter files, kept here for readability) - - - -
+  interface View <<interface>> {
+    +displayErrorMessage(message: String): void
+    +navigateTo(url: String): void
+  }
+
+  interface MessageView <<interface>> {
+    +displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): String
+    +deleteMessage(messageId: String): void
+  }
+
+  interface AuthView <<interface>> {
+    +setIsLoading(value: Boolean): void
+    +updateUserInfo(user: User, authToken: AuthToken, rememberMe: Boolean): void
+  }
+
+  interface LogoutView <<interface>> {
+    +clearUserInfo(): void
+  }
+
+  interface AppNavbarView <<interface>> {
+    +clearUserInfo(): void
+  }
+
+  interface PostStatusView <<interface>> {
+    +setIsLoading(value: Boolean): void
+    +clearPost(): void
+  }
+
+  interface UserInfoView <<interface>> {
+    +setIsFollower(value: Boolean): void
+    +setFolloweeCount(count: int): void
+    +setFollowerCount(count: int): void
+    +setIsLoading(value: Boolean): void
+    +setDisplayedUser(user: User): void
+  }
+
+  interface NavigateToUserView <<interface>> {
+    +setDisplayedUser(user: User): void
+  }
+ 
+  interface OAuthView <<interface>> {
+    +displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): void
+  }
+
+  interface PagedItemView <<interface>> {
+    +addItems(items: T[]): void
+  }
+
+  ' - - - - Concrete React Components / Hooks - - - -
+  class Login <<React Component>> {
+    -listener: AuthView
+    -presenter: LoginPresenter
+  }
+
+  class Register <<React Component>> {
+    -listener: AuthView
+    -presenter: RegisterPresenter
+  }
+
+  class AppNavbar <<React Component>> {
+    -listener: AppNavbarView
+    -presenter: AppNavbarPresenter
+  }
+
+  class PostStatus <<React Component>> {
+    -listener: PostStatusView
+    -presenter: PostStatusPresenter
+  }
+
+  class UserInfoComponent <<React Component>> {
+    -listener: UserInfoView
+    -presenter: UserInfoPresenter
+  }
+
+  class ItemScroller <<React Component>> {
+    -listener: PagedItemView<T>
+    -presenter: PagedItemPresenter<T,U>
+  }
+
+  class StatusItemScroller <<React Component>>
+  class UserItemScroller <<React Component>>
+
+  class useNavigateToUser <<React Hook>> {
+    -listener: NavigateToUserView
+    -presenter: NavigateToUserPresenter
+  }
+
+  ' inheritance of view interfaces
+  MessageView  - -|>  View
+  AuthView     - -|>  View
+  LogoutView   - -|>  MessageView
+  AppNavbarView - -|> MessageView
+  PostStatusView - -|> MessageView
+  UserInfoView - -|> MessageView
+  NavigateToUserView - -|> View
+  OAuthView    - -|>  View
+  PagedItemView - -|> View
+
+  ' components implement view interfaces via inline listener objects
+  Login           ..|>  AuthView
+  Register        ..|>  AuthView
+  AppNavbar       ..|>  AppNavbarView
+  PostStatus      ..|>  PostStatusView
+  UserInfoComponent ..|> UserInfoView
+  ItemScroller    ..|>  PagedItemView
+  useNavigateToUser ..|> NavigateToUserView
+
+  StatusItemScroller - -> ItemScroller : uses
+  UserItemScroller   - -> ItemScroller : uses
+}
+
+' ============================================================
+package "Presenter Layer" #E3F2FD {
+
+  ' - - - - Base Presenter - - - -
+  abstract class Presenter<V extends View> {
+    -view: V
+    #doFailureReportingOperation(desc: String, op: ()=>Promise<void>): Promise<void>
+    #doLoadingOperation(view, desc: String, op: ()=>Promise<void>): Promise<void>
+    #doLoadingOperationWithToast(view, toast: String, desc: String, op: ()=>Promise<void>): Promise<void>
+  }
+  note right of Presenter
+    Re-exports Service interface
+    so View layer can depend only
+    on the Presenter layer
+  end note
+
+  ' - - - - Auth branch - - - -
+  abstract class AuthPresenter<V extends View = AuthView> {
+    -authService: AuthService
+  }
+
+  class LoginPresenter {
+    +login(alias, password, rememberMe, originalUrl?): Promise<void>
+  }
+
+  class RegisterPresenter {
+    +processImageFile(file?): Promise<ImageFileProcessingResult|null>
+    +isRegisterFormValid(...): Boolean
+    +register(...): Promise<void>
+  }
+
+  class LogoutPresenter {
+    +logout(authToken: AuthToken): Promise<void>
+  }
+
+  class AppNavbarPresenter {
+    +logout(authToken: AuthToken): Promise<void>
+  }
+
+  class OAuthPresenter {
+    +handleOAuthClick(provider: OAuthProvider): Promise<void>
+    +getProviders(): OAuthProvider[]
+  }
+
+  ' - - - - UserService branch - - - -
+  abstract class UserServicePresenter<V extends View> {
+    -userService: UserService
+  }
+
+  class NavigateToUserPresenter {
+    +navigateToUser(eventTarget, authToken, displayedUser, featurePath): Promise<void>
+    +extractAlias(value: String): String
+  }
+
+  class UserInfoPresenter {
+    -followService: FollowService
+    +loadFollowerStatus(...): Promise<void>
+    +loadFolloweeCount(...): Promise<void>
+    +loadFollowerCount(...): Promise<void>
+    +follow(...): Promise<void>
+    +unfollow(...): Promise<void>
+  }
+
+  ' - - - - Paged item branch - - - -
+  abstract class PagedItemPresenter<T, U extends Service> {
+    -service: U
+    -hasMoreItems: Boolean
+    -lastItem: T|null
+    +loadMoreItems(authToken, userAlias): Promise<void>
+    +getUser(authToken, alias): Promise<User|null>
+    +reset(): void
+    #{abstract} serviceFactory(): U
+    #{abstract} itemDescription(): String
+    #{abstract} retrieveMoreItems(authToken, userAlias): Promise<[T[], Boolean]>
+  }
+
+  abstract class StatusItemPresenter {
+    #serviceFactory(): StatusService
+  }
+
+  abstract class UserItemPresenter {
+    #serviceFactory(): FollowService
+  }
+
+  class FeedPresenter
+  class StoryPresenter
+  class FolloweePresenter
+  class FollowerPresenter
+
+  class PostStatusPresenter {
+    -statusService: StatusService
+    +isPostButtonDisabled(...): Boolean
+    +submitPost(...): Promise<void>
+  }
+
+  ' - - - - Inheritance - - - -
+  Presenter           <|- -  AuthPresenter
+  Presenter           <|- -  UserServicePresenter
+  AuthPresenter       <|- -  LoginPresenter
+  AuthPresenter       <|- -  RegisterPresenter
+  AuthPresenter       <|- -  LogoutPresenter
+  AuthPresenter       <|- -  AppNavbarPresenter
+  AuthPresenter       <|- -  OAuthPresenter
+  Presenter           <|- -  PostStatusPresenter
+  UserServicePresenter <|- - NavigateToUserPresenter
+  UserServicePresenter <|- - UserInfoPresenter
+  UserServicePresenter <|- - PagedItemPresenter
+  PagedItemPresenter  <|- -  StatusItemPresenter
+  PagedItemPresenter  <|- -  UserItemPresenter
+  StatusItemPresenter <|- -  FeedPresenter
+  StatusItemPresenter <|- -  StoryPresenter
+  UserItemPresenter   <|- -  FolloweePresenter
+  UserItemPresenter   <|- -  FollowerPresenter
+}
+
+' ============================================================
+package "Model Layer (Services)" #FFF8E1 {
+
+  interface Service <<interface>>
+
+  class AuthService {
+    +login(alias, password): Promise<[User, AuthToken]>
+    +register(...): Promise<[User, AuthToken]>
+    +logout(authToken): Promise<void>
+    +oauthLogin(providerName): Promise<Boolean>
+  }
+
+  class UserService {
+    +getUser(authToken, alias): Promise<User|null>
+    +isFollower(authToken, user, selectedUser): Promise<Boolean>
+    +getFolloweeCount(authToken, user): Promise<int>
+    +getFollowerCount(authToken, user): Promise<int>
+  }
+
+  class FollowService {
+    +retrievePageOfFollowers(...): Promise<[User[], Boolean]>
+    +retrievePageOfFollowees(...): Promise<[User[], Boolean]>
+    +follow(authToken, userToFollow): Promise<void>
+    +unfollow(authToken, userToUnfollow): Promise<void>
+  }
+
+  class StatusService {
+    +retrievePageOfFeedItems(...): Promise<[Status[], Boolean]>
+    +retrievePageOfStoryItems(...): Promise<[Status[], Boolean]>
+    +postStatus(authToken, status): Promise<void>
+  }
+
+  AuthService  ..|>  Service
+  UserService  ..|>  Service
+  FollowService ..|> Service
+  StatusService ..|> Service
+}
+
+' ============================================================
+' Cross-layer dependencies (Presenter → Model)
+' ============================================================
+AuthPresenter       - -> AuthService    : uses
+UserServicePresenter - -> UserService   : uses
+UserInfoPresenter   - -> FollowService  : uses
+PostStatusPresenter - -> StatusService  : uses
+StatusItemPresenter - -> StatusService  : instantiates via serviceFactory
+UserItemPresenter   - -> FollowService  : instantiates via serviceFactory
+
+' Cross-layer dependencies (View → Presenter)
+Login              - -> LoginPresenter    : creates & calls
+Register           - -> RegisterPresenter : creates & calls
+AppNavbar          - -> AppNavbarPresenter : creates & calls
+PostStatus         - -> PostStatusPresenter : creates & calls
+UserInfoComponent  - -> UserInfoPresenter  : creates & calls
+ItemScroller       - -> PagedItemPresenter : calls
+useNavigateToUser  - -> NavigateToUserPresenter : creates & calls
+
+' Presenter holds View reference (callback channel)
+Presenter "1" *- - "1" View : holds reference to
+
+@enduml
+
+@startuml TweeterClassDiagram
+
+title Tweeter MVP — Class Diagram
+
+skinparam packageStyle rectangle
+skinparam groupInheritance 2
+hide empty members
+
+package "View Layer (React Components)" #E8F5E9 {
+
+  interface View <<interface>> {
+    +displayErrorMessage(message: String): void
+    +navigateTo(url: String): void
+  }
+
+  interface MessageView <<interface>> {
+    +displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): String
+    +deleteMessage(messageId: String): void
+  }
+
+  interface AuthView <<interface>> {
+    +setIsLoading(value: Boolean): void
+    +updateUserInfo(user: User, authToken: AuthToken, rememberMe: Boolean): void
+  }
+
+  interface LogoutView <<interface>> {
+    +clearUserInfo(): void
+  }
+
+  interface AppNavbarView <<interface>> {
+    +clearUserInfo(): void
+  }
+
+  interface PostStatusView <<interface>> {
+    +setIsLoading(value: Boolean): void
+    +clearPost(): void
+  }
+
+  interface UserInfoView <<interface>> {
+    +setIsFollower(value: Boolean): void
+    +setFolloweeCount(count: int): void
+    +setFollowerCount(count: int): void
+    +setIsLoading(value: Boolean): void
+    +setDisplayedUser(user: User): void
+  }
+
+  interface NavigateToUserView <<interface>> {
+    +setDisplayedUser(user: User): void
+  }
+ 
+  interface OAuthView <<interface>> {
+    +displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): void
+  }
+
+  interface PagedItemView <<interface>> {
+    +addItems(items: T[]): void
+  }
+
+  class Login <<React Component>> {
+    -listener: AuthView
+    -presenter: LoginPresenter
+  }
+
+  class Register <<React Component>> {
+    -listener: AuthView
+    -presenter: RegisterPresenter
+  }
+
+  class AppNavbar <<React Component>> {
+    -listener: AppNavbarView
+    -presenter: AppNavbarPresenter
+  }
+
+  class PostStatus <<React Component>> {
+    -listener: PostStatusView
+    -presenter: PostStatusPresenter
+  }
+
+  class UserInfoComponent <<React Component>> {
+    -listener: UserInfoView
+    -presenter: UserInfoPresenter
+  }
+
+  class ItemScroller <<React Component>> {
+    -listener: PagedItemView<T>
+    -presenter: PagedItemPresenter<T,U>
+  }
+
+  class StatusItemScroller <<React Component>>
+  class UserItemScroller <<React Component>>
+
+  class useNavigateToUser <<React Hook>> {
+    -listener: NavigateToUserView
+    -presenter: NavigateToUserPresenter
+  }
+
+  MessageView  - -|>  View
+  AuthView     - -|>  View
+  LogoutView   - -|>  MessageView
+  AppNavbarView - -|> MessageView
+  PostStatusView - -|> MessageView
+  UserInfoView - -|> MessageView
+  NavigateToUserView - -|> View
+  OAuthView    - -|>  View
+  PagedItemView - -|> View
+
+  Login           ..|>  AuthView
+  Register        ..|>  AuthView
+  AppNavbar       ..|>  AppNavbarView
+  PostStatus      ..|>  PostStatusView
+  UserInfoComponent ..|> UserInfoView
+  ItemScroller    ..|>  PagedItemView
+  useNavigateToUser ..|> NavigateToUserView
+
+  StatusItemScroller - -> ItemScroller : uses
+  UserItemScroller   - -> ItemScroller : uses
+}
+
+package "Presenter Layer" #E3F2FD {
+
+  abstract class Presenter<V extends View> {
+    -view: V
+    #doFailureReportingOperation(desc: String, op: ()=>Promise<void>): Promise<void>
+    #doLoadingOperation(view, desc: String, op: ()=>Promise<void>): Promise<void>
+    #doLoadingOperationWithToast(view, toast: String, desc: String, op: ()=>Promise<void>): Promise<void>
+  }
+  note right of Presenter
+    Re-exports Service interface
+    so View layer can depend only
+    on the Presenter layer
+  end note
+
+  abstract class AuthPresenter<V extends View = AuthView> {
+    -authService: AuthService
+  }
+
+  class LoginPresenter {
+    +login(alias, password, rememberMe, originalUrl?): Promise<void>
+  }
+
+  class RegisterPresenter {
+    +processImageFile(file?): Promise<ImageFileProcessingResult|null>
+    +isRegisterFormValid(...): Boolean
+    +register(...): Promise<void>
+  }
+
+  class LogoutPresenter {
+    +logout(authToken: AuthToken): Promise<void>
+  }
+
+  class AppNavbarPresenter {
+    +logout(authToken: AuthToken): Promise<void>
+  }
+
+  class OAuthPresenter {
+    +handleOAuthClick(provider: OAuthProvider): Promise<void>
+    +getProviders(): OAuthProvider[]
+  }
+
+  abstract class UserServicePresenter<V extends View> {
+    -userService: UserService
+  }
+
+  class NavigateToUserPresenter {
+    +navigateToUser(eventTarget, authToken, displayedUser, featurePath): Promise<void>
+    +extractAlias(value: String): String
+  }
+
+  class UserInfoPresenter {
+    -followService: FollowService
+    +loadFollowerStatus(...): Promise<void>
+    +loadFolloweeCount(...): Promise<void>
+    +loadFollowerCount(...): Promise<void>
+    +follow(...): Promise<void>
+    +unfollow(...): Promise<void>
+  }
+
+  abstract class PagedItemPresenter<T, U extends Service> {
+    -service: U
+    -hasMoreItems: Boolean
+    -lastItem: T|null
+    +loadMoreItems(authToken, userAlias): Promise<void>
+    +getUser(authToken, alias): Promise<User|null>
+    +reset(): void
+    #{abstract} serviceFactory(): U
+    #{abstract} itemDescription(): String
+    #{abstract} retrieveMoreItems(authToken, userAlias): Promise<[T[], Boolean]>
+  }
+
+  abstract class StatusItemPresenter {
+    #serviceFactory(): StatusService
+  }
+
+  abstract class UserItemPresenter {
+    #serviceFactory(): FollowService
+  }
+
+  class FeedPresenter
+  class StoryPresenter
+  class FolloweePresenter
+  class FollowerPresenter
+
+  class PostStatusPresenter {
+    -statusService: StatusService
+    +isPostButtonDisabled(...): Boolean
+    +submitPost(...): Promise<void>
+  }
+
+  Presenter           <|- -  AuthPresenter
+  Presenter           <|- -  UserServicePresenter
+  AuthPresenter       <|- -  LoginPresenter
+  AuthPresenter       <|- -  RegisterPresenter
+  AuthPresenter       <|- -  LogoutPresenter
+  AuthPresenter       <|- -  AppNavbarPresenter
+  AuthPresenter       <|- -  OAuthPresenter
+  Presenter           <|- -  PostStatusPresenter
+  UserServicePresenter <|- - NavigateToUserPresenter
+  UserServicePresenter <|- - UserInfoPresenter
+  UserServicePresenter <|- - PagedItemPresenter
+  PagedItemPresenter  <|- -  StatusItemPresenter
+  PagedItemPresenter  <|- -  UserItemPresenter
+  StatusItemPresenter <|- -  FeedPresenter
+  StatusItemPresenter <|- -  StoryPresenter
+  UserItemPresenter   <|- -  FolloweePresenter
+  UserItemPresenter   <|- -  FollowerPresenter
+}
+
+package "Model Layer (Services)" #FFF8E1 {
+
+  interface Service <<interface>>
+
+  class AuthService {
+    +login(alias, password): Promise<[User, AuthToken]>
+    +register(...): Promise<[User, AuthToken]>
+    +logout(authToken): Promise<void>
+    +oauthLogin(providerName): Promise<Boolean>
+  }
+
+  class UserService {
+    +getUser(authToken, alias): Promise<User|null>
+    +isFollower(authToken, user, selectedUser): Promise<Boolean>
+    +getFolloweeCount(authToken, user): Promise<int>
+    +getFollowerCount(authToken, user): Promise<int>
+  }
+
+  class FollowService {
+    +retrievePageOfFollowers(...): Promise<[User[], Boolean]>
+    +retrievePageOfFollowees(...): Promise<[User[], Boolean]>
+    +follow(authToken, userToFollow): Promise<void>
+    +unfollow(authToken, userToUnfollow): Promise<void>
+  }
+
+  class StatusService {
+    +retrievePageOfFeedItems(...): Promise<[Status[], Boolean]>
+    +retrievePageOfStoryItems(...): Promise<[Status[], Boolean]>
+    +postStatus(authToken, status): Promise<void>
+  }
+
+  AuthService  ..|>  Service
+  UserService  ..|>  Service
+  FollowService ..|> Service
+  StatusService ..|> Service
+}
+
+AuthPresenter       - -> AuthService    : uses
+UserServicePresenter - -> UserService   : uses
+UserInfoPresenter   - -> FollowService  : uses
+PostStatusPresenter - -> StatusService  : uses
+StatusItemPresenter - -> StatusService  : instantiates via serviceFactory
+UserItemPresenter   - -> FollowService  : instantiates via serviceFactory
+
+Login              - -> LoginPresenter    : creates & calls
+Register           - -> RegisterPresenter : creates & calls
+AppNavbar          - -> AppNavbarPresenter : creates & calls
+PostStatus         - -> PostStatusPresenter : creates & calls
+UserInfoComponent  - -> UserInfoPresenter  : creates & calls
+ItemScroller       - -> PagedItemPresenter : calls
+useNavigateToUser  - -> NavigateToUserPresenter : creates & calls
+
+Presenter "1" *- - "1" View : holds reference to
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 03:25:05 MST 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

@@ -1,0 +1,66 @@
+@startuml TweeterSequenceDiagram
+
+title Tweeter MVP — Sequence Diagram: "Post a Status"
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "User" as U
+
+box "View Layer" #E8F5E9
+  participant "PostStatus\n(React Component)" as PS
+end box
+
+box "Presenter Layer" #E3F2FD
+  participant "PostStatusPresenter" as PSP
+end box
+
+box "Model Layer" #FFF8E1
+  participant "StatusService" as SS
+end box
+
+' ---- Initial render ----
+U -> PS : opens page
+PS -> PSP : new PostStatusPresenter(listener)
+note right of PS
+  PostStatus creates a PostStatusView
+  object (listener) from its own state
+  setters, then passes it to the presenter.
+end note
+
+' ---- User types ----
+U -> PS : types text in textarea
+PS -> PS : setPost(newText)
+PS -> PSP : isPostButtonDisabled(post, authToken, currentUser)
+PSP --> PS : false  [button becomes enabled]
+
+' ---- User submits ----
+U -> PS : clicks "Post Status"
+PS -> PSP : submitPost(post, authToken, currentUser)
+
+activate PSP
+PSP -> PSP : doLoadingOperationWithToast(\n  view, "Posting status...", "post the status", λ)
+PSP -> PS : listener.setIsLoading(true)
+PS -> PS : setIsLoading(true)  [spinner shown]
+PSP -> PS : listener.displayInfoMessage("Posting status...", 0)
+PS --> PSP : toastId
+
+PSP -> SS : postStatus(authToken, new Status(post, currentUser, now))
+activate SS
+SS --> PSP : void [or throws]
+deactivate SS
+
+alt success
+  PSP -> PS : listener.clearPost()
+  PS -> PS : setPost("")
+  PSP -> PS : listener.displayInfoMessage("Status posted!", 2000)
+else failure (exception thrown)
+  PSP -> PS : listener.displayErrorMessage("Failed operation ... <error message>")
+end
+
+PSP -> PS : listener.deleteMessage(toastId)
+PSP -> PS : listener.setIsLoading(false)
+PS -> PS : setIsLoading(false)  [spinner hidden]
+deactivate PSP
+
+@enduml

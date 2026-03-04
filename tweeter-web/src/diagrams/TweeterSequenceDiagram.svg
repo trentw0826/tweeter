@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1152px" preserveAspectRatio="none" style="width:1053px;height:1152px;" version="1.1" viewBox="0 0 1053 1152" width="1053px" zoomAndPan="magnify"><defs><filter height="300%" id="fhma7a70e2w7g" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="435" x="306.75" y="31.2419">Tweeter MVP — Sequence Diagram: "Post a Status"</text><rect fill="#E8F5E9" height="1102.1802" style="stroke:#A80036;stroke-width:1.0;" width="153" x="98" y="44.5158"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="70" x="139.5" y="58.4129">View Layer</text><rect fill="#E3F2FD" height="1102.1802" style="stroke:#A80036;stroke-width:1.0;" width="161" x="525" y="44.5158"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="104" x="553.5" y="58.4129">Presenter Layer</text><rect fill="#FFF8E1" height="1102.1802" style="stroke:#A80036;stroke-width:1.0;" width="116" x="931.5" y="44.5158"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="79" x="950" y="58.4129">Model Layer</text><rect fill="#FFFFFF" filter="url(#fhma7a70e2w7g)" height="557.2782" style="stroke:#A80036;stroke-width:1.0;" width="10" x="600.5" y="475.3499"/><rect fill="#FFFFFF" filter="url(#fhma7a70e2w7g)" height="12" style="stroke:#A80036;stroke-width:1.0;" width="10" x="984.5" y="709.2921"/><rect fill="#FFFFFF" filter="url(#fhma7a70e2w7g)" height="176.512" style="stroke:#000000;stroke-width:2.0;" width="600" x="92" y="755.9981"/><rect fill="#FFFFFF" height="48.6879" style="stroke:none;stroke-width:1.0;" width="600" x="92" y="883.8221"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="23" x2="23" y1="129.5838" y2="1057.6281"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="174" x2="174" y1="129.5838" y2="1057.6281"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="605" x2="605" y1="129.5838" y2="1057.6281"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="989.5" x2="989.5" y1="129.5838" y2="1057.6281"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="5" y="125.4818">User</text><ellipse cx="23.5" cy="53.5158" fill="#FEFECE" filter="url(#fhma7a70e2w7g)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M23.5,61.5158 L23.5,88.5158 M10.5,69.5158 L36.5,69.5158 M23.5,88.5158 L10.5,103.5158 M23.5,88.5158 L36.5,103.5158 " fill="none" filter="url(#fhma7a70e2w7g)" style="stroke:#A80036;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="5" y="1071.594">User</text><ellipse cx="23.5" cy="1085.696" fill="#FEFECE" filter="url(#fhma7a70e2w7g)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M23.5,1093.696 L23.5,1120.696 M10.5,1101.696 L36.5,1101.696 M23.5,1120.696 L10.5,1135.696 M23.5,1120.696 L36.5,1135.696 " fill="none" filter="url(#fhma7a70e2w7g)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#fhma7a70e2w7g)" height="52.1358" style="stroke:#A80036;stroke-width:1.5;" width="141" x="102" y="72.4479"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="137.5" y="94.4139">PostStatus</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="109" y="113.4818">(React Component)</text><rect fill="#FEFECE" filter="url(#fhma7a70e2w7g)" height="52.1358" style="stroke:#A80036;stroke-width:1.5;" width="141" x="102" y="1056.6281"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="137.5" y="1078.594">PostStatus</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="109" y="1097.6619">(React Component)</text><rect fill="#FEFECE" filter="url(#fhma7a70e2w7g)" height="33.0679" style="stroke:#A80036;stroke-width:1.5;" width="149" x="529" y="91.5158"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135" x="536" y="113.4818">PostStatusPresenter</text><rect fill="#FEFECE" filter="url(#fhma7a70e2w7g)" height="33.0679" style="stroke:#A80036;stroke-width:1.5;" width="149" x="529" y="1056.6281"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135" x="536" y="1078.594">PostStatusPresenter</text><rect fill="#FEFECE" filter="url(#fhma7a70e2w7g)" height="33.0679" style="stroke:#A80036;stroke-width:1.5;" width="104" x="935.5" y="91.5158"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90" x="942.5" y="113.4818">StatusService</text><rect fill="#FEFECE" filter="url(#fhma7a70e2w7g)" height="33.0679" style="stroke:#A80036;stroke-width:1.5;" width="104" x="935.5" y="1056.6281"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90" x="942.5" y="1078.594">StatusService</text><rect fill="#FFFFFF" filter="url(#fhma7a70e2w7g)" height="557.2782" style="stroke:#A80036;stroke-width:1.0;" width="10" x="600.5" y="475.3499"/><rect fill="#FFFFFF" filter="url(#fhma7a70e2w7g)" height="12" style="stroke:#A80036;stroke-width:1.0;" width="10" x="984.5" y="709.2921"/><polygon fill="#A80036" points="162.5,159.2898,172.5,163.2898,162.5,167.2898,166.5,163.2898" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="23.5" x2="168.5" y1="163.2898" y2="163.2898"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="64" y="157.4808">opens page</text><polygon fill="#A80036" points="593.5,190.9958,603.5,194.9958,593.5,198.9958,597.5,194.9958" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="174.5" x2="599.5" y1="194.9958" y2="194.9958"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="203" x="288.5" y="189.1868">new PostStatusPresenter(listener)</text><path d="M179,207.9958 L179,270.9958 L432,270.9958 L432,217.9958 L422,207.9958 L179,207.9958 " fill="#FBFB77" filter="url(#fhma7a70e2w7g)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M422,207.9958 L422,217.9958 L432,217.9958 L422,207.9958 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="217" x="185" y="226.8928">PostStatus creates a PostStatusView</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="203" x="185" y="244.5988">object (listener) from its own state</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="232" x="185" y="262.3048">setters, then passes it to the presenter.</text><polygon fill="#A80036" points="162.5,299.8199,172.5,303.8199,162.5,307.8199,166.5,303.8199" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="23.5" x2="168.5" y1="303.8199" y2="303.8199"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="127" x="35.5" y="298.0109">types text in textarea</text><line style="stroke:#A80036;stroke-width:1.0;" x1="174.5" x2="216.5" y1="335.5259" y2="335.5259"/><line style="stroke:#A80036;stroke-width:1.0;" x1="216.5" x2="216.5" y1="335.5259" y2="348.5259"/><line style="stroke:#A80036;stroke-width:1.0;" x1="175.5" x2="216.5" y1="348.5259" y2="348.5259"/><polygon fill="#A80036" points="185.5,344.5259,175.5,348.5259,185.5,352.5259,181.5,348.5259" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="104" x="181.5" y="329.7169">setPost(newText)</text><polygon fill="#A80036" points="593.5,376.2319,603.5,380.2319,593.5,384.2319,597.5,380.2319" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="174.5" x2="599.5" y1="380.2319" y2="380.2319"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="313" x="233.5" y="374.4229">isPostButtonDisabled(post, authToken, currentUser)</text><polygon fill="#A80036" points="185.5,388.2319,175.5,392.2319,185.5,396.2319,181.5,392.2319" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="179.5" x2="604.5" y1="392.2319" y2="392.2319"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="191" x="294.5" y="407.1289">false  [button becomes enabled]</text><polygon fill="#A80036" points="162.5,439.6439,172.5,443.6439,162.5,447.6439,166.5,443.6439" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="23.5" x2="168.5" y1="443.6439" y2="443.6439"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="112" x="43" y="437.8349">clicks "Post Status"</text><polygon fill="#A80036" points="588.5,471.3499,598.5,475.3499,588.5,479.3499,592.5,475.3499" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="174.5" x2="594.5" y1="475.3499" y2="475.3499"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="253" x="261" y="469.5409">submitPost(post, authToken, currentUser)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="610.5" x2="652.5" y1="524.762" y2="524.762"/><line style="stroke:#A80036;stroke-width:1.0;" x1="652.5" x2="652.5" y1="524.762" y2="537.762"/><line style="stroke:#A80036;stroke-width:1.0;" x1="611.5" x2="652.5" y1="537.762" y2="537.762"/><polygon fill="#A80036" points="621.5,533.762,611.5,537.762,621.5,541.762,617.5,537.762" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="191" x="617.5" y="501.247">doLoadingOperationWithToast(</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="261" x="623.5" y="518.953">view, "Posting status...", "post the status", λ)</text><polygon fill="#A80036" points="185.5,545.762,175.5,549.762,185.5,553.762,181.5,549.762" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="179.5" x2="599.5" y1="549.762" y2="549.762"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="157" x="309" y="564.659">listener.setIsLoading(true)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="174.5" x2="216.5" y1="601.174" y2="601.174"/><line style="stroke:#A80036;stroke-width:1.0;" x1="216.5" x2="216.5" y1="601.174" y2="614.174"/><line style="stroke:#A80036;stroke-width:1.0;" x1="175.5" x2="216.5" y1="614.174" y2="614.174"/><polygon fill="#A80036" points="185.5,610.174,175.5,614.174,185.5,618.174,181.5,614.174" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="212" x="181.5" y="595.365">setIsLoading(true)  [spinner shown]</text><polygon fill="#A80036" points="185.5,622.174,175.5,626.174,185.5,630.174,181.5,626.174" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="179.5" x2="599.5" y1="626.174" y2="626.174"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="292" x="241.5" y="641.071">listener.displayInfoMessage("Posting status...", 0)</text><polygon fill="#A80036" points="588.5,673.586,598.5,677.586,588.5,681.586,592.5,677.586" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="174.5" x2="594.5" y1="677.586" y2="677.586"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="43" x="366" y="671.777">toastId</text><polygon fill="#A80036" points="972.5,705.2921,982.5,709.2921,972.5,713.2921,976.5,709.2921" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="610.5" x2="978.5" y1="709.2921" y2="709.2921"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="355" x="620" y="703.4831">postStatus(authToken, new Status(post, currentUser, now))</text><polygon fill="#A80036" points="621.5,717.2921,611.5,721.2921,621.5,725.2921,617.5,721.2921" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="615.5" x2="988.5" y1="721.2921" y2="721.2921"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="95" x="752.5" y="736.1891">void [or throws]</text><path d="M92,755.9981 L155,755.9981 L155,764.9981 L145,774.9981 L92,774.9981 L92,755.9981 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/><rect fill="none" height="176.512" style="stroke:#000000;stroke-width:2.0;" width="600" x="92" y="755.9981"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="18" x="107" y="770.8951">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="49" x="170" y="769.757">[success]</text><polygon fill="#A80036" points="185.5,775.7041,175.5,779.7041,185.5,783.7041,181.5,779.7041" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="179.5" x2="599.5" y1="779.7041" y2="779.7041"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="110" x="332.5" y="794.6011">listener.clearPost()</text><line style="stroke:#A80036;stroke-width:1.0;" x1="174.5" x2="216.5" y1="831.1161" y2="831.1161"/><line style="stroke:#A80036;stroke-width:1.0;" x1="216.5" x2="216.5" y1="831.1161" y2="844.1161"/><line style="stroke:#A80036;stroke-width:1.0;" x1="175.5" x2="216.5" y1="844.1161" y2="844.1161"/><polygon fill="#A80036" points="185.5,840.1161,175.5,844.1161,185.5,848.1161,181.5,844.1161" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="63" x="181.5" y="825.3071">setPost("")</text><polygon fill="#A80036" points="185.5,852.1161,175.5,856.1161,185.5,860.1161,181.5,856.1161" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="179.5" x2="599.5" y1="856.1161" y2="856.1161"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="305" x="235" y="871.0131">listener.displayInfoMessage("Status posted!", 2000)</text><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="92" x2="692" y1="884.8221" y2="884.8221"/><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="153" x="97" y="896.5811">[failure (exception thrown)]</text><polygon fill="#A80036" points="185.5,900.804,175.5,904.804,185.5,908.804,181.5,904.804" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="179.5" x2="599.5" y1="904.804" y2="904.804"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="402" x="186.5" y="919.701">listener.displayErrorMessage("Failed operation ... &lt;error message&gt;")</text><polygon fill="#A80036" points="185.5,939.51,175.5,943.51,185.5,947.51,181.5,943.51" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="179.5" x2="599.5" y1="943.51" y2="943.51"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="188" x="293.5" y="958.4071">listener.deleteMessage(toastId)</text><polygon fill="#A80036" points="185.5,971.2161,175.5,975.2161,185.5,979.2161,181.5,975.2161" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="179.5" x2="599.5" y1="975.2161" y2="975.2161"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="159" x="308" y="990.1131">listener.setIsLoading(false)</text><line style="stroke:#A80036;stroke-width:1.0;" x1="174.5" x2="216.5" y1="1031.6281" y2="1031.6281"/><line style="stroke:#A80036;stroke-width:1.0;" x1="216.5" x2="216.5" y1="1031.6281" y2="1044.6281"/><line style="stroke:#A80036;stroke-width:1.0;" x1="169.5" x2="216.5" y1="1044.6281" y2="1044.6281"/><polygon fill="#A80036" points="179.5,1040.6281,169.5,1044.6281,179.5,1048.6281,175.5,1044.6281" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="216" x="181.5" y="1025.8191">setIsLoading(false)  [spinner hidden]</text><!--MD5=[b0ae9adc088cf0e8ac94a4107bcfbe16]
+@startuml TweeterSequenceDiagram
+
+title Tweeter MVP — Sequence Diagram: "Post a Status"
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "User" as U
+
+box "View Layer" #E8F5E9
+  participant "PostStatus\n(React Component)" as PS
+end box
+
+box "Presenter Layer" #E3F2FD
+  participant "PostStatusPresenter" as PSP
+end box
+
+box "Model Layer" #FFF8E1
+  participant "StatusService" as SS
+end box
+
+' - - - - Initial render - - - -
+U -> PS : opens page
+PS -> PSP : new PostStatusPresenter(listener)
+note right of PS
+  PostStatus creates a PostStatusView
+  object (listener) from its own state
+  setters, then passes it to the presenter.
+end note
+
+' - - - - User types - - - -
+U -> PS : types text in textarea
+PS -> PS : setPost(newText)
+PS -> PSP : isPostButtonDisabled(post, authToken, currentUser)
+PSP - -> PS : false  [button becomes enabled]
+
+' - - - - User submits - - - -
+U -> PS : clicks "Post Status"
+PS -> PSP : submitPost(post, authToken, currentUser)
+
+activate PSP
+PSP -> PSP : doLoadingOperationWithToast(\n  view, "Posting status...", "post the status", λ)
+PSP -> PS : listener.setIsLoading(true)
+PS -> PS : setIsLoading(true)  [spinner shown]
+PSP -> PS : listener.displayInfoMessage("Posting status...", 0)
+PS - -> PSP : toastId
+
+PSP -> SS : postStatus(authToken, new Status(post, currentUser, now))
+activate SS
+SS - -> PSP : void [or throws]
+deactivate SS
+
+alt success
+  PSP -> PS : listener.clearPost()
+  PS -> PS : setPost("")
+  PSP -> PS : listener.displayInfoMessage("Status posted!", 2000)
+else failure (exception thrown)
+  PSP -> PS : listener.displayErrorMessage("Failed operation ... <error message>")
+end
+
+PSP -> PS : listener.deleteMessage(toastId)
+PSP -> PS : listener.setIsLoading(false)
+PS -> PS : setIsLoading(false)  [spinner hidden]
+deactivate PSP
+
+@enduml
+
+@startuml TweeterSequenceDiagram
+
+title Tweeter MVP — Sequence Diagram: "Post a Status"
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "User" as U
+
+box "View Layer" #E8F5E9
+  participant "PostStatus\n(React Component)" as PS
+end box
+
+box "Presenter Layer" #E3F2FD
+  participant "PostStatusPresenter" as PSP
+end box
+
+box "Model Layer" #FFF8E1
+  participant "StatusService" as SS
+end box
+
+U -> PS : opens page
+PS -> PSP : new PostStatusPresenter(listener)
+note right of PS
+  PostStatus creates a PostStatusView
+  object (listener) from its own state
+  setters, then passes it to the presenter.
+end note
+
+U -> PS : types text in textarea
+PS -> PS : setPost(newText)
+PS -> PSP : isPostButtonDisabled(post, authToken, currentUser)
+PSP - -> PS : false  [button becomes enabled]
+
+U -> PS : clicks "Post Status"
+PS -> PSP : submitPost(post, authToken, currentUser)
+
+activate PSP
+PSP -> PSP : doLoadingOperationWithToast(\n  view, "Posting status...", "post the status", λ)
+PSP -> PS : listener.setIsLoading(true)
+PS -> PS : setIsLoading(true)  [spinner shown]
+PSP -> PS : listener.displayInfoMessage("Posting status...", 0)
+PS - -> PSP : toastId
+
+PSP -> SS : postStatus(authToken, new Status(post, currentUser, now))
+activate SS
+SS - -> PSP : void [or throws]
+deactivate SS
+
+alt success
+  PSP -> PS : listener.clearPost()
+  PS -> PS : setPost("")
+  PSP -> PS : listener.displayInfoMessage("Status posted!", 2000)
+else failure (exception thrown)
+  PSP -> PS : listener.displayErrorMessage("Failed operation ... <error message>")
+end
+
+PSP -> PS : listener.deleteMessage(toastId)
+PSP -> PS : listener.setIsLoading(false)
+PS -> PS : setIsLoading(false)  [spinner hidden]
+deactivate PSP
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 03:25:05 MST 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

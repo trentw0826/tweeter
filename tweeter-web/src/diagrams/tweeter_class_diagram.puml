@@ -1,0 +1,301 @@
+@startuml TweeterClassDiagram
+
+title Tweeter MVP — Class Diagram
+
+skinparam packageStyle rectangle
+skinparam groupInheritance 2
+hide empty members
+
+' ============================================================
+' LAYER PACKAGES (colour-coded)
+' ============================================================
+package "View Layer (React Components)" #E8F5E9 {
+
+  ' ---- View Interfaces (defined in presenter files, kept here for readability) ----
+  interface View <<interface>> {
+    +displayErrorMessage(message: String): void
+    +navigateTo(url: String): void
+  }
+
+  interface MessageView <<interface>> {
+    +displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): String
+    +deleteMessage(messageId: String): void
+  }
+
+  interface AuthView <<interface>> {
+    +setIsLoading(value: Boolean): void
+    +updateUserInfo(user: User, authToken: AuthToken, rememberMe: Boolean): void
+  }
+
+  interface LogoutView <<interface>> {
+    +clearUserInfo(): void
+  }
+
+  interface AppNavbarView <<interface>> {
+    +clearUserInfo(): void
+  }
+
+  interface PostStatusView <<interface>> {
+    +setIsLoading(value: Boolean): void
+    +clearPost(): void
+  }
+
+  interface UserInfoView <<interface>> {
+    +setIsFollower(value: Boolean): void
+    +setFolloweeCount(count: int): void
+    +setFollowerCount(count: int): void
+    +setIsLoading(value: Boolean): void
+    +setDisplayedUser(user: User): void
+  }
+
+  interface NavigateToUserView <<interface>> {
+    +setDisplayedUser(user: User): void
+  }
+ 
+  interface OAuthView <<interface>> {
+    +displayInfoMessage(message: String, duration: int, bootstrapClasses?: String): void
+  }
+
+  interface PagedItemView <<interface>> {
+    +addItems(items: T[]): void
+  }
+
+  ' ---- Concrete React Components / Hooks ----
+  class Login <<React Component>> {
+    -listener: AuthView
+    -presenter: LoginPresenter
+  }
+
+  class Register <<React Component>> {
+    -listener: AuthView
+    -presenter: RegisterPresenter
+  }
+
+  class AppNavbar <<React Component>> {
+    -listener: AppNavbarView
+    -presenter: AppNavbarPresenter
+  }
+
+  class PostStatus <<React Component>> {
+    -listener: PostStatusView
+    -presenter: PostStatusPresenter
+  }
+
+  class UserInfoComponent <<React Component>> {
+    -listener: UserInfoView
+    -presenter: UserInfoPresenter
+  }
+
+  class ItemScroller <<React Component>> {
+    -listener: PagedItemView<T>
+    -presenter: PagedItemPresenter<T,U>
+  }
+
+  class StatusItemScroller <<React Component>>
+  class UserItemScroller <<React Component>>
+
+  class useNavigateToUser <<React Hook>> {
+    -listener: NavigateToUserView
+    -presenter: NavigateToUserPresenter
+  }
+
+  ' inheritance of view interfaces
+  MessageView  --|>  View
+  AuthView     --|>  View
+  LogoutView   --|>  MessageView
+  AppNavbarView --|> MessageView
+  PostStatusView --|> MessageView
+  UserInfoView --|> MessageView
+  NavigateToUserView --|> View
+  OAuthView    --|>  View
+  PagedItemView --|> View
+
+  ' components implement view interfaces via inline listener objects
+  Login           ..|>  AuthView
+  Register        ..|>  AuthView
+  AppNavbar       ..|>  AppNavbarView
+  PostStatus      ..|>  PostStatusView
+  UserInfoComponent ..|> UserInfoView
+  ItemScroller    ..|>  PagedItemView
+  useNavigateToUser ..|> NavigateToUserView
+
+  StatusItemScroller --> ItemScroller : uses
+  UserItemScroller   --> ItemScroller : uses
+}
+
+' ============================================================
+package "Presenter Layer" #E3F2FD {
+
+  ' ---- Base Presenter ----
+  abstract class Presenter<V extends View> {
+    -view: V
+    #doFailureReportingOperation(desc: String, op: ()=>Promise<void>): Promise<void>
+    #doLoadingOperation(view, desc: String, op: ()=>Promise<void>): Promise<void>
+    #doLoadingOperationWithToast(view, toast: String, desc: String, op: ()=>Promise<void>): Promise<void>
+  }
+  note right of Presenter
+    Re-exports Service interface
+    so View layer can depend only
+    on the Presenter layer
+  end note
+
+  ' ---- Auth branch ----
+  abstract class AuthPresenter<V extends View = AuthView> {
+    -authService: AuthService
+  }
+
+  class LoginPresenter {
+    +login(alias, password, rememberMe, originalUrl?): Promise<void>
+  }
+
+  class RegisterPresenter {
+    +processImageFile(file?): Promise<ImageFileProcessingResult|null>
+    +isRegisterFormValid(...): Boolean
+    +register(...): Promise<void>
+  }
+
+  class LogoutPresenter {
+    +logout(authToken: AuthToken): Promise<void>
+  }
+
+  class AppNavbarPresenter {
+    +logout(authToken: AuthToken): Promise<void>
+  }
+
+  class OAuthPresenter {
+    +handleOAuthClick(provider: OAuthProvider): Promise<void>
+    +getProviders(): OAuthProvider[]
+  }
+
+  ' ---- UserService branch ----
+  abstract class UserServicePresenter<V extends View> {
+    -userService: UserService
+  }
+
+  class NavigateToUserPresenter {
+    +navigateToUser(eventTarget, authToken, displayedUser, featurePath): Promise<void>
+    +extractAlias(value: String): String
+  }
+
+  class UserInfoPresenter {
+    -followService: FollowService
+    +loadFollowerStatus(...): Promise<void>
+    +loadFolloweeCount(...): Promise<void>
+    +loadFollowerCount(...): Promise<void>
+    +follow(...): Promise<void>
+    +unfollow(...): Promise<void>
+  }
+
+  ' ---- Paged item branch ----
+  abstract class PagedItemPresenter<T, U extends Service> {
+    -service: U
+    -hasMoreItems: Boolean
+    -lastItem: T|null
+    +loadMoreItems(authToken, userAlias): Promise<void>
+    +getUser(authToken, alias): Promise<User|null>
+    +reset(): void
+    #{abstract} serviceFactory(): U
+    #{abstract} itemDescription(): String
+    #{abstract} retrieveMoreItems(authToken, userAlias): Promise<[T[], Boolean]>
+  }
+
+  abstract class StatusItemPresenter {
+    #serviceFactory(): StatusService
+  }
+
+  abstract class UserItemPresenter {
+    #serviceFactory(): FollowService
+  }
+
+  class FeedPresenter
+  class StoryPresenter
+  class FolloweePresenter
+  class FollowerPresenter
+
+  class PostStatusPresenter {
+    -statusService: StatusService
+    +isPostButtonDisabled(...): Boolean
+    +submitPost(...): Promise<void>
+  }
+
+  ' ---- Inheritance ----
+  Presenter           <|--  AuthPresenter
+  Presenter           <|--  UserServicePresenter
+  AuthPresenter       <|--  LoginPresenter
+  AuthPresenter       <|--  RegisterPresenter
+  AuthPresenter       <|--  LogoutPresenter
+  AuthPresenter       <|--  AppNavbarPresenter
+  AuthPresenter       <|--  OAuthPresenter
+  Presenter           <|--  PostStatusPresenter
+  UserServicePresenter <|-- NavigateToUserPresenter
+  UserServicePresenter <|-- UserInfoPresenter
+  UserServicePresenter <|-- PagedItemPresenter
+  PagedItemPresenter  <|--  StatusItemPresenter
+  PagedItemPresenter  <|--  UserItemPresenter
+  StatusItemPresenter <|--  FeedPresenter
+  StatusItemPresenter <|--  StoryPresenter
+  UserItemPresenter   <|--  FolloweePresenter
+  UserItemPresenter   <|--  FollowerPresenter
+}
+
+' ============================================================
+package "Model Layer (Services)" #FFF8E1 {
+
+  interface Service <<interface>>
+
+  class AuthService {
+    +login(alias, password): Promise<[User, AuthToken]>
+    +register(...): Promise<[User, AuthToken]>
+    +logout(authToken): Promise<void>
+    +oauthLogin(providerName): Promise<Boolean>
+  }
+
+  class UserService {
+    +getUser(authToken, alias): Promise<User|null>
+    +isFollower(authToken, user, selectedUser): Promise<Boolean>
+    +getFolloweeCount(authToken, user): Promise<int>
+    +getFollowerCount(authToken, user): Promise<int>
+  }
+
+  class FollowService {
+    +retrievePageOfFollowers(...): Promise<[User[], Boolean]>
+    +retrievePageOfFollowees(...): Promise<[User[], Boolean]>
+    +follow(authToken, userToFollow): Promise<void>
+    +unfollow(authToken, userToUnfollow): Promise<void>
+  }
+
+  class StatusService {
+    +retrievePageOfFeedItems(...): Promise<[Status[], Boolean]>
+    +retrievePageOfStoryItems(...): Promise<[Status[], Boolean]>
+    +postStatus(authToken, status): Promise<void>
+  }
+
+  AuthService  ..|>  Service
+  UserService  ..|>  Service
+  FollowService ..|> Service
+  StatusService ..|> Service
+}
+
+' ============================================================
+' Cross-layer dependencies (Presenter → Model)
+' ============================================================
+AuthPresenter       --> AuthService    : uses
+UserServicePresenter --> UserService   : uses
+UserInfoPresenter   --> FollowService  : uses
+PostStatusPresenter --> StatusService  : uses
+StatusItemPresenter --> StatusService  : instantiates via serviceFactory
+UserItemPresenter   --> FollowService  : instantiates via serviceFactory
+
+' Cross-layer dependencies (View → Presenter)
+Login              --> LoginPresenter    : creates & calls
+Register           --> RegisterPresenter : creates & calls
+AppNavbar          --> AppNavbarPresenter : creates & calls
+PostStatus         --> PostStatusPresenter : creates & calls
+UserInfoComponent  --> UserInfoPresenter  : creates & calls
+ItemScroller       --> PagedItemPresenter : calls
+useNavigateToUser  --> NavigateToUserPresenter : creates & calls
+
+' Presenter holds View reference (callback channel)
+Presenter "1" *-- "1" View : holds reference to
+
+@enduml
