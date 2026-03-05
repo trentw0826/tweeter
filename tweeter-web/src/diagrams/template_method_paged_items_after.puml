@@ -1,0 +1,83 @@
+@startuml PagedItemsAfterTemplateMethod
+
+title After Template Method (commit 0f4cccf and later)
+
+skinparam packageStyle rectangle
+hide empty members
+
+package "Presenter Layer (After)" {
+  interface PagedItemView<T> {
+    +addItems(items: T[])
+  }
+
+  abstract class Presenter<V>
+  abstract class UserServicePresenter<V>
+
+  abstract class PagedItemPresenter<T, U extends Service> {
+    -hasMoreItems: boolean
+    -lastItem: T
+    -service: U
+    +loadMoreItems(authToken, userAlias)
+    +getUser(authToken, alias)
+    +reset()
+    #serviceFactory(): U*
+    #itemDescription(): string*
+    #retrieveMoreItems(authToken, userAlias): [T[], boolean]*
+  }
+
+  abstract class StatusItemPresenter {
+    #serviceFactory(): StatusService
+  }
+
+  abstract class UserItemPresenter {
+    #serviceFactory(): FollowService
+  }
+
+  class FeedPresenter {
+    #itemDescription(): string
+    #retrieveMoreItems(authToken, userAlias): [Status[], boolean]
+  }
+
+  class StoryPresenter {
+    #itemDescription(): string
+    #retrieveMoreItems(authToken, userAlias): [Status[], boolean]
+  }
+
+  class FollowerPresenter {
+    #itemDescription(): string
+    #retrieveMoreItems(authToken, userAlias): [User[], boolean]
+  }
+
+  class FolloweePresenter {
+    #itemDescription(): string
+    #retrieveMoreItems(authToken, userAlias): [User[], boolean]
+  }
+
+  Presenter <|-- UserServicePresenter
+  UserServicePresenter <|-- PagedItemPresenter
+
+  PagedItemPresenter <|-- StatusItemPresenter
+  PagedItemPresenter <|-- UserItemPresenter
+
+  StatusItemPresenter <|-- FeedPresenter
+  StatusItemPresenter <|-- StoryPresenter
+  UserItemPresenter <|-- FollowerPresenter
+  UserItemPresenter <|-- FolloweePresenter
+
+  PagedItemPresenter ..> Service
+  StatusItemPresenter ..> StatusService
+  UserItemPresenter ..> FollowService
+
+  note right of PagedItemPresenter
+    Template method = loadMoreItems
+    Fixed algorithm:
+    1) doFailureReportingOperation(...)
+    2) retrieveMoreItems(...)
+    3) update hasMoreItems and lastItem
+    4) view.addItems(...)
+    Hooks deferred to subclasses:
+    serviceFactory, itemDescription, retrieveMoreItems
+  end note
+}
+
+@enduml

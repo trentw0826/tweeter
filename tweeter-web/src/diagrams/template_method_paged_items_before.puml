@@ -1,0 +1,78 @@
+@startuml PagedItemsBeforeTemplateMethod
+
+title Before Template Method (parent of 0f4cccf)
+
+skinparam packageStyle rectangle
+hide empty members
+
+package "Presenter Layer (Before)" {
+  interface StatusItemView
+  interface UserItemView
+
+  abstract class Presenter<V>
+
+  abstract class StatusItemPresenter {
+    -hasMoreItems: boolean
+    -lastItem: Status
+    -statusService: StatusService
+    -userService: UserService
+    +loadMoreItems(authToken, userAlias)*
+    +getUser(authToken, alias)
+    +reset()
+  }
+
+  abstract class UserItemPresenter {
+    -hasMoreItems: boolean
+    -lastItem: User
+    -userService: UserService
+    +loadMoreItems(authToken, userAlias)*
+    +getUser(authToken, alias)
+    +reset()
+  }
+
+  class FeedPresenter {
+    +loadMoreItems(authToken, userAlias)
+  }
+
+  class StoryPresenter {
+    +loadMoreItems(authToken, userAlias)
+  }
+
+  class FollowerPresenter {
+    -service: FollowService
+    +loadMoreItems(authToken, userAlias)
+  }
+
+  class FolloweePresenter {
+    -service: FollowService
+    +loadMoreItems(authToken, userAlias)
+  }
+
+  Presenter <|-- StatusItemPresenter
+  Presenter <|-- UserItemPresenter
+
+  StatusItemPresenter <|-- FeedPresenter
+  StatusItemPresenter <|-- StoryPresenter
+  UserItemPresenter <|-- FollowerPresenter
+  UserItemPresenter <|-- FolloweePresenter
+
+  FeedPresenter ..> StatusService
+  StoryPresenter ..> StatusService
+  FollowerPresenter ..> FollowService
+  FolloweePresenter ..> FollowService
+
+  note right of FeedPresenter
+    Duplicate algorithm body in loadMoreItems:
+    - call service for page
+    - set hasMoreItems/lastItem
+    - view.addItems
+    - same failure wrapper pattern
+  end note
+
+  note right of FollowerPresenter
+    Same duplicated steps as Feed/Story/Followee,
+    with only service endpoint and description differing.
+  end note
+}
+
+@enduml
