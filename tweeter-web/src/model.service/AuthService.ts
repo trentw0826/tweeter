@@ -47,5 +47,9 @@ export class AuthService implements Service {
   public async logout(authToken: AuthToken): Promise<void> {
     await serverFacade.logout({ token: authToken.token });
   }
-}
 
+  public async oauthLogin(providerName: string): Promise<boolean> {
+    void providerName;
+    return false;
+  }
+}
