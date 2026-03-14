@@ -1,6 +1,6 @@
 import { AuthToken, Status } from "tweeter-shared";
-import { FakeData } from "tweeter-shared/dist/util/FakeData";
 import { Service } from "./Service";
+import serverFacade from "../network/ServerFacade";
 
 export class StatusService implements Service {
   public async retrievePageOfFeedItems(
@@ -9,8 +9,14 @@ export class StatusService implements Service {
     pageSize: number,
     lastItem: Status | null,
   ): Promise<[Status[], boolean]> {
-    // TODO: Replace with the result of calling server
-    return FakeData.instance.getPageOfStatuses(lastItem, pageSize);
+    const response = await serverFacade.getFeedItems({
+      token: authToken.token,
+      userAlias,
+      pageSize,
+      lastItem: lastItem ? lastItem.dto : null,
+    });
+    const statuses = (response.items ?? []).map((dto) => Status.fromDto(dto)!);
+    return [statuses, response.hasMore];
   }
 
   public async retrievePageOfStoryItems(
@@ -19,17 +25,24 @@ export class StatusService implements Service {
     pageSize: number,
     lastItem: Status | null,
   ): Promise<[Status[], boolean]> {
-    // TODO: Replace with the result of calling server
-    return FakeData.instance.getPageOfStatuses(lastItem, pageSize);
+    const response = await serverFacade.getStoryItems({
+      token: authToken.token,
+      userAlias,
+      pageSize,
+      lastItem: lastItem ? lastItem.dto : null,
+    });
+    const statuses = (response.items ?? []).map((dto) => Status.fromDto(dto)!);
+    return [statuses, response.hasMore];
   }
 
   public async postStatus(
     authToken: AuthToken,
     newStatus: Status,
   ): Promise<void> {
-    // Pause so we can see the posting status message. Remove when connected to the server
-    await new Promise((f) => setTimeout(f, 2000));
-
-    // TODO: Call the server to post the status
+    await serverFacade.postStatus({
+      token: authToken.token,
+      newStatus: newStatus.dto,
+    });
   }
 }
+

@@ -1,21 +1,20 @@
 import { AuthToken, User } from "tweeter-shared";
-import { FakeData } from "tweeter-shared/dist/util/FakeData";
 import { Buffer } from "buffer";
 import { Service } from "./Service";
+import serverFacade from "../network/ServerFacade";
 
 export class AuthService implements Service {
   public async login(
     alias: string,
     password: string,
   ): Promise<[User, AuthToken]> {
-    // TODO: Replace with the result of calling the server
-    const user = FakeData.instance.firstUser;
-
-    if (user === null) {
-      throw new Error("Invalid alias or password");
+    const response = await serverFacade.login({ alias, password });
+    const user = User.fromDto(response.user!);
+    const authToken = AuthToken.fromDto(response.authToken!);
+    if (!user || !authToken) {
+      throw new Error("Invalid server response");
     }
-
-    return [user, FakeData.instance.authToken];
+    return [user, authToken];
   }
 
   public async register(
@@ -26,29 +25,27 @@ export class AuthService implements Service {
     userImageBytes: Uint8Array,
     imageFileExtension: string,
   ): Promise<[User, AuthToken]> {
-    const imageStringBase64: string =
-      Buffer.from(userImageBytes).toString("base64");
-    void imageStringBase64;
+    const userImageBase64 = Buffer.from(userImageBytes).toString("base64");
 
-    // TODO: Replace with the result of calling the server
-    const user = FakeData.instance.firstUser;
+    const response = await serverFacade.register({
+      firstName,
+      lastName,
+      alias,
+      password,
+      userImageBytes: userImageBase64,
+      imageFileExtension,
+    });
 
-    if (user === null) {
-      throw new Error("Invalid registration");
+    const user = User.fromDto(response.user!);
+    const authToken = AuthToken.fromDto(response.authToken!);
+    if (!user || !authToken) {
+      throw new Error("Invalid server response");
     }
-
-    return [user, FakeData.instance.authToken];
+    return [user, authToken];
   }
 
   public async logout(authToken: AuthToken): Promise<void> {
-    void authToken;
-    // TODO: Replace with the result of calling the server
-    await new Promise((res) => setTimeout(res, 1000));
-  }
-
-  public async oauthLogin(providerName: string): Promise<boolean> {
-    void providerName;
-    // TODO: Replace with the result of calling the server
-    return false;
+    await serverFacade.logout({ token: authToken.token });
   }
 }
+
