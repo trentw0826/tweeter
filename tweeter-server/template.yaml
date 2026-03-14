@@ -9,8 +9,6 @@ Globals:
   Function:
     Runtime: nodejs20.x
     CodeUri: ./dist/
-    Layers:
-      - !Ref tweeterLayer
     Timeout: 30
     MemorySize: 128
 
@@ -289,19 +287,6 @@ Resources:
   #     Type: AWS::SQS::Queue
   #     Properties:
   #       QueueName: MyQueue
-
-  #
-  # Lambda Layer (reused by all Lambda functions)
-  #
-  tweeterLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      LayerName: tweeterLayer
-      Description: dependencies layer for Tweeter server
-      ContentUri: ./layer/
-      CompatibleRuntimes:
-        - nodejs20.x
-      RetentionPolicy: DELETE
 
   #
   # Web API Lambda functions
