@@ -8,7 +8,7 @@ export class FollowService implements TweeterService {
     pageSize: number,
     lastFollower: UserDto | null,
   ): Promise<[UserDto[], boolean]> {
-    // TODO: Replace with the result of calling server
+    // TODO: Replace with real DB call
     return this.getFakeData(lastFollower, pageSize, userAlias);
   }
 
@@ -18,8 +18,22 @@ export class FollowService implements TweeterService {
     pageSize: number,
     lastFollowee: UserDto | null,
   ): Promise<[UserDto[], boolean]> {
-    // TODO: Replace with the result of calling server
+    // TODO: Replace with real DB call
     return this.getFakeData(lastFollowee, pageSize, userAlias);
+  }
+
+  public async follow(
+    token: string,
+    userToFollow: UserDto,
+  ): Promise<void> {
+    // TODO: Replace with real DB call
+  }
+
+  public async unfollow(
+    token: string,
+    userToUnfollow: UserDto,
+  ): Promise<void> {
+    // TODO: Replace with real DB call
   }
 
   private async getFakeData(
@@ -35,5 +49,5 @@ export class FollowService implements TweeterService {
     const dtos = items.map((user: User) => user.dto);
     return [dtos, hasMore];
   }
-
 }
+
