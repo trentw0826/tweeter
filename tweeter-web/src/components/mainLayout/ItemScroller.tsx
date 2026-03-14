@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMessageActions } from "../toaster/messageHooks";
 import { useUserInfo, useUserInfoActions } from "../userInfo/userInfoHooks";
 import {
@@ -22,11 +22,17 @@ function ItemScroller<T, U extends Service>(props: Props<T, U>) {
   const { displayedUser, authToken } = useUserInfo();
   const { setDisplayedUser } = useUserInfoActions();
   const { displayedUser: displayedUserAliasParam } = useParams();
+  const navigate = useNavigate();
 
   const listener: PagedItemView<T> = {
     addItems: (newItems: T[]) =>
       setItems((previousItems) => [...previousItems, ...newItems]),
-    displayErrorMessage: (message: string) => displayErrorMessage(message),
+    displayErrorMessage: (message: string) => {
+      displayErrorMessage(message);
+    },
+    navigateTo: (url: string) => {
+      navigate(url);
+    },
   };
 
   const presenterRef = useRef<PagedItemPresenter<T, U> | null>(null);
