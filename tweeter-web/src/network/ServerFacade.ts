@@ -19,19 +19,25 @@ import {
   VoidResponse,
 } from "tweeter-shared";
 
-class ServerFacade {
+export class ServerFacade {
   private readonly SERVER_URL: string;
 
-  constructor() {
-    const serverUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
+  constructor(serverUrl?: string) {
+    const configuredServerUrl =
+      serverUrl ??
+      (
+        globalThis as typeof globalThis & {
+          __APP_CONFIG__?: { VITE_API_BASE_URL?: string };
+        }
+      ).__APP_CONFIG__?.VITE_API_BASE_URL;
 
-    if (!serverUrl) {
+    if (!configuredServerUrl) {
       throw new Error(
         "API base URL not set. Please set VITE_API_BASE_URL in your .env file.",
       );
     }
 
-    this.SERVER_URL = serverUrl;
+    this.SERVER_URL = configuredServerUrl;
   }
 
   private async doPost<Req, Res extends TweeterResponse>(
@@ -168,5 +174,22 @@ class ServerFacade {
   }
 }
 
+let defaultServerFacade: ServerFacade | null = null;
+
+const getDefaultServerFacade = (): ServerFacade => {
+  if (!defaultServerFacade) {
+    defaultServerFacade = new ServerFacade();
+  }
+
+  return defaultServerFacade;
+};
+
 // Singleton — all services share a single instance
-export default new ServerFacade();
+export default new Proxy({} as ServerFacade, {
+  get(_target, property, receiver) {
+    const facade = getDefaultServerFacade();
+    const value = Reflect.get(facade, property, receiver);
+
+    return typeof value === "function" ? value.bind(facade) : value;
+  },
+});
