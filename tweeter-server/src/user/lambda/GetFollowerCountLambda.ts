@@ -1,4 +1,7 @@
-import { GetFollowCountRequest, GetFollowCountResponse } from "tweeter-shared";
+import type {
+  GetFollowCountRequest,
+  GetFollowCountResponse,
+} from "tweeter-shared";
 import { UserService } from "../../model/service/UserService.js";
 
 export const handler = async (

@@ -1,5 +1,11 @@
 import { FakeData, User, type UserDto } from "tweeter-shared";
 import type TweeterService from "./TweeterService.js";
+import {
+  assertAlias,
+  assertPageSize,
+  assertToken,
+  assertUserDto,
+} from "./Validation.js";
 
 export class FollowService implements TweeterService {
   public async retrievePageOfFollowers(
@@ -8,6 +14,13 @@ export class FollowService implements TweeterService {
     pageSize: number,
     lastFollower: UserDto | null,
   ): Promise<[UserDto[], boolean]> {
+    assertToken(token);
+    assertAlias(userAlias, "userAlias");
+    assertPageSize(pageSize);
+    if (lastFollower !== null) {
+      assertUserDto(lastFollower, "lastFollower");
+    }
+
     // TODO: Replace with real DB call
     return this.getFakeData(lastFollower, pageSize, userAlias);
   }
@@ -18,21 +31,28 @@ export class FollowService implements TweeterService {
     pageSize: number,
     lastFollowee: UserDto | null,
   ): Promise<[UserDto[], boolean]> {
+    assertToken(token);
+    assertAlias(userAlias, "userAlias");
+    assertPageSize(pageSize);
+    if (lastFollowee !== null) {
+      assertUserDto(lastFollowee, "lastFollowee");
+    }
+
     // TODO: Replace with real DB call
     return this.getFakeData(lastFollowee, pageSize, userAlias);
   }
 
-  public async follow(
-    token: string,
-    userToFollow: UserDto,
-  ): Promise<void> {
+  public async follow(token: string, userToFollow: UserDto): Promise<void> {
+    assertToken(token);
+    assertUserDto(userToFollow, "userToFollow");
+
     // TODO: Replace with real DB call
   }
 
-  public async unfollow(
-    token: string,
-    userToUnfollow: UserDto,
-  ): Promise<void> {
+  public async unfollow(token: string, userToUnfollow: UserDto): Promise<void> {
+    assertToken(token);
+    assertUserDto(userToUnfollow, "userToUnfollow");
+
     // TODO: Replace with real DB call
   }
 
@@ -50,4 +70,3 @@ export class FollowService implements TweeterService {
     return [dtos, hasMore];
   }
 }
-

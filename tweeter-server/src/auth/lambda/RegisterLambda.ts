@@ -1,4 +1,4 @@
-import { RegisterRequest, AuthResponse } from "tweeter-shared";
+import type { RegisterRequest, AuthResponse } from "tweeter-shared";
 import { AuthService } from "../../model/service/AuthService.js";
 
 export const handler = async (

@@ -1,11 +1,19 @@
-import { FakeData, User, AuthToken, type UserDto, type AuthTokenDto } from "tweeter-shared";
+import { FakeData, type UserDto, type AuthTokenDto } from "tweeter-shared";
 import type TweeterService from "./TweeterService.js";
+import {
+  assertAlias,
+  assertNonEmptyString,
+  assertToken,
+} from "./Validation.js";
 
 export class AuthService implements TweeterService {
   public async login(
     alias: string,
     password: string,
   ): Promise<[UserDto, AuthTokenDto]> {
+    assertAlias(alias);
+    assertNonEmptyString(password, "password");
+
     // TODO: Replace with real auth + DB call
     const user = FakeData.instance.firstUser;
     if (user === null) {
@@ -23,6 +31,13 @@ export class AuthService implements TweeterService {
     userImageBytes: string,
     imageFileExtension: string,
   ): Promise<[UserDto, AuthTokenDto]> {
+    assertNonEmptyString(firstName, "firstName");
+    assertNonEmptyString(lastName, "lastName");
+    assertAlias(alias);
+    assertNonEmptyString(password, "password");
+    assertNonEmptyString(userImageBytes, "userImageBytes");
+    assertNonEmptyString(imageFileExtension, "imageFileExtension");
+
     // TODO: Upload image to S3 and persist user to DB
     const user = FakeData.instance.firstUser;
     if (user === null) {
@@ -33,6 +48,8 @@ export class AuthService implements TweeterService {
   }
 
   public async logout(token: string): Promise<void> {
+    assertToken(token);
+
     // TODO: Invalidate the auth token in DB
   }
 }

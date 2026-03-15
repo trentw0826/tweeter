@@ -1,4 +1,4 @@
-import { PostStatusRequest, VoidResponse } from "tweeter-shared";
+import type { PostStatusRequest, VoidResponse } from "tweeter-shared";
 import { StatusService } from "../../model/service/StatusService.js";
 
 export const handler = async (

@@ -1,4 +1,7 @@
-import { PagedUserItemRequest, PagedUserItemResponse } from "tweeter-shared";
+import type {
+  PagedUserItemRequest,
+  PagedUserItemResponse,
+} from "tweeter-shared";
 import { FollowService } from "../../model/service/FollowService.js";
 
 export const handler = async (

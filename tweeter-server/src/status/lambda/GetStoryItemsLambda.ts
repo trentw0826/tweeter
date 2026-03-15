@@ -1,4 +1,7 @@
-import { PagedStatusItemRequest, PagedStatusItemResponse } from "tweeter-shared";
+import type {
+  PagedStatusItemRequest,
+  PagedStatusItemResponse,
+} from "tweeter-shared";
 import { StatusService } from "../../model/service/StatusService.js";
 
 export const handler = async (
