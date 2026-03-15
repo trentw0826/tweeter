@@ -20,9 +20,19 @@ import {
 } from "tweeter-shared";
 
 class ServerFacade {
-  // TODO replace with actual URL, likely pulled in from secrets
-  private SERVER_URL =
-    "https://<your-api-id>.execute-api.us-east-1.amazonaws.com/prod";
+  private readonly SERVER_URL: string;
+
+  constructor() {
+    const serverUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
+
+    if (!serverUrl) {
+      throw new Error(
+        "API base URL not set. Please set VITE_API_BASE_URL in your .env file.",
+      );
+    }
+
+    this.SERVER_URL = serverUrl;
+  }
 
   private async doPost<Req, Res extends TweeterResponse>(
     endpoint: string,
