@@ -1,0 +1,128 @@
+name: CI/CD Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      aws_region:
+        description: AWS region for deployment
+        required: false
+        default: us-east-1
+      sam_stack_name:
+        description: CloudFormation stack name
+        required: false
+        default: tweeter-server
+      sam_s3_prefix:
+        description: SAM deployment artifact prefix
+        required: false
+        default: tweeter-server
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Lint, Test, and Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.17.0
+          cache: npm
+
+      - name: Install workspace dependencies
+        run: npm ci
+
+      - name: Install server dependencies
+        run: npm ci --prefix tweeter-server
+
+      - name: Lint source
+        run: npm run lint
+
+      - name: Run Jest tests
+        run: npm --workspace tweeter-web test -- --runInBand
+
+      - name: Build shared package
+        run: npm --workspace tweeter-shared run build
+
+      - name: Build web package
+        run: npm --workspace tweeter-web run build
+
+      - name: Build server package
+        run: npm --prefix tweeter-server run build
+
+  deploy:
+    name: Deploy AWS infrastructure
+    runs-on: ubuntu-latest
+    needs: verify
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      id-token: write
+
+    env:
+      AWS_REGION: us-east-1
+      SAM_STACK_NAME: tweeter-server
+      SAM_S3_PREFIX: tweeter-server
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.17.0
+          cache: npm
+
+      - name: Setup AWS SAM CLI
+        uses: aws-actions/setup-sam@v2
+
+      # Conventional setup: prefer GitHub OIDC with an assumable IAM role.
+      # Required secret: AWS_ROLE_TO_ASSUME
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ github.event.inputs.aws_region || env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+      - name: Install workspace dependencies
+        run: npm ci
+
+      - name: Install server dependencies
+        run: npm ci --prefix tweeter-server
+
+      - name: Build shared package
+        run: npm --workspace tweeter-shared run build
+
+      - name: Build server package
+        run: npm --prefix tweeter-server run build
+
+      - name: SAM build
+        working-directory: tweeter-server
+        run: sam build --template-file template.yaml
+
+      - name: SAM deploy
+        working-directory: tweeter-server
+        env:
+          EFFECTIVE_AWS_REGION: ${{ github.event.inputs.aws_region || env.AWS_REGION }}
+          EFFECTIVE_SAM_STACK_NAME: ${{ github.event.inputs.sam_stack_name || env.SAM_STACK_NAME }}
+          EFFECTIVE_SAM_S3_PREFIX: ${{ github.event.inputs.sam_s3_prefix || env.SAM_S3_PREFIX }}
+        run: |
+          sam deploy \
+            --template-file template.yaml \
+            --stack-name "${EFFECTIVE_SAM_STACK_NAME}" \
+            --region "${EFFECTIVE_AWS_REGION}" \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --resolve-s3 \
+            --s3-prefix "${EFFECTIVE_SAM_S3_PREFIX}" \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset

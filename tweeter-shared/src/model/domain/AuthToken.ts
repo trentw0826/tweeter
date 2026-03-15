@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import { AuthTokenDto } from "../dto/AuthTokenDto";
 
 // Represents an authentication token used for user sessions.
 export class AuthToken {
@@ -61,6 +62,19 @@ export class AuthToken {
     } else {
       return null;
     }
+  }
+
+  public get dto(): AuthTokenDto {
+    return {
+      token: this._token,
+      timestamp: this._timestamp,
+    };
+  }
+
+  public static fromDto(dto: AuthTokenDto | null): AuthToken | null {
+    return dto === null
+      ? null
+      : new AuthToken(dto.token, dto.timestamp);
   }
 
   public toJson(): string {

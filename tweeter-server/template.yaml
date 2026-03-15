@@ -1,0 +1,340 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: SAM config for Tweeter server
+
+#
+# Global Lambda function properties. These apply to every Lambda function.
+#
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    CodeUri: ./dist/
+    Timeout: 30
+    MemorySize: 128
+
+#
+# Reusable blocks of configuration. These are referenced throughout the template to avoid duplication.
+# &identifier is used to define a reusable block, and *identifier is used to reference it.
+#
+Metadata:
+  x-common-policies: &commonPolicies
+    - AWSLambdaBasicExecutionRole
+    - AmazonSESFullAccess
+    - CloudWatchFullAccess
+    - AmazonDynamoDBFullAccess
+    - AmazonS3FullAccess
+    - AmazonSQSFullAccess
+
+#
+# AWS resource definitions
+#
+Resources:
+  #
+  # Web API
+  #
+
+  tweeterApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: tweeterApi
+      StageName: prod
+      Cors:
+        AllowMethods: "'GET,POST,PUT,DELETE'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+
+  #
+  # SQS Queues  (This will become relevant in Milestone 4. For M3, leave this section commented out.)
+  #
+
+  #   MyQueue:
+  #     Type: AWS::SQS::Queue
+  #     Properties:
+  #       QueueName: MyQueue
+
+  #
+  # Web API Lambda functions
+  #
+
+  getFolloweesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getFolloweesFunction
+      Handler: follow/lambda/GetFolloweesLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /follow/getfollowees
+            Method: POST
+
+  getFollowersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getFollowersFunction
+      Handler: follow/lambda/GetFollowersLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /follow/getfollowers
+            Method: POST
+
+  followFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: followFunction
+      Handler: follow/lambda/FollowLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /follow/follow
+            Method: POST
+
+  unfollowFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: unfollowFunction
+      Handler: follow/lambda/UnfollowLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /follow/unfollow
+            Method: POST
+
+  getUserFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getUserFunction
+      Handler: user/lambda/GetUserLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /user/get
+            Method: POST
+
+  isFollowerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: isFollowerFunction
+      Handler: user/lambda/IsFollowerLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /user/isfollower
+            Method: POST
+
+  getFolloweeCountFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getFolloweeCountFunction
+      Handler: user/lambda/GetFolloweeCountLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /user/getfolloweecount
+            Method: POST
+
+  getFollowerCountFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getFollowerCountFunction
+      Handler: user/lambda/GetFollowerCountLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /user/getfollowercount
+            Method: POST
+
+  loginFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: loginFunction
+      Handler: auth/lambda/LoginLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /auth/login
+            Method: POST
+
+  registerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: registerFunction
+      Handler: auth/lambda/RegisterLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /auth/register
+            Method: POST
+
+  logoutFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: logoutFunction
+      Handler: auth/lambda/LogoutLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /auth/logout
+            Method: POST
+
+  getFeedItemsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getFeedItemsFunction
+      Handler: status/lambda/GetFeedItemsLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /status/getfeeditems
+            Method: POST
+
+  getStoryItemsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getStoryItemsFunction
+      Handler: status/lambda/GetStoryItemsLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /status/getstoryitems
+            Method: POST
+
+  postStatusFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: postStatusFunction
+      Handler: status/lambda/PostStatusLambda.handler
+      Policies: *commonPolicies
+      Events:
+        PostApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref tweeterApi
+            Path: /status/poststatus
+            Method: POST
+
+  #
+  # SQS Queue Lambda Functions  (leave this section commented out for now)
+  #
+
+  #   MyQueueFunction:
+  #     Type: AWS::Serverless::Function
+  #     Properties:
+  #       FunctionName: MyQueueFunction
+  #       Handler: <PATH TO LAMBDA HANDLER>
+  #       Policies: *commonPolicies
+  #       Events:
+  #         SQSTrigger:
+  #           Type: SQS
+  #           Properties:
+  #             Queue: !GetAtt MyQueue.Arn
+  #             Enabled: true
+
+  #
+  # DynamoDB Tables  (commented out until DynamoDB deployment is ready)
+  #
+
+  #   visitTable:
+  #     Type: AWS::DynamoDB::Table
+  #     Properties:
+  #       TableName: visit
+  #       AttributeDefinitions:
+  #         - AttributeName: person_name
+  #           AttributeType: S
+  #         - AttributeName: place_name
+  #           AttributeType: S
+  #       KeySchema:
+  #         - AttributeName: person_name
+  #           KeyType: HASH
+  #         - AttributeName: place_name
+  #           KeyType: RANGE
+  #       BillingMode: PROVISIONED
+  #       ProvisionedThroughput:
+  #         ReadCapacityUnits: 1
+  #         WriteCapacityUnits: 1
+  #       GlobalSecondaryIndexes:
+  #         - IndexName: place_index
+  #           KeySchema:
+  #             - AttributeName: place_name
+  #               KeyType: HASH
+  #             - AttributeName: person_name
+  #               KeyType: RANGE
+  #           ProvisionedThroughput:
+  #             ReadCapacityUnits: 1
+  #             WriteCapacityUnits: 1
+  #           Projection:
+  #             ProjectionType: ALL
+
+  #   followTable:
+  #     Type: AWS::DynamoDB::Table
+  #     Properties:
+  #       TableName: follow
+  #       AttributeDefinitions:
+  #         - AttributeName: follower_alias
+  #           AttributeType: S
+  #         - AttributeName: followee_alias
+  #           AttributeType: S
+  #       KeySchema:
+  #         - AttributeName: follower_alias
+  #           KeyType: HASH
+  #         - AttributeName: followee_alias
+  #           KeyType: RANGE
+  #       BillingMode: PROVISIONED
+  #       ProvisionedThroughput:
+  #         ReadCapacityUnits: 1
+  #         WriteCapacityUnits: 1
+  #       GlobalSecondaryIndexes:
+  #         - IndexName: follow_index
+  #           KeySchema:
+  #             - AttributeName: followee_alias
+  #               KeyType: HASH
+  #             - AttributeName: follower_alias
+  #               KeyType: RANGE
+  #           ProvisionedThroughput:
+  #             ReadCapacityUnits: 1
+  #             WriteCapacityUnits: 1
+  #           Projection:
+  #             ProjectionType: ALL
+
+  #
+  # TODO: ADD MORE TABLE DEFINITIONS HERE
+  #

@@ -1,6 +1,7 @@
 import { PostSegment, Type } from "./PostSegment";
 import { User } from "./User";
 import { format } from "date-fns";
+import { StatusDto } from "../dto/StatusDto";
 
 // Represents a status made by a user. Contains the post text, the user who made the post, and the timestamp of when the post was made.
 export class Status {
@@ -284,5 +285,20 @@ export class Status {
 
   public toJson(): string {
     return JSON.stringify(this);
+  }
+
+  public get dto(): StatusDto {
+    return {
+      post: this._post,
+      user: this._user.dto,
+      timestamp: this._timestamp,
+    };
+  }
+
+  public static fromDto(dto: StatusDto | null): Status | null {
+    if (dto === null) return null;
+    const user = User.fromDto(dto.user);
+    if (user === null) return null;
+    return new Status(dto.post, user, dto.timestamp);
   }
 }

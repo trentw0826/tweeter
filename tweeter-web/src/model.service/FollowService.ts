@@ -1,6 +1,6 @@
 import { AuthToken, User } from "tweeter-shared";
-import { FakeData } from "tweeter-shared/dist/util/FakeData";
 import { Service } from "./Service";
+import serverFacade from "../network/ServerFacade";
 
 export class FollowService implements Service {
   public async retrievePageOfFollowers(
@@ -9,8 +9,14 @@ export class FollowService implements Service {
     pageSize: number,
     lastItem: User | null,
   ): Promise<[User[], boolean]> {
-    // TODO: Replace with the result of calling server
-    return FakeData.instance.getPageOfUsers(lastItem, pageSize, userAlias);
+    const response = await serverFacade.getFollowers({
+      token: authToken.token,
+      userAlias,
+      pageSize,
+      lastItem: lastItem ? lastItem.dto : null,
+    });
+    const users = (response.items ?? []).map((dto) => User.fromDto(dto)!);
+    return [users, response.hasMore];
   }
 
   public async retrievePageOfFollowees(
@@ -19,24 +25,31 @@ export class FollowService implements Service {
     pageSize: number,
     lastFollower: User | null,
   ): Promise<[User[], boolean]> {
-    // TODO: Replace with the result of calling server
-    return FakeData.instance.getPageOfUsers(lastFollower, pageSize, userAlias);
+    const response = await serverFacade.getFollowees({
+      token: authToken.token,
+      userAlias,
+      pageSize,
+      lastItem: lastFollower ? lastFollower.dto : null,
+    });
+    const users = (response.items ?? []).map((dto) => User.fromDto(dto)!);
+    return [users, response.hasMore];
   }
 
   public async follow(authToken: AuthToken, userToFollow: User): Promise<void> {
-    // Pause so we can see the follow message. Remove when connected to the server
-    await new Promise((f) => setTimeout(f, 2000));
-
-    // TODO: Call the server
+    await serverFacade.follow({
+      token: authToken.token,
+      user: userToFollow.dto,
+    });
   }
 
   public async unfollow(
     authToken: AuthToken,
     userToUnfollow: User,
   ): Promise<void> {
-    // Pause so we can see the unfollow message. Remove when connected to the server
-    await new Promise((f) => setTimeout(f, 2000));
-
-    // TODO: Call the server
+    await serverFacade.unfollow({
+      token: authToken.token,
+      user: userToUnfollow.dto,
+    });
   }
 }
+

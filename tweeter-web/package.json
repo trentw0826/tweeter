@@ -29,12 +29,6 @@
     "serve": "vite preview",
     "reload": "npm run build && npm run serve"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
