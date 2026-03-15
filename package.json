@@ -8,13 +8,20 @@
   "author": "JWilkerson",
   "license": "ISC",
   "scripts": {
-    "format": "prettier --write \"**/*.{ts,tsx,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "lint": "eslint tweeter-web/src tweeter-web/test tweeter-shared/src tweeter-server/src --ext .ts,.tsx",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "rimraf": "^5.0.5",
     "vite-plugin-dts": "^3.7.3"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "prettier": "^3.8.1"
   },
   "description": "A starter project for the Tweeter Web application.",
