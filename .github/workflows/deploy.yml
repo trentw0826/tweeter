@@ -32,6 +32,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug GitHub context
+        run: |
+          echo "event_name=${{ github.event_name }}"
+          echo "ref=${{ github.ref }}"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -47,11 +52,11 @@ jobs:
       - name: Lint source
         run: npm run lint
 
-      - name: Run Jest tests
-        run: npm --workspace tweeter-web test -- --runInBand
-
       - name: Build shared package
         run: npm --workspace tweeter-shared run build
+
+      - name: Run Jest tests
+        run: npm --workspace tweeter-web test -- --runInBand
 
       - name: Build web package
         run: npm --workspace tweeter-web run build
@@ -76,6 +81,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Debug GitHub context
+        run: |
+          echo "event_name=${{ github.event_name }}"
+          echo "ref=${{ github.ref }}"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
