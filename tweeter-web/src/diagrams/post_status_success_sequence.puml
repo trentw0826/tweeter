@@ -1,0 +1,50 @@
+@startuml PostStatusSuccessSequence
+
+title Successful Post Status Flow (Client + Server)
+
+actor User
+
+box "Client" #E3F2FD
+  participant "PostStatus\n(Component)" as PostStatus
+  participant "PostStatusPresenter" as Presenter
+  participant "StatusService\n(Client)" as ClientStatusService
+  participant "ServerFacade" as ServerFacade
+end box
+
+participant "API Gateway" as ApiGateway
+
+box "Server" #FFF8E1
+  participant "PostStatusLambda" as PostStatusLambda
+  participant "StatusService\n(Server)" as ServerStatusService
+end box
+
+User -> PostStatus: submitPost()
+PostStatus -> Presenter: submitPost(post, authToken, currentUser)
+
+Presenter ->> ClientStatusService: postStatus(authToken, newStatus)
+activate ClientStatusService
+ClientStatusService ->> ServerFacade: postStatus(request)
+activate ServerFacade
+ServerFacade ->> ApiGateway: POST /status/poststatus
+activate ApiGateway
+
+ApiGateway ->> PostStatusLambda: invoke(request)
+activate PostStatusLambda
+PostStatusLambda ->> ServerStatusService: postStatus(token, newStatus)
+activate ServerStatusService
+ServerStatusService -->> PostStatusLambda: success
+
+deactivate ServerStatusService
+PostStatusLambda -->> ApiGateway: VoidResponse(success)
+deactivate PostStatusLambda
+ApiGateway -->> ServerFacade: 200 OK
+deactivate ApiGateway
+ServerFacade -->> ClientStatusService: VoidResponse
+deactivate ServerFacade
+ClientStatusService -->> Presenter: Promise resolved
+deactivate ClientStatusService
+
+Presenter -> PostStatus: listener.clearPost()
+Presenter -> PostStatus: listener.displayInfoMessage("Status posted!", 2000)
+
+@enduml
