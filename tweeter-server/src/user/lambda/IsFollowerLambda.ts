@@ -1,4 +1,4 @@
-import { IsFollowerRequest, IsFollowerResponse } from "tweeter-shared";
+import type { IsFollowerRequest, IsFollowerResponse } from "tweeter-shared";
 import { UserService } from "../../model/service/UserService.js";
 
 export const handler = async (

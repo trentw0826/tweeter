@@ -1,5 +1,5 @@
-import { PostSegment, Type } from "./PostSegment";
-import { User } from "./User";
+import { PostSegment, Type } from "./PostSegment.js";
+import { User } from "./User.js";
 import { format } from "date-fns";
 import { StatusDto } from "../dto/StatusDto";
 

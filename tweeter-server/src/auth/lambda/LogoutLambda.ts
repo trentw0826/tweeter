@@ -1,4 +1,4 @@
-import { LogoutRequest, VoidResponse } from "tweeter-shared";
+import type { LogoutRequest, VoidResponse } from "tweeter-shared";
 import { AuthService } from "../../model/service/AuthService.js";
 
 export const handler = async (

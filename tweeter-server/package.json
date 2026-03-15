@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npm run compile",
     "precompile": "cd ../tweeter-shared && npm run compile",
+    "test": "npm run build && node --experimental-specifier-resolution=node --test test",
     "compile": "npm run clean && tsc",
     "clean": "rimraf dist"
   },

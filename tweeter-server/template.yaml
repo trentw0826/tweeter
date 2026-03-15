@@ -25,6 +25,13 @@ Metadata:
     - AmazonS3FullAccess
     - AmazonSQSFullAccess
 
+  x-common-cors-headers: &commonCorsHeaders
+    method.response.header.Access-Control-Allow-Origin: "'*'"
+
+  x-common-swagger-response-headers: &commonSwaggerResponseHeaders
+    Access-Control-Allow-Origin:
+      type: string
+
 #
 # AWS resource definitions
 #
@@ -42,6 +49,246 @@ Resources:
         AllowMethods: "'GET,POST,PUT,DELETE'"
         AllowHeaders: "'*'"
         AllowOrigin: "'*'"
+      DefinitionBody:
+        swagger: "2.0"
+        info:
+          title: Tweeter API
+          version: "1.0"
+        x-common-consumes: &commonConsumes
+          - application/json
+        x-common-produces: &commonProduces
+          - application/json
+        x-common-request-templates: &commonRequestTemplates
+          application/json: $input.json('$')
+        x-common-amazon-responses: &commonAmazonResponses
+          default:
+            statusCode: 200
+            responseParameters: *commonCorsHeaders
+          ".*bad-request.*":
+            statusCode: 400
+            responseParameters: *commonCorsHeaders
+            responseTemplates:
+              application/json: '{ "error": "$input.path(''$.errorMessage'')" }'
+          ".*unauthorized.*":
+            statusCode: 401
+            responseParameters: *commonCorsHeaders
+            responseTemplates:
+              application/json: '{ "error": "$input.path(''$.errorMessage'')" }'
+          "^(?!.*(?:bad-request|unauthorized)).+":
+            statusCode: 500
+            responseParameters: *commonCorsHeaders
+            responseTemplates:
+              application/json: '{ "error": "$input.path(''$.errorMessage'')" }'
+        x-common-swagger-responses: &commonSwaggerResponses
+          "200":
+            description: OK
+            headers: *commonSwaggerResponseHeaders
+          "400":
+            description: Bad Request
+            headers: *commonSwaggerResponseHeaders
+          "401":
+            description: Unauthorized
+            headers: *commonSwaggerResponseHeaders
+          "500":
+            description: Internal Server Error
+            headers: *commonSwaggerResponseHeaders
+        paths:
+          /follow/getfollowees:
+            post:
+              summary: Get followees
+              description: Returns a page of followees for a specified user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getFolloweesFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /follow/getfollowers:
+            post:
+              summary: Get followers
+              description: Returns a page of followers for a specified user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getFollowersFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /follow/follow:
+            post:
+              summary: Follow user
+              description: Creates a follow relationship for the authenticated user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${followFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /follow/unfollow:
+            post:
+              summary: Unfollow user
+              description: Removes a follow relationship for the authenticated user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${unfollowFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /user/get:
+            post:
+              summary: Get user profile
+              description: Retrieves a user profile by alias.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getUserFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /user/isfollower:
+            post:
+              summary: Check follower relationship
+              description: Checks whether one user follows another.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${isFollowerFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /user/getfolloweecount:
+            post:
+              summary: Get followee count
+              description: Returns the number of accounts a user follows.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getFolloweeCountFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /user/getfollowercount:
+            post:
+              summary: Get follower count
+              description: Returns the number of followers for a user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getFollowerCountFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /auth/login:
+            post:
+              summary: Log in
+              description: Authenticates a user and returns session information.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${loginFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /auth/register:
+            post:
+              summary: Register account
+              description: Registers a new user account and returns session information.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${registerFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /auth/logout:
+            post:
+              summary: Log out
+              description: Invalidates the current authenticated session.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${logoutFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /status/getfeeditems:
+            post:
+              summary: Get feed items
+              description: Returns a page of feed statuses for a user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getFeedItemsFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /status/getstoryitems:
+            post:
+              summary: Get story items
+              description: Returns a page of story statuses for a user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getStoryItemsFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
+          /status/poststatus:
+            post:
+              summary: Post status
+              description: Posts a new status on behalf of the authenticated user.
+              consumes: *commonConsumes
+              produces: *commonProduces
+              x-amazon-apigateway-integration:
+                type: aws
+                httpMethod: POST
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${postStatusFunction.Arn}/invocations
+                requestTemplates: *commonRequestTemplates
+                responses: *commonAmazonResponses
+              responses: *commonSwaggerResponses
 
   #
   # SQS Queues  (This will become relevant in Milestone 4. For M3, leave this section commented out.)
@@ -59,199 +306,226 @@ Resources:
   getFolloweesFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Returns a page of followees for a specified user.
       FunctionName: getFolloweesFunction
       Handler: follow/lambda/GetFolloweesLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /follow/getfollowees
-            Method: POST
 
   getFollowersFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Returns a page of followers for a specified user.
       FunctionName: getFollowersFunction
       Handler: follow/lambda/GetFollowersLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /follow/getfollowers
-            Method: POST
 
   followFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Creates a follow relationship for the authenticated user.
       FunctionName: followFunction
       Handler: follow/lambda/FollowLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /follow/follow
-            Method: POST
 
   unfollowFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Removes a follow relationship for the authenticated user.
       FunctionName: unfollowFunction
       Handler: follow/lambda/UnfollowLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /follow/unfollow
-            Method: POST
 
   getUserFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Retrieves a user profile by alias.
       FunctionName: getUserFunction
       Handler: user/lambda/GetUserLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /user/get
-            Method: POST
 
   isFollowerFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Checks whether one user follows another.
       FunctionName: isFollowerFunction
       Handler: user/lambda/IsFollowerLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /user/isfollower
-            Method: POST
 
   getFolloweeCountFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Returns the number of accounts a user follows.
       FunctionName: getFolloweeCountFunction
       Handler: user/lambda/GetFolloweeCountLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /user/getfolloweecount
-            Method: POST
 
   getFollowerCountFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Returns the number of followers for a user.
       FunctionName: getFollowerCountFunction
       Handler: user/lambda/GetFollowerCountLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /user/getfollowercount
-            Method: POST
 
   loginFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Authenticates a user and returns session information.
       FunctionName: loginFunction
       Handler: auth/lambda/LoginLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /auth/login
-            Method: POST
 
   registerFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Registers a new user account and returns session information.
       FunctionName: registerFunction
       Handler: auth/lambda/RegisterLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /auth/register
-            Method: POST
 
   logoutFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Invalidates the current authenticated session.
       FunctionName: logoutFunction
       Handler: auth/lambda/LogoutLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /auth/logout
-            Method: POST
 
   getFeedItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Returns a page of feed statuses for a user.
       FunctionName: getFeedItemsFunction
       Handler: status/lambda/GetFeedItemsLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /status/getfeeditems
-            Method: POST
 
   getStoryItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Returns a page of story statuses for a user.
       FunctionName: getStoryItemsFunction
       Handler: status/lambda/GetStoryItemsLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /status/getstoryitems
-            Method: POST
 
   postStatusFunction:
     Type: AWS::Serverless::Function
     Properties:
+      Description: Posts a new status on behalf of the authenticated user.
       FunctionName: postStatusFunction
       Handler: status/lambda/PostStatusLambda.handler
       Policies: *commonPolicies
-      Events:
-        PostApi:
-          Type: Api
-          Properties:
-            RestApiId: !Ref tweeterApi
-            Path: /status/poststatus
-            Method: POST
 
+  getFolloweesPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref getFolloweesFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/follow/getfollowees
+
+  getFollowersPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref getFollowersFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/follow/getfollowers
+
+  followPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref followFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/follow/follow
+
+  unfollowPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref unfollowFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/follow/unfollow
+
+  getUserPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref getUserFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/user/get
+
+  isFollowerPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref isFollowerFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/user/isfollower
+
+  getFolloweeCountPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref getFolloweeCountFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/user/getfolloweecount
+
+  getFollowerCountPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref getFollowerCountFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/user/getfollowercount
+
+  loginPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref loginFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/auth/login
+
+  registerPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref registerFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/auth/register
+
+  logoutPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref logoutFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/auth/logout
+
+  getFeedItemsPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref getFeedItemsFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/status/getfeeditems
+
+  getStoryItemsPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref getStoryItemsFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/status/getstoryitems
+
+  postStatusPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref postStatusFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/status/poststatus
   #
   # SQS Queue Lambda Functions  (leave this section commented out for now)
   #

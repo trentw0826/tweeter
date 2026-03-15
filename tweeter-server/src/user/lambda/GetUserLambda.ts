@@ -1,4 +1,4 @@
-import { GetUserRequest, GetUserResponse } from "tweeter-shared";
+import type { GetUserRequest, GetUserResponse } from "tweeter-shared";
 import { UserService } from "../../model/service/UserService.js";
 
 export const handler = async (

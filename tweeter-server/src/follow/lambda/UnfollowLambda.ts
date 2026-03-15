@@ -1,4 +1,4 @@
-import { FollowActionRequest, VoidResponse } from "tweeter-shared";
+import type { FollowActionRequest, VoidResponse } from "tweeter-shared";
 import { FollowService } from "../../model/service/FollowService.js";
 
 export const handler = async (

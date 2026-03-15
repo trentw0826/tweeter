@@ -1,4 +1,4 @@
-import { User } from "./User";
+import { User } from "./User.js";
 
 // Represents a "follow" relationship between two users
 export class Follow {

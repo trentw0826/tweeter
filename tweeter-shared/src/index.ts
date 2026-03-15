@@ -1,11 +1,11 @@
 //
 // Domain classes
 //
-export { Follow } from "./model/domain/Follow";
-export { PostSegment, Type } from "./model/domain/PostSegment";
-export { Status } from "./model/domain/Status";
-export { User } from "./model/domain/User";
-export { AuthToken } from "./model/domain/AuthToken";
+export { Follow } from "./model/domain/Follow.js";
+export { PostSegment, Type } from "./model/domain/PostSegment.js";
+export { Status } from "./model/domain/Status.js";
+export { User } from "./model/domain/User.js";
+export { AuthToken } from "./model/domain/AuthToken.js";
 
 //
 // DTOs
@@ -44,4 +44,4 @@ export type { VoidResponse } from "./model/net/response/VoidResponse";
 //
 // Other
 //
-export { FakeData } from "./util/FakeData";
+export { FakeData } from "./util/FakeData.js";
