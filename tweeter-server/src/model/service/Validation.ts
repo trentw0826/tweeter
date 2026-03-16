@@ -15,13 +15,19 @@ export function assertNonEmptyString(
   }
 }
 
+export function normalizeAlias(alias: string): string {
+  const trimmed = alias.trim();
+  return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
+}
+
 export function assertAlias(
   value: unknown,
   fieldName = "alias",
 ): asserts value is string {
   assertNonEmptyString(value, fieldName);
 
-  if (!value.trim().startsWith("@")) {
+  const trimmed = value.trim();
+  if (!trimmed.startsWith("@") || trimmed.length < 2) {
     throwBadRequest(`Invalid ${fieldName}`);
   }
 }

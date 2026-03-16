@@ -4,6 +4,7 @@ import {
   assertAlias,
   assertNonEmptyString,
   assertToken,
+  normalizeAlias,
 } from "./Validation.js";
 
 export class AuthService implements TweeterService {
@@ -11,6 +12,7 @@ export class AuthService implements TweeterService {
     alias: string,
     password: string,
   ): Promise<[UserDto, AuthTokenDto]> {
+    alias = normalizeAlias(alias);
     assertAlias(alias);
     assertNonEmptyString(password, "password");
 
