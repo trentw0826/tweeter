@@ -35,6 +35,7 @@ export class AuthService implements TweeterService {
   ): Promise<[UserDto, AuthTokenDto]> {
     assertNonEmptyString(firstName, "firstName");
     assertNonEmptyString(lastName, "lastName");
+    alias = normalizeAlias(alias);
     assertAlias(alias);
     assertNonEmptyString(password, "password");
     assertNonEmptyString(userImageBytes, "userImageBytes");
