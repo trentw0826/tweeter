@@ -4,19 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run compile",
+    "build": "npm run compile && npm run prepare:layer",
     "precompile": "cd ../tweeter-shared && npm run compile",
     "test": "npm run build && node --experimental-specifier-resolution=node --test test",
     "compile": "npm run clean && tsc",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "prepare:layer": "node ./scripts/sync-shared-layer.mjs",
+    "sam:build": "npm run build && sam build",
+    "sam:deploy": "npm run sam:build && sam deploy"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "tweeter-shared": "file:../tweeter-shared",
     "date-fns": "^3.3.1",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "tweeter-shared": "file:../tweeter-shared"
   }
 }

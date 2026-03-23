@@ -8,9 +8,11 @@ Description: SAM config for Tweeter server
 Globals:
   Function:
     Runtime: nodejs20.x
-    CodeUri: ./dist/
+    CodeUri: ./
     Timeout: 30
     MemorySize: 128
+    Layers:
+      - !Ref sharedRuntimeLayer
 
 #
 # Reusable blocks of configuration. These are referenced throughout the template to avoid duplication.
@@ -36,6 +38,16 @@ Metadata:
 # AWS resource definitions
 #
 Resources:
+  sharedRuntimeLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: sharedRuntimeLayer
+      Description: Shared Tweeter runtime package and dependencies.
+      ContentUri: layers/shared-runtime/
+      CompatibleRuntimes:
+        - nodejs20.x
+      RetentionPolicy: Delete
+
   #
   # Web API
   #
@@ -308,7 +320,7 @@ Resources:
     Properties:
       Description: Returns a page of followees for a specified user.
       FunctionName: getFolloweesFunction
-      Handler: follow/lambda/GetFolloweesLambda.handler
+      Handler: dist/follow/lambda/GetFolloweesLambda.handler
       Policies: *commonPolicies
 
   getFollowersFunction:
@@ -316,7 +328,7 @@ Resources:
     Properties:
       Description: Returns a page of followers for a specified user.
       FunctionName: getFollowersFunction
-      Handler: follow/lambda/GetFollowersLambda.handler
+      Handler: dist/follow/lambda/GetFollowersLambda.handler
       Policies: *commonPolicies
 
   followFunction:
@@ -324,7 +336,7 @@ Resources:
     Properties:
       Description: Creates a follow relationship for the authenticated user.
       FunctionName: followFunction
-      Handler: follow/lambda/FollowLambda.handler
+      Handler: dist/follow/lambda/FollowLambda.handler
       Policies: *commonPolicies
 
   unfollowFunction:
@@ -332,7 +344,7 @@ Resources:
     Properties:
       Description: Removes a follow relationship for the authenticated user.
       FunctionName: unfollowFunction
-      Handler: follow/lambda/UnfollowLambda.handler
+      Handler: dist/follow/lambda/UnfollowLambda.handler
       Policies: *commonPolicies
 
   getUserFunction:
@@ -340,7 +352,7 @@ Resources:
     Properties:
       Description: Retrieves a user profile by alias.
       FunctionName: getUserFunction
-      Handler: user/lambda/GetUserLambda.handler
+      Handler: dist/user/lambda/GetUserLambda.handler
       Policies: *commonPolicies
 
   isFollowerFunction:
@@ -348,7 +360,7 @@ Resources:
     Properties:
       Description: Checks whether one user follows another.
       FunctionName: isFollowerFunction
-      Handler: user/lambda/IsFollowerLambda.handler
+      Handler: dist/user/lambda/IsFollowerLambda.handler
       Policies: *commonPolicies
 
   getFolloweeCountFunction:
@@ -356,7 +368,7 @@ Resources:
     Properties:
       Description: Returns the number of accounts a user follows.
       FunctionName: getFolloweeCountFunction
-      Handler: user/lambda/GetFolloweeCountLambda.handler
+      Handler: dist/user/lambda/GetFolloweeCountLambda.handler
       Policies: *commonPolicies
 
   getFollowerCountFunction:
@@ -364,7 +376,7 @@ Resources:
     Properties:
       Description: Returns the number of followers for a user.
       FunctionName: getFollowerCountFunction
-      Handler: user/lambda/GetFollowerCountLambda.handler
+      Handler: dist/user/lambda/GetFollowerCountLambda.handler
       Policies: *commonPolicies
 
   loginFunction:
@@ -372,7 +384,7 @@ Resources:
     Properties:
       Description: Authenticates a user and returns session information.
       FunctionName: loginFunction
-      Handler: auth/lambda/LoginLambda.handler
+      Handler: dist/auth/lambda/LoginLambda.handler
       Policies: *commonPolicies
 
   registerFunction:
@@ -380,7 +392,7 @@ Resources:
     Properties:
       Description: Registers a new user account and returns session information.
       FunctionName: registerFunction
-      Handler: auth/lambda/RegisterLambda.handler
+      Handler: dist/auth/lambda/RegisterLambda.handler
       Policies: *commonPolicies
 
   logoutFunction:
@@ -388,7 +400,7 @@ Resources:
     Properties:
       Description: Invalidates the current authenticated session.
       FunctionName: logoutFunction
-      Handler: auth/lambda/LogoutLambda.handler
+      Handler: dist/auth/lambda/LogoutLambda.handler
       Policies: *commonPolicies
 
   getFeedItemsFunction:
@@ -396,7 +408,7 @@ Resources:
     Properties:
       Description: Returns a page of feed statuses for a user.
       FunctionName: getFeedItemsFunction
-      Handler: status/lambda/GetFeedItemsLambda.handler
+      Handler: dist/status/lambda/GetFeedItemsLambda.handler
       Policies: *commonPolicies
 
   getStoryItemsFunction:
@@ -404,7 +416,7 @@ Resources:
     Properties:
       Description: Returns a page of story statuses for a user.
       FunctionName: getStoryItemsFunction
-      Handler: status/lambda/GetStoryItemsLambda.handler
+      Handler: dist/status/lambda/GetStoryItemsLambda.handler
       Policies: *commonPolicies
 
   postStatusFunction:
@@ -412,7 +424,7 @@ Resources:
     Properties:
       Description: Posts a new status on behalf of the authenticated user.
       FunctionName: postStatusFunction
-      Handler: status/lambda/PostStatusLambda.handler
+      Handler: dist/status/lambda/PostStatusLambda.handler
       Policies: *commonPolicies
 
   getFolloweesPermission:
