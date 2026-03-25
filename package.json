@@ -6,7 +6,7 @@
     "tweeter-web",
     "tweeter-server"
   ],
-  "author": "JWilkerson",
+  "author": "trentw0826",
   "license": "ISC",
   "scripts": {
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
