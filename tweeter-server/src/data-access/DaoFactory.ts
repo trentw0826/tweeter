@@ -1,9 +1,11 @@
 import type { UserDao } from "./UserDao.js";
 import type { StatusDao } from "./StatusDao.js";
 import type { FollowDao } from "./FollowDao.js";
+import type { BucketDao } from "./BucketDao.js";
 import { DynamoDBUserDao } from "./DynamoDB/DynamoDBUserDao.js";
 import { DynamoDBStatusDao } from "./DynamoDB/DynamoDBStatusDao.js";
 import { DynamoDBFollowDao } from "./DynamoDB/DynamoDBFollowDao.js";
+import { AWSS3Dao } from "./DynamoDB/AWSS3Dao.js";
 
 /**
  * DaoFactory is responsible for creating and providing access to DAO instances.
@@ -15,11 +17,13 @@ export class DaoFactory {
   private userDao: DynamoDBUserDao;
   private statusDao: DynamoDBStatusDao;
   private followDao: DynamoDBFollowDao;
+  private s3Dao: AWSS3Dao;
 
   private constructor() {
     this.userDao = new DynamoDBUserDao();
     this.statusDao = new DynamoDBStatusDao();
     this.followDao = new DynamoDBFollowDao();
+    this.s3Dao = new AWSS3Dao();
   }
 
   public static getInstance(): DaoFactory {
@@ -36,6 +40,7 @@ export class DaoFactory {
     await this.userDao.initialize();
     await this.statusDao.initialize();
     await this.followDao.initialize();
+    await this.s3Dao.initialize();
   }
 
   /**
@@ -45,6 +50,7 @@ export class DaoFactory {
     await this.userDao.close();
     await this.statusDao.close();
     await this.followDao.close();
+    await this.s3Dao.close();
   }
 
   public getUserDao(): UserDao {
@@ -57,5 +63,9 @@ export class DaoFactory {
 
   public getFollowDao(): FollowDao {
     return this.followDao;
+  }
+
+  public getS3Dao(): BucketDao {
+    return this.s3Dao;
   }
 }
