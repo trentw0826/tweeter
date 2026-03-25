@@ -1,0 +1,35 @@
+name: AWS Connection Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      aws_region:
+        description: AWS region for STS check
+        required: false
+        default: us-east-1
+
+jobs:
+  aws-connection-test:
+    name: OIDC Assume Role Smoke Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Validate required secret
+        run: |
+          if [ -z "${{ secrets.AWS_ROLE_TO_ASSUME }}" ]; then
+            echo "Missing required repository secret: AWS_ROLE_TO_ASSUME"
+            exit 1
+          fi
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ github.event.inputs.aws_region || 'us-east-1' }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+      - name: Verify identity
+        run: |
+          aws sts get-caller-identity
