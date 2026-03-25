@@ -1,4 +1,4 @@
-import { FakeData, type UserDto, type AuthTokenDto } from "tweeter-shared";
+import type { UserDto, AuthTokenDto } from "tweeter-shared";
 import type TweeterService from "./TweeterService.js";
 import {
   assertAlias,
@@ -6,8 +6,17 @@ import {
   assertToken,
   normalizeAlias,
 } from "./Validation.js";
+import { DaoFactory } from "../../data-access/index.js";
+import type { UserDao } from "../../data-access/index.js";
 
 export class AuthService implements TweeterService {
+  private userDao: UserDao;
+
+  public constructor() {
+    const daoFactory = DaoFactory.getInstance();
+    this.userDao = daoFactory.getUserDao();
+  }
+
   public async login(
     alias: string,
     password: string,
@@ -16,13 +25,19 @@ export class AuthService implements TweeterService {
     assertAlias(alias);
     assertNonEmptyString(password, "password");
 
-    // TODO: Replace with real auth + DB call
-    const user = FakeData.instance.firstUser;
+    // TODO: Verify password and retrieve user from DAO
+    const user = await this.userDao.getUser(alias);
     if (user === null) {
       throw new Error("[bad-request] Invalid alias or password");
     }
-    const authToken = FakeData.instance.authToken;
-    return [user.dto, authToken.dto];
+
+    // TODO: Generate auth token and store in DB
+    const authToken: AuthTokenDto = {
+      token: "[generated-token]",
+      expiration: Date.now() + 3600000,
+    };
+
+    return [user, authToken];
   }
 
   public async register(
@@ -41,18 +56,28 @@ export class AuthService implements TweeterService {
     assertNonEmptyString(userImageBytes, "userImageBytes");
     assertNonEmptyString(imageFileExtension, "imageFileExtension");
 
-    // TODO: Upload image to S3 and persist user to DB
-    const user = FakeData.instance.firstUser;
-    if (user === null) {
-      throw new Error("[bad-request] Invalid registration");
-    }
-    const authToken = FakeData.instance.authToken;
-    return [user.dto, authToken.dto];
+    // TODO: Upload image to S3, hash password, and persist user to DB via DAO
+    const newUser: UserDto = {
+      alias,
+      firstName,
+      lastName,
+      imageUrl: "[s3-image-url]",
+    };
+
+    await this.userDao.saveUser(newUser);
+
+    // TODO: Generate auth token and store in DB
+    const authToken: AuthTokenDto = {
+      token: "[generated-token]",
+      expiration: Date.now() + 3600000,
+    };
+
+    return [newUser, authToken];
   }
 
   public async logout(token: string): Promise<void> {
     assertToken(token);
 
-    // TODO: Invalidate the auth token in DB
+    // TODO: Invalidate the auth token in DB via DAO
   }
 }
