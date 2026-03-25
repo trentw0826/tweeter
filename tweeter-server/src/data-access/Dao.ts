@@ -1,8 +1,15 @@
 /**
  * Base Data Access Object interface.
  * Defines the contract for all data access operations.
- * Future implementation will connect to DynamoDB.
  */
 export interface Dao {
-  // Placeholder for common DAO methods
+  /**
+   * Initializes the DAO and establishes connection to the database.
+   */
+  initialize(): Promise<void>;
+
+  /**
+   * Closes the DAO and cleans up resources.
+   */
+  close(): Promise<void>;
 }

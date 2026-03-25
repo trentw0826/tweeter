@@ -3,11 +3,39 @@ import type { Dao } from "./Dao.js";
 
 /**
  * UserDao handles data access for User entities.
- * Future implementation will connect to DynamoDB for user operations.
+ * Defines operations for user-related database interactions.
  */
 export interface UserDao extends Dao {
-  // TODO: Implement DynamoDB operations for users
-  // - getUser(alias: string): Promise<UserDto | null>
-  // - saveUser(user: UserDto): Promise<void>
-  // - deleteUser(alias: string): Promise<void>
+  /**
+   * Retrieves a user by their alias.
+   * @param alias - The user's alias
+   * @returns The user DTO or null if not found
+   */
+  getUser(alias: string): Promise<UserDto | null>;
+
+  /**
+   * Saves or updates a user.
+   * @param user - The user DTO to save
+   */
+  saveUser(user: UserDto): Promise<void>;
+
+  /**
+   * Deletes a user by their alias.
+   * @param alias - The user's alias
+   */
+  deleteUser(alias: string): Promise<void>;
+
+  /**
+   * Gets the follower count for a user.
+   * @param alias - The user's alias
+   * @returns The number of followers
+   */
+  getFollowerCount(alias: string): Promise<number>;
+
+  /**
+   * Gets the followee count for a user.
+   * @param alias - The user's alias
+   * @returns The number of followees
+   */
+  getFolloweeCount(alias: string): Promise<number>;
 }

@@ -1,10 +1,13 @@
 /**
  * Data Access Layer
- * Provides interfaces and factory for accessing data from DynamoDB.
+ * Provides interfaces and implementations for accessing data from DynamoDB.
  */
 
 export type { Dao } from "./Dao.js";
 export type { UserDao } from "./UserDao.js";
 export type { StatusDao } from "./StatusDao.js";
 export type { FollowDao } from "./FollowDao.js";
+export { DynamoDBUserDao } from "./DynamoDB/DynamoDBUserDao.js";
+export { DynamoDBStatusDao } from "./DynamoDB/DynamoDBStatusDao.js";
+export { DynamoDBFollowDao } from "./DynamoDB/DynamoDBFollowDao.js";
 export { DaoFactory } from "./DaoFactory.js";
