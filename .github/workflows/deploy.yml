@@ -49,6 +49,9 @@ jobs:
       - name: Lint source
         run: npm run lint
 
+      - name: Compile shared package
+        run: npm --workspace tweeter-shared run compile
+
       - name: Run Jest tests
         run: npm --workspace tweeter-web test -- --runInBand
 
