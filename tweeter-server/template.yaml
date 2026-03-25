@@ -18,6 +18,7 @@ Globals:
         FOLLOWS_TABLE: !Ref followsTable
         STORY_TABLE: !Ref storyTable
         FEED_TABLE: !Ref feedTable
+        BUCKET_NAME: !Ref mediaBucket
 
 #
 # Reusable blocks of configuration. These are referenced throughout the template to avoid duplication.
@@ -674,3 +675,9 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
+
+  mediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Suspended
