@@ -24,3 +24,10 @@ Rebuild either module of the project (tweeter-shared or tweeter-web) by running 
 ## Running the Project
 
 Run the project by running 'npm start' from within the 'tweeter-web' folder.
+
+## SAM Deploy Config
+
+The server deployment uses SAM config environments:
+
+- Local deploys use the `default` SAM config in [tweeter-server/samconfig.toml](tweeter-server/samconfig.toml), which may include a local AWS profile.
+- GitHub Actions deploys use the `ci` SAM config in [tweeter-server/samconfig.toml](tweeter-server/samconfig.toml) and rely on environment/OIDC credentials (no local AWS profile).

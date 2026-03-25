@@ -109,6 +109,8 @@ jobs:
           EFFECTIVE_SAM_S3_PREFIX: ${{ github.event.inputs.sam_s3_prefix || env.SAM_S3_PREFIX }}
         run: |
           sam deploy \
+            --config-file samconfig.toml \
+            --config-env ci \
             --template-file .aws-sam/build/template.yaml \
             --stack-name "${EFFECTIVE_SAM_STACK_NAME}" \
             --region "${EFFECTIVE_AWS_REGION}" \

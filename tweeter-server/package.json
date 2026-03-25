@@ -10,7 +10,7 @@
     "compile": "npm run clean && tsc",
     "clean": "rimraf dist",
     "sam:build": "npm run prepare:shared && sam build --template-file template.yaml",
-    "sam:deploy": "npm run sam:build && sam deploy"
+    "sam:deploy": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env default"
   },
   "keywords": [],
   "author": "",
