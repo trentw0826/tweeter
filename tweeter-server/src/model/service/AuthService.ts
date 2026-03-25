@@ -18,7 +18,7 @@ export class AuthService implements TweeterService {
   public constructor() {
     const daoFactory = DaoFactory.getInstance();
     this.userDao = daoFactory.getUserDao();
-    this.bucketDao = daoFactory.getS3Dao();
+    this.bucketDao = daoFactory.getBucketDao();
   }
 
   public async login(
