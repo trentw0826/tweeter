@@ -17,11 +17,15 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "tweeter-shared": "file:../tweeter-shared",
+    "@aws-sdk/client-dynamodb": "^3.1017.0",
+    "@aws-sdk/lib-dynamodb": "^3.1017.0",
+    "bcryptjs": "^3.0.3",
     "date-fns": "^3.3.1",
+    "tweeter-shared": "file:../tweeter-shared",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "esbuild": "^0.25.9",
     "rimraf": "^5.0.5"
   }

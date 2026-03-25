@@ -1,4 +1,5 @@
 import type { Dao } from "./Dao.js";
+import type { PagedResult } from "./Dao.js";
 
 /**
  * FollowDao handles data access for Follow relationships.
@@ -24,14 +25,24 @@ export interface FollowDao extends Dao {
    * @param userAlias - The user's alias
    * @returns Array of follower aliases
    */
-  getFollowers(userAlias: string): Promise<string[]>;
+  getFollowersPage(
+    userAlias: string,
+    pageSize: number,
+    lastFollowerAlias: string | null,
+  ): Promise<PagedResult<string>>;
 
   /**
    * Retrieves all users that a user is following.
    * @param userAlias - The user's alias
    * @returns Array of followee aliases
    */
-  getFollowees(userAlias: string): Promise<string[]>;
+  getFolloweesPage(
+    userAlias: string,
+    pageSize: number,
+    lastFolloweeAlias: string | null,
+  ): Promise<PagedResult<string>>;
+
+  getAllFollowers(userAlias: string): Promise<string[]>;
 
   /**
    * Checks if one user is following another.

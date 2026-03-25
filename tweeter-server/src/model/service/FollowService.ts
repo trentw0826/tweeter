@@ -9,15 +9,18 @@ import {
 import { DaoFactory } from "../../data-access/index.js";
 import type { FollowDao } from "../../data-access/index.js";
 import type { UserDao } from "../../data-access/index.js";
+import type { StatusDao } from "../../data-access/index.js";
 
 export class FollowService implements TweeterService {
   private followDao: FollowDao;
   private userDao: UserDao;
+  private statusDao: StatusDao;
 
   public constructor() {
     const daoFactory = DaoFactory.getInstance();
     this.followDao = daoFactory.getFollowDao();
     this.userDao = daoFactory.getUserDao();
+    this.statusDao = daoFactory.getStatusDao();
   }
 
   public async retrievePageOfFollowers(
@@ -33,16 +36,21 @@ export class FollowService implements TweeterService {
       assertUserDto(lastFollower, "lastFollower");
     }
 
-    // TODO: Query DAO to retrieve paginated followers based on lastFollower
-    const followerAliases = await this.followDao.getFollowers(userAlias);
+    const page = await this.followDao.getFollowersPage(
+      userAlias,
+      pageSize,
+      lastFollower?.alias ?? null,
+    );
+
     const followers: UserDto[] = [];
-    for (const alias of followerAliases) {
+    for (const alias of page.items) {
       const user = await this.userDao.getUser(alias);
       if (user) {
         followers.push(user);
       }
     }
-    return [followers, false];
+
+    return [followers, page.hasMore];
   }
 
   public async retrievePageOfFollowees(
@@ -58,34 +66,61 @@ export class FollowService implements TweeterService {
       assertUserDto(lastFollowee, "lastFollowee");
     }
 
-    // TODO: Query DAO to retrieve paginated followees based on lastFollowee
-    const followeeAliases = await this.followDao.getFollowees(userAlias);
+    const page = await this.followDao.getFolloweesPage(
+      userAlias,
+      pageSize,
+      lastFollowee?.alias ?? null,
+    );
+
     const followees: UserDto[] = [];
-    for (const alias of followeeAliases) {
+    for (const alias of page.items) {
       const user = await this.userDao.getUser(alias);
       if (user) {
         followees.push(user);
       }
     }
-    return [followees, false];
+
+    return [followees, page.hasMore];
   }
 
   public async follow(token: string, userToFollow: UserDto): Promise<void> {
     assertToken(token);
     assertUserDto(userToFollow, "userToFollow");
 
-    // TODO: Get current user from token and add follow relationship via DAO
-    await this.followDao.addFollow("[current-user-alias]", userToFollow.alias);
+    const currentUserAlias = await this.getAliasFromTokenOrThrow(token);
+    if (currentUserAlias === userToFollow.alias) {
+      throw new Error("[bad-request] Cannot follow yourself");
+    }
+
+    await this.followDao.addFollow(currentUserAlias, userToFollow.alias);
+    await this.userDao.updateFolloweeCount(currentUserAlias, 1);
+    await this.userDao.updateFollowerCount(userToFollow.alias, 1);
+    await this.statusDao.backfillFeedFromStory(
+      currentUserAlias,
+      userToFollow.alias,
+    );
   }
 
   public async unfollow(token: string, userToUnfollow: UserDto): Promise<void> {
     assertToken(token);
     assertUserDto(userToUnfollow, "userToUnfollow");
 
-    // TODO: Get current user from token and remove follow relationship via DAO
-    await this.followDao.removeFollow(
-      "[current-user-alias]",
+    const currentUserAlias = await this.getAliasFromTokenOrThrow(token);
+    await this.followDao.removeFollow(currentUserAlias, userToUnfollow.alias);
+    await this.userDao.updateFolloweeCount(currentUserAlias, -1);
+    await this.userDao.updateFollowerCount(userToUnfollow.alias, -1);
+    await this.statusDao.removeFeedItemsByAuthor(
+      currentUserAlias,
       userToUnfollow.alias,
     );
+  }
+
+  private async getAliasFromTokenOrThrow(token: string): Promise<string> {
+    const alias = await this.userDao.getAliasByAuthToken(token);
+    if (alias === null) {
+      throw new Error("[unauthorized] Invalid auth token");
+    }
+
+    return alias;
   }
 }

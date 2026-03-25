@@ -1,5 +1,6 @@
 import type { StatusDto } from "tweeter-shared";
 import type { Dao } from "./Dao.js";
+import type { PagedResult } from "./Dao.js";
 
 /**
  * StatusDao handles data access for Status entities.
@@ -30,5 +31,29 @@ export interface StatusDao extends Dao {
    * @param userAlias - The user's alias
    * @returns Array of status DTOs
    */
-  getStatusesByUser(userAlias: string): Promise<StatusDto[]>;
+  getStoryPage(
+    userAlias: string,
+    pageSize: number,
+    lastTimestamp: number | null,
+  ): Promise<PagedResult<StatusDto>>;
+
+  getFeedPage(
+    userAlias: string,
+    pageSize: number,
+    lastTimestamp: number | null,
+  ): Promise<PagedResult<StatusDto>>;
+
+  addStatusToFeed(userAlias: string, status: StatusDto): Promise<void>;
+
+  addStatusToFeeds(userAliases: string[], status: StatusDto): Promise<void>;
+
+  backfillFeedFromStory(
+    followerAlias: string,
+    followeeAlias: string,
+  ): Promise<void>;
+
+  removeFeedItemsByAuthor(
+    ownerAlias: string,
+    authorAlias: string,
+  ): Promise<void>;
 }

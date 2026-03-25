@@ -17,13 +17,21 @@ export interface UserDao extends Dao {
    * Saves or updates a user.
    * @param user - The user DTO to save
    */
-  saveUser(user: UserDto): Promise<void>;
+  createUser(user: UserDto, passwordHash: string): Promise<void>;
 
   /**
    * Deletes a user by their alias.
    * @param alias - The user's alias
    */
   deleteUser(alias: string): Promise<void>;
+
+  getPasswordHash(alias: string): Promise<string | null>;
+
+  createAuthToken(alias: string): Promise<string>;
+
+  getAliasByAuthToken(token: string): Promise<string | null>;
+
+  deleteAuthToken(token: string): Promise<void>;
 
   /**
    * Gets the follower count for a user.
@@ -38,4 +46,8 @@ export interface UserDao extends Dao {
    * @returns The number of followees
    */
   getFolloweeCount(alias: string): Promise<number>;
+
+  updateFollowerCount(alias: string, delta: number): Promise<void>;
+
+  updateFolloweeCount(alias: string, delta: number): Promise<void>;
 }

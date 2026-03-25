@@ -13,3 +13,8 @@ export interface Dao {
    */
   close(): Promise<void>;
 }
+
+export type PagedResult<T> = {
+  items: T[];
+  hasMore: boolean;
+};
