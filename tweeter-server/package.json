@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run compile",
-    "precompile": "cd ../tweeter-shared && npm run compile",
+    "precompile": "npm --workspace tweeter-shared run compile",
     "test": "npm run build && node --experimental-specifier-resolution=node --test test",
     "compile": "npm run clean && tsc",
     "clean": "rimraf dist"
