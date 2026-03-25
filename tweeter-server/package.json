@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run compile",
-    "precompile": "npm --workspace tweeter-shared run compile",
+    "prepare:shared": "npm --workspace tweeter-shared run compile",
+    "build": "npm run prepare:shared && npm run compile",
     "test": "npm run build && node --experimental-specifier-resolution=node --test test",
     "compile": "npm run clean && tsc",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "sam:build": "npm run prepare:shared && sam build --template-file template.yaml",
+    "sam:deploy": "npm run sam:build && sam deploy"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +20,9 @@
     "tweeter-shared": "file:../tweeter-shared",
     "date-fns": "^3.3.1",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.9",
+    "rimraf": "^5.0.5"
   }
 }

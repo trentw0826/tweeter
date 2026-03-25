@@ -8,7 +8,7 @@ Description: SAM config for Tweeter server
 Globals:
   Function:
     Runtime: nodejs20.x
-    CodeUri: ./dist/
+    CodeUri: ../
     Timeout: 30
     MemorySize: 128
 
@@ -31,6 +31,14 @@ Metadata:
   x-common-swagger-response-headers: &commonSwaggerResponseHeaders
     Access-Control-Allow-Origin:
       type: string
+
+  x-common-function-metadata: &commonFunctionMetadata
+    BuildMethod: esbuild
+    BuildProperties:
+      Format: cjs
+      Minify: false
+      Sourcemap: true
+      Target: es2020
 
 #
 # AWS resource definitions
@@ -305,114 +313,128 @@ Resources:
 
   getFolloweesFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Returns a page of followees for a specified user.
       FunctionName: getFolloweesFunction
-      Handler: follow/lambda/GetFolloweesLambda.handler
+      Handler: tweeter-server/src/follow/lambda/GetFolloweesLambda.handler
       Policies: *commonPolicies
 
   getFollowersFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Returns a page of followers for a specified user.
       FunctionName: getFollowersFunction
-      Handler: follow/lambda/GetFollowersLambda.handler
+      Handler: tweeter-server/src/follow/lambda/GetFollowersLambda.handler
       Policies: *commonPolicies
 
   followFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Creates a follow relationship for the authenticated user.
       FunctionName: followFunction
-      Handler: follow/lambda/FollowLambda.handler
+      Handler: tweeter-server/src/follow/lambda/FollowLambda.handler
       Policies: *commonPolicies
 
   unfollowFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Removes a follow relationship for the authenticated user.
       FunctionName: unfollowFunction
-      Handler: follow/lambda/UnfollowLambda.handler
+      Handler: tweeter-server/src/follow/lambda/UnfollowLambda.handler
       Policies: *commonPolicies
 
   getUserFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Retrieves a user profile by alias.
       FunctionName: getUserFunction
-      Handler: user/lambda/GetUserLambda.handler
+      Handler: tweeter-server/src/user/lambda/GetUserLambda.handler
       Policies: *commonPolicies
 
   isFollowerFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Checks whether one user follows another.
       FunctionName: isFollowerFunction
-      Handler: user/lambda/IsFollowerLambda.handler
+      Handler: tweeter-server/src/user/lambda/IsFollowerLambda.handler
       Policies: *commonPolicies
 
   getFolloweeCountFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Returns the number of accounts a user follows.
       FunctionName: getFolloweeCountFunction
-      Handler: user/lambda/GetFolloweeCountLambda.handler
+      Handler: tweeter-server/src/user/lambda/GetFolloweeCountLambda.handler
       Policies: *commonPolicies
 
   getFollowerCountFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Returns the number of followers for a user.
       FunctionName: getFollowerCountFunction
-      Handler: user/lambda/GetFollowerCountLambda.handler
+      Handler: tweeter-server/src/user/lambda/GetFollowerCountLambda.handler
       Policies: *commonPolicies
 
   loginFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Authenticates a user and returns session information.
       FunctionName: loginFunction
-      Handler: auth/lambda/LoginLambda.handler
+      Handler: tweeter-server/src/auth/lambda/LoginLambda.handler
       Policies: *commonPolicies
 
   registerFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Registers a new user account and returns session information.
       FunctionName: registerFunction
-      Handler: auth/lambda/RegisterLambda.handler
+      Handler: tweeter-server/src/auth/lambda/RegisterLambda.handler
       Policies: *commonPolicies
 
   logoutFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Invalidates the current authenticated session.
       FunctionName: logoutFunction
-      Handler: auth/lambda/LogoutLambda.handler
+      Handler: tweeter-server/src/auth/lambda/LogoutLambda.handler
       Policies: *commonPolicies
 
   getFeedItemsFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Returns a page of feed statuses for a user.
       FunctionName: getFeedItemsFunction
-      Handler: status/lambda/GetFeedItemsLambda.handler
+      Handler: tweeter-server/src/status/lambda/GetFeedItemsLambda.handler
       Policies: *commonPolicies
 
   getStoryItemsFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Returns a page of story statuses for a user.
       FunctionName: getStoryItemsFunction
-      Handler: status/lambda/GetStoryItemsLambda.handler
+      Handler: tweeter-server/src/status/lambda/GetStoryItemsLambda.handler
       Policies: *commonPolicies
 
   postStatusFunction:
     Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
     Properties:
       Description: Posts a new status on behalf of the authenticated user.
       FunctionName: postStatusFunction
-      Handler: status/lambda/PostStatusLambda.handler
+      Handler: tweeter-server/src/status/lambda/PostStatusLambda.handler
       Policies: *commonPolicies
 
   getFolloweesPermission:

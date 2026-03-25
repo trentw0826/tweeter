@@ -49,9 +49,6 @@ jobs:
       - name: Lint source
         run: npm run lint
 
-      - name: Build shared package
-        run: npm --workspace tweeter-shared run build
-
       - name: Run Jest tests
         run: npm --workspace tweeter-web test -- --runInBand
 
@@ -101,12 +98,8 @@ jobs:
       - name: Install workspace dependencies
         run: npm ci
 
-      - name: Build all packages
-        run: npm run build:all
-
-      - name: SAM build
-        working-directory: tweeter-server
-        run: sam build --template-file template.yaml
+      - name: Build SAM artifacts
+        run: npm --workspace tweeter-server run sam:build
 
       - name: SAM deploy
         working-directory: tweeter-server
@@ -116,7 +109,7 @@ jobs:
           EFFECTIVE_SAM_S3_PREFIX: ${{ github.event.inputs.sam_s3_prefix || env.SAM_S3_PREFIX }}
         run: |
           sam deploy \
-            --template-file template.yaml \
+            --template-file .aws-sam/build/template.yaml \
             --stack-name "${EFFECTIVE_SAM_STACK_NAME}" \
             --region "${EFFECTIVE_AWS_REGION}" \
             --capabilities CAPABILITY_NAMED_IAM \
