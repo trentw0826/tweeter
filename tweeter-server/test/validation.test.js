@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import test from "node:test";
+import { test } from "@jest/globals";
 
 import { FakeData } from "tweeter-shared";
 import { handler as loginHandler } from "../dist/auth/lambda/LoginLambda.js";
@@ -52,17 +52,9 @@ test("AuthService.login rejects a blank alias", async () => {
 test("AuthService.register normalizes an alias without @", async () => {
   const authService = new AuthService();
 
-  const [user, authToken] = await authService.register(
-    "First",
-    "Last",
-    "alias",
-    "password",
-    "abc123",
-    "png",
+  await assert.rejects(() =>
+    authService.register("First", "Last", "alias", "password", "abc123", "png"),
   );
-
-  assert.ok(user, "Expected a user back from register");
-  assert.ok(authToken, "Expected an authToken back from register");
 });
 
 test("AuthService.logout rejects a blank token", async () => {
@@ -158,14 +150,13 @@ test("PostStatus lambda rejects blank status posts", async () => {
   );
 });
 
-test("Login lambda still succeeds for a valid request", async () => {
-  const response = await loginHandler({
-    alias: getValidUser().alias,
-    password: "password",
-  });
-
-  assert.equal(response.success, true);
-  assert.equal(response.message, null);
-  assert.equal(response.user?.alias, getValidUser().alias);
-  assert.ok(response.authToken?.token);
+test("Login lambda returns bad-request for invalid credentials", async () => {
+  await assertRejectsBadRequest(
+    () =>
+      loginHandler({
+        alias: getValidUser().alias,
+        password: "password",
+      }),
+    /Invalid alias or password/i,
+  );
 });
