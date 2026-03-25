@@ -53,7 +53,7 @@ jobs:
         run: npm --workspace tweeter-shared run compile
 
       - name: Run Jest tests
-        run: npm --workspace tweeter-web test -- --runInBand
+        run: npm run test --workspaces --if-present
 
       - name: Build all packages
         run: npm run build:all
