@@ -7,6 +7,22 @@ import { DynamoDBStatusDao } from "./DynamoDB/DynamoDBStatusDao.js";
 import { DynamoDBFollowDao } from "./DynamoDB/DynamoDBFollowDao.js";
 import { AWSS3Dao } from "./DynamoDB/AWSS3Dao.js";
 
+export interface DaoDependencies {
+  userDao: UserDao;
+  statusDao: StatusDao;
+  followDao: FollowDao;
+  bucketDao: BucketDao;
+}
+
+function defaultDependencies(): DaoDependencies {
+  return {
+    userDao: new DynamoDBUserDao(),
+    statusDao: new DynamoDBStatusDao(),
+    followDao: new DynamoDBFollowDao(),
+    bucketDao: new AWSS3Dao(),
+  };
+}
+
 /**
  * DaoFactory is responsible for creating and providing access to DAO instances.
  * This centralizes the creation of data access objects and manages their lifecycle.
@@ -14,16 +30,20 @@ import { AWSS3Dao } from "./DynamoDB/AWSS3Dao.js";
 export class DaoFactory {
   private static instance: DaoFactory;
 
-  private userDao: DynamoDBUserDao;
-  private statusDao: DynamoDBStatusDao;
-  private followDao: DynamoDBFollowDao;
-  private bucketDao: AWSS3Dao;
+  private readonly userDao: UserDao;
+  private readonly statusDao: StatusDao;
+  private readonly followDao: FollowDao;
+  private readonly bucketDao: BucketDao;
 
-  private constructor() {
-    this.userDao = new DynamoDBUserDao();
-    this.statusDao = new DynamoDBStatusDao();
-    this.followDao = new DynamoDBFollowDao();
-    this.bucketDao = new AWSS3Dao();
+  public constructor(dependencies: DaoDependencies = defaultDependencies()) {
+    this.userDao = dependencies.userDao;
+    this.statusDao = dependencies.statusDao;
+    this.followDao = dependencies.followDao;
+    this.bucketDao = dependencies.bucketDao;
+  }
+
+  public static configureInstance(dependencies: DaoDependencies): void {
+    DaoFactory.instance = new DaoFactory(dependencies);
   }
 
   public static getInstance(): DaoFactory {
@@ -31,6 +51,10 @@ export class DaoFactory {
       DaoFactory.instance = new DaoFactory();
     }
     return DaoFactory.instance;
+  }
+
+  public static resetInstance(): void {
+    DaoFactory.instance = new DaoFactory();
   }
 
   /**

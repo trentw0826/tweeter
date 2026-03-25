@@ -7,17 +7,18 @@ import {
   assertToken,
 } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
-import type { StatusDao } from "../../data-access/index.js";
-import type { FollowDao } from "../../data-access/index.js";
-import type { UserDao } from "../../data-access/index.js";
+import type {
+  FollowDao,
+  StatusDao,
+  UserDao,
+} from "../../data-access/index.js";
 
 export class StatusService implements TweeterService {
-  private statusDao: StatusDao;
-  private followDao: FollowDao;
-  private userDao: UserDao;
+  private readonly statusDao: StatusDao;
+  private readonly followDao: FollowDao;
+  private readonly userDao: UserDao;
 
-  public constructor() {
-    const daoFactory = DaoFactory.getInstance();
+  public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
     this.statusDao = daoFactory.getStatusDao();
     this.followDao = daoFactory.getFollowDao();
     this.userDao = daoFactory.getUserDao();
@@ -81,9 +82,9 @@ export class StatusService implements TweeterService {
     }
 
     await this.statusDao.saveStatus(newStatus);
+    await this.statusDao.addStatusToFeed(postingAlias, newStatus);
 
     const followerAliases = await this.followDao.getAllFollowers(postingAlias);
-    await this.statusDao.addStatusToFeed(postingAlias, newStatus);
     await this.statusDao.addStatusToFeeds(followerAliases, newStatus);
   }
 }

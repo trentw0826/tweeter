@@ -15,8 +15,7 @@ export class AuthService implements TweeterService {
   private userDao: UserDao;
   private bucketDao: BucketDao;
 
-  public constructor() {
-    const daoFactory = DaoFactory.getInstance();
+  public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
     this.userDao = daoFactory.getUserDao();
     this.bucketDao = daoFactory.getBucketDao();
   }

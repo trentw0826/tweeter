@@ -16,8 +16,7 @@ export class FollowService implements TweeterService {
   private userDao: UserDao;
   private statusDao: StatusDao;
 
-  public constructor() {
-    const daoFactory = DaoFactory.getInstance();
+  public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
     this.followDao = daoFactory.getFollowDao();
     this.userDao = daoFactory.getUserDao();
     this.statusDao = daoFactory.getStatusDao();

@@ -13,3 +13,4 @@ export { DynamoDBStatusDao } from "./DynamoDB/DynamoDBStatusDao.js";
 export { DynamoDBFollowDao } from "./DynamoDB/DynamoDBFollowDao.js";
 export { AWSS3Dao } from "./DynamoDB/AWSS3Dao.js";
 export { DaoFactory } from "./DaoFactory.js";
+export type { DaoDependencies } from "./DaoFactory.js";

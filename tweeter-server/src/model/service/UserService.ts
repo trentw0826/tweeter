@@ -9,8 +9,7 @@ export class UserService implements TweeterService {
   private userDao: UserDao;
   private followDao: FollowDao;
 
-  public constructor() {
-    const daoFactory = DaoFactory.getInstance();
+  public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
     this.userDao = daoFactory.getUserDao();
     this.followDao = daoFactory.getFollowDao();
   }
