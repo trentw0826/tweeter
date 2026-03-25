@@ -46,9 +46,6 @@ jobs:
       - name: Install workspace dependencies
         run: npm ci
 
-      - name: Install server dependencies
-        run: npm ci --prefix tweeter-server
-
       - name: Lint source
         run: npm run lint
 
@@ -58,11 +55,8 @@ jobs:
       - name: Run Jest tests
         run: npm --workspace tweeter-web test -- --runInBand
 
-      - name: Build web package
-        run: npm --workspace tweeter-web run build
-
-      - name: Build server package
-        run: npm --prefix tweeter-server run build
+      - name: Build all packages
+        run: npm run build:all
 
   deploy:
     name: Deploy AWS infrastructure
@@ -107,14 +101,8 @@ jobs:
       - name: Install workspace dependencies
         run: npm ci
 
-      - name: Install server dependencies
-        run: npm ci --prefix tweeter-server
-
-      - name: Build shared package
-        run: npm --workspace tweeter-shared run build
-
-      - name: Build server package
-        run: npm --prefix tweeter-server run build
+      - name: Build all packages
+        run: npm run build:all
 
       - name: SAM build
         working-directory: tweeter-server

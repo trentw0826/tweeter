@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "workspaces": [
     "tweeter-shared",
-    "tweeter-web"
+    "tweeter-web",
+    "tweeter-server"
   ],
   "author": "JWilkerson",
   "license": "ISC",
   "scripts": {
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "lint": "eslint tweeter-web/src tweeter-web/test tweeter-shared/src tweeter-server/src --ext .ts,.tsx",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "build:all": "npm --workspace tweeter-shared run build && npm --workspace tweeter-web run build && npm --workspace tweeter-server run build"
   },
   "dependencies": {
     "rimraf": "^5.0.5",
