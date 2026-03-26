@@ -6,7 +6,9 @@
   "scripts": {
     "prepare:shared": "npm --workspace tweeter-shared run compile",
     "build": "npm run prepare:shared && npm run compile",
-    "test": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs --runInBand",
+    "test": "node --test test/unit/**/*.test.js",
+    "test:integration": "node --test test/integration/**/*.test.js",
+    "test:all": "npm run test && npm run test:integration",
     "compile": "npm run clean && tsc",
     "clean": "rimraf dist",
     "sam:build": "npm run prepare:shared && sam build --template-file template.yaml",

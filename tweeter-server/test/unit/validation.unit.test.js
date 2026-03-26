@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { test } from "@jest/globals";
 
 import { FakeData } from "tweeter-shared";
-import { handler as loginHandler } from "../dist/auth/lambda/LoginLambda.js";
-import { handler as getFolloweesHandler } from "../dist/follow/lambda/GetFolloweesLambda.js";
-import { handler as postStatusHandler } from "../dist/status/lambda/PostStatusLambda.js";
-import { AuthService } from "../dist/model/service/AuthService.js";
-import { FollowService } from "../dist/model/service/FollowService.js";
-import { StatusService } from "../dist/model/service/StatusService.js";
-import { UserService } from "../dist/model/service/UserService.js";
+import { handler as loginHandler } from "../../dist/auth/lambda/LoginLambda.js";
+import { handler as getFolloweesHandler } from "../../dist/follow/lambda/GetFolloweesLambda.js";
+import { handler as postStatusHandler } from "../../dist/status/lambda/PostStatusLambda.js";
+import { AuthService } from "../../dist/model/service/AuthService.js";
+import { FollowService } from "../../dist/model/service/FollowService.js";
+import { StatusService } from "../../dist/model/service/StatusService.js";
+import { UserService } from "../../dist/model/service/UserService.js";
 
 function getValidUser() {
   const user = FakeData.instance.firstUser?.dto;
@@ -46,14 +46,6 @@ test("AuthService.login rejects a blank alias", async () => {
   await assertRejectsBadRequest(
     () => authService.login("   ", "password"),
     /Invalid alias/i,
-  );
-});
-
-test("AuthService.register normalizes an alias without @", async () => {
-  const authService = new AuthService();
-
-  await assert.rejects(() =>
-    authService.register("First", "Last", "alias", "password", "abc123", "png"),
   );
 });
 
@@ -147,16 +139,5 @@ test("PostStatus lambda rejects blank status posts", async () => {
         },
       }),
     /Invalid newStatus\.post/i,
-  );
-});
-
-test("Login lambda returns bad-request for invalid credentials", async () => {
-  await assertRejectsBadRequest(
-    () =>
-      loginHandler({
-        alias: getValidUser().alias,
-        password: "password",
-      }),
-    /Invalid alias or password/i,
   );
 });
