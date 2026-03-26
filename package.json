@@ -9,6 +9,9 @@
   "author": "trentw0826",
   "license": "ISC",
   "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:ci": "npm run test --workspaces --if-present",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "lint": "eslint tweeter-web/src tweeter-web/test tweeter-shared/src tweeter-server/src --ext .ts,.tsx",
     "lint:fix": "npm run lint -- --fix",

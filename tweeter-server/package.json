@@ -6,7 +6,7 @@
   "scripts": {
     "prepare:shared": "npm --workspace tweeter-shared run compile",
     "build": "npm run prepare:shared && npm run compile",
-    "test": "npm run build && node --experimental-specifier-resolution=node --test test/**/*.test.js",
+    "test": "node --test",
     "compile": "npm run clean && tsc",
     "clean": "rimraf dist",
     "sam:build": "npm run prepare:shared && sam build --template-file template.yaml",
