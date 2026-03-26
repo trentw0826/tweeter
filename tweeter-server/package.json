@@ -6,6 +6,7 @@
   "scripts": {
     "prepare:shared": "npm --workspace tweeter-shared run compile",
     "build": "npm run prepare:shared && npm run compile",
+    "generate-demo-data": "npm run build && node dist/scripts/generateDemoData.js",
     "test": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs test/unit",
     "test:integration": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs test/integration",
     "test:all": "npm run test && npm run test:integration",
