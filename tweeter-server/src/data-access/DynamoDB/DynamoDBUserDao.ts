@@ -21,11 +21,28 @@ type AuthTokenItem = {
   timestamp: number;
 };
 
+const DEFAULT_AUTH_TOKEN_INACTIVITY_MINUTES = 30;
+const AUTH_TOKEN_INACTIVITY_MINUTES_ENV = "AUTH_TOKEN_INACTIVITY_MINUTES";
+
 /**
  * DynamoDB implementation of UserDao.
  * Handles all user-related database operations with DynamoDB.
  */
 export class DynamoDBUserDao extends DynamoDbDao implements UserDao {
+  private get authTokenInactivityTimeoutMs(): number {
+    const configuredValue = Number.parseInt(
+      process.env[AUTH_TOKEN_INACTIVITY_MINUTES_ENV] ?? "",
+      10,
+    );
+
+    const minutes =
+      Number.isFinite(configuredValue) && configuredValue > 0
+        ? configuredValue
+        : DEFAULT_AUTH_TOKEN_INACTIVITY_MINUTES;
+
+    return minutes * 60 * 1000;
+  }
+
   private get usersTableName(): string {
     return this.tableName(TABLE_ENV.users, TABLE_DEFAULT.users);
   }
@@ -96,7 +113,26 @@ export class DynamoDBUserDao extends DynamoDbDao implements UserDao {
       },
     );
 
-    return tokenItem?.alias ?? null;
+    if (!tokenItem) {
+      return null;
+    }
+
+    const now = Date.now();
+    const isExpired =
+      now - tokenItem.timestamp > this.authTokenInactivityTimeoutMs;
+
+    if (isExpired) {
+      await this.deleteAuthToken(token);
+      return null;
+    }
+
+    await this.putItem<AuthTokenItem>(this.authTokensTableName, {
+      token: tokenItem.token,
+      alias: tokenItem.alias,
+      timestamp: now,
+    });
+
+    return tokenItem.alias;
   }
 
   async deleteAuthToken(token: string): Promise<void> {
