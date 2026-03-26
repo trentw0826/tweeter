@@ -1,6 +1,6 @@
-import { test } from "@jest/globals";
+import { jest, test } from "@jest/globals";
 
-import { DynamoDBUserDao } from "../dist/data-access/DynamoDB/DynamoDBUserDao.js";
+import { DynamoDBUserDao } from "../../dist/data-access/DynamoDB/DynamoDBUserDao.js";
 
 function createDaoWithSend(sendImpl) {
   const dao = new DynamoDBUserDao();
