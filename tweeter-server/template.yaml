@@ -680,13 +680,12 @@ Resources:
   mediaBucket:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
       OwnershipControls:
         Rules:
-          - ObjectOwnership: BucketOwnerPreferred
+          - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        IgnorePublicAcls: false
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
         BlockPublicPolicy: false
         RestrictPublicBuckets: false
       VersioningConfiguration:
