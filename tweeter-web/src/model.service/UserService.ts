@@ -49,4 +49,3 @@ export class UserService implements Service {
     return response.count;
   }
 }
-

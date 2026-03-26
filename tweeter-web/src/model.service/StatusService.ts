@@ -45,4 +45,3 @@ export class StatusService implements Service {
     });
   }
 }
-

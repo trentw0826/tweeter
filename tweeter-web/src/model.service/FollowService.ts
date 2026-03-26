@@ -52,4 +52,3 @@ export class FollowService implements Service {
     });
   }
 }
-

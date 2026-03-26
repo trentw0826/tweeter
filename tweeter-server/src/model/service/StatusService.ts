@@ -7,11 +7,7 @@ import {
   assertToken,
 } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
-import type {
-  FollowDao,
-  StatusDao,
-  UserDao,
-} from "../../data-access/index.js";
+import type { FollowDao, StatusDao, UserDao } from "../../data-access/index.js";
 
 export class StatusService implements TweeterService {
   private readonly statusDao: StatusDao;

@@ -72,9 +72,7 @@ export class AuthToken {
   }
 
   public static fromDto(dto: AuthTokenDto | null): AuthToken | null {
-    return dto === null
-      ? null
-      : new AuthToken(dto.token, dto.timestamp);
+    return dto === null ? null : new AuthToken(dto.token, dto.timestamp);
   }
 
   public toJson(): string {
