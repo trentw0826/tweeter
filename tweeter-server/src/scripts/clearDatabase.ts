@@ -1,18 +1,17 @@
-import {
-  DynamoDBClient,
-  DeleteTableCommand,
-  CreateTableCommand,
-  DescribeTableCommand,
-} from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, DescribeTableCommand } from "@aws-sdk/client-dynamodb";
 import {
   BatchWriteCommand,
   DynamoDBDocumentClient,
   ScanCommand,
   type ScanCommandOutput,
 } from "@aws-sdk/lib-dynamodb";
+
+type WriteRequest = Record<string, any>;
 import { TABLE_DEFAULT } from "../data-access/DynamoDB/TableNames.js";
 
 const MAX_BATCH_WRITE = 25;
+const MAX_RETRIES = 8;
+const BASE_DELAY_MS = 100;
 
 async function clearDatabase(): Promise<void> {
   const nativeClient = new DynamoDBClient({});
@@ -37,7 +36,7 @@ async function clearDatabase(): Promise<void> {
   }
 
   console.log("\n✓ Database cleared successfully!");
-  await nativeClient.destroy();
+  nativeClient.destroy();
 }
 
 async function clearTable(
@@ -48,56 +47,35 @@ async function clearTable(
   console.log(`Clearing table: ${tableName}`);
 
   try {
-    // Scan the table to get all items
-    let lastEvaluatedKey = undefined;
+    let lastEvaluatedKey: Record<string, any> | undefined = undefined;
     let totalDeleted = 0;
 
+    const keyAttributes = await getTableKeyAttributes(nativeClient, tableName);
+
     do {
-      const scanResponse: ScanCommandOutput = await client.send(
-        new ScanCommand({
-          TableName: tableName,
-          ExclusiveStartKey: lastEvaluatedKey,
-        }),
+      const scanResponse: ScanCommandOutput = await withRetry(() =>
+        client.send(
+          new ScanCommand({
+            TableName: tableName,
+            ExclusiveStartKey: lastEvaluatedKey,
+          }),
+        ),
       );
 
       const items = scanResponse.Items ?? [];
+      if (items.length === 0) break;
 
-      if (items.length === 0) {
-        break;
-      }
-
-      // Get the key attributes for this table
-      const keyAttributes = await getTableKeyAttributes(
-        nativeClient,
-        tableName,
-      );
-
-      // Prepare batch delete requests
       const deleteRequests = items.map((item) => {
         const key: Record<string, string | number> = {};
         for (const keyAttr of keyAttributes) {
           key[keyAttr] = item[keyAttr];
         }
-        return {
-          DeleteRequest: {
-            Key: key,
-          },
-        };
+        return { DeleteRequest: { Key: key } };
       });
 
-      // Execute batch writes in chunks of MAX_BATCH_WRITE
       for (let i = 0; i < deleteRequests.length; i += MAX_BATCH_WRITE) {
-        const chunk = deleteRequests.slice(
-          i,
-          Math.min(i + MAX_BATCH_WRITE, deleteRequests.length),
-        );
-        await client.send(
-          new BatchWriteCommand({
-            RequestItems: {
-              [tableName]: chunk,
-            },
-          }),
-        );
+        const chunk = deleteRequests.slice(i, i + MAX_BATCH_WRITE);
+        await batchWriteWithRetry(client, tableName, chunk);
       }
 
       totalDeleted += items.length;
@@ -118,6 +96,74 @@ async function clearTable(
   }
 }
 
+async function batchWriteWithRetry(
+  client: DynamoDBDocumentClient,
+  tableName: string,
+  requests: WriteRequest[],
+): Promise<void> {
+  let unprocessed: WriteRequest[] = requests;
+  let attempt = 0;
+
+  while (unprocessed.length > 0) {
+    const response = await withRetry(() =>
+      client.send(
+        new BatchWriteCommand({
+          RequestItems: { [tableName]: unprocessed },
+        }),
+      ),
+    );
+
+    const next = response.UnprocessedItems?.[tableName] ?? [];
+    if (next.length === 0) return;
+
+    unprocessed = next.filter(
+      (request): request is WriteRequest =>
+        request.DeleteRequest?.Key !== undefined,
+    );
+    attempt++;
+
+    if (attempt > MAX_RETRIES) {
+      throw new Error(
+        `Exceeded retries for unprocessed items in ${tableName} (${next.length} remaining)`,
+      );
+    }
+
+    await sleep(backoffWithJitter(attempt));
+  }
+}
+
+async function withRetry<T>(fn: () => Promise<T>, attempt = 0): Promise<T> {
+  try {
+    return await fn();
+  } catch (error) {
+    if (!isThrottleError(error) || attempt >= MAX_RETRIES) throw error;
+    await sleep(backoffWithJitter(attempt + 1));
+    return withRetry(fn, attempt + 1);
+  }
+}
+
+function isThrottleError(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const e = error as { name?: string; message?: string };
+  const msg = e.message ?? "";
+  return (
+    e.name === "ProvisionedThroughputExceededException" ||
+    e.name === "ThrottlingException" ||
+    msg.includes("Rate exceeded") ||
+    msg.includes("throttl")
+  );
+}
+
+function backoffWithJitter(attempt: number): number {
+  const exponential = BASE_DELAY_MS * 2 ** (attempt - 1);
+  const jitter = Math.floor(Math.random() * BASE_DELAY_MS);
+  return exponential + jitter;
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function getTableKeyAttributes(
   nativeClient: DynamoDBClient,
   tableName: string,
@@ -132,9 +178,7 @@ async function getTableKeyAttributes(
   const keySchema = describeResponse.Table?.KeySchema ?? [];
 
   for (const key of keySchema) {
-    if (key.AttributeName) {
-      keyAttributes.push(key.AttributeName);
-    }
+    if (key.AttributeName) keyAttributes.push(key.AttributeName);
   }
 
   return keyAttributes;
