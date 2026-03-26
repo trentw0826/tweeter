@@ -52,8 +52,8 @@ jobs:
       - name: Compile shared package
         run: npm --workspace tweeter-shared run compile
 
-      - name: Run Jest tests
-        run: npm run test --workspaces --if-present
+      - name: Run workspace unit tests
+        run: npm run test
 
       - name: Build all packages
         run: npm run build:all

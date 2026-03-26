@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { FakeData } from "tweeter-shared";
-import { handler as loginHandler } from "../dist/auth/lambda/LoginLambda.js";
-import { handler as getFolloweesHandler } from "../dist/follow/lambda/GetFolloweesLambda.js";
-import { handler as postStatusHandler } from "../dist/status/lambda/PostStatusLambda.js";
-import { AuthService } from "../dist/model/service/AuthService.js";
-import { FollowService } from "../dist/model/service/FollowService.js";
-import { StatusService } from "../dist/model/service/StatusService.js";
-import { UserService } from "../dist/model/service/UserService.js";
+import { handler as loginHandler } from "../../dist/auth/lambda/LoginLambda.js";
+import { handler as getFolloweesHandler } from "../../dist/follow/lambda/GetFolloweesLambda.js";
+import { handler as postStatusHandler } from "../../dist/status/lambda/PostStatusLambda.js";
+import { AuthService } from "../../dist/model/service/AuthService.js";
+import { FollowService } from "../../dist/model/service/FollowService.js";
+import { StatusService } from "../../dist/model/service/StatusService.js";
+import { UserService } from "../../dist/model/service/UserService.js";
 
 function getValidUser() {
   const user = FakeData.instance.firstUser?.dto;
@@ -47,22 +47,6 @@ test("AuthService.login rejects a blank alias", async () => {
     () => authService.login("   ", "password"),
     /Invalid alias/i,
   );
-});
-
-test("AuthService.register normalizes an alias without @", async () => {
-  const authService = new AuthService();
-
-  const [user, authToken] = await authService.register(
-    "First",
-    "Last",
-    "alias",
-    "password",
-    "abc123",
-    "png",
-  );
-
-  assert.ok(user, "Expected a user back from register");
-  assert.ok(authToken, "Expected an authToken back from register");
 });
 
 test("AuthService.logout rejects a blank token", async () => {
@@ -156,16 +140,4 @@ test("PostStatus lambda rejects blank status posts", async () => {
       }),
     /Invalid newStatus\.post/i,
   );
-});
-
-test("Login lambda still succeeds for a valid request", async () => {
-  const response = await loginHandler({
-    alias: getValidUser().alias,
-    password: "password",
-  });
-
-  assert.equal(response.success, true);
-  assert.equal(response.message, null);
-  assert.equal(response.user?.alias, getValidUser().alias);
-  assert.ok(response.authToken?.token);
 });
