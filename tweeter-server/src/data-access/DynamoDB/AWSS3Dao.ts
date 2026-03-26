@@ -78,7 +78,8 @@ export class AWSS3Dao implements BucketDao {
   }
 
   async getFileUrl(key: string): Promise<string> {
-    return `s3://${this.bucketName}/${key}`;
+    // Use virtual-hosted–style HTTPS URL so browsers can load images directly.
+    return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
   }
 
   async fileExists(key: string): Promise<boolean> {

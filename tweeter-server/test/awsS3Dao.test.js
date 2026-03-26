@@ -12,7 +12,7 @@ test("AWSS3Dao.getFileUrl uses bucket and key", async () => {
   process.env.BUCKET_NAME = "unit-bucket";
   const dao = new AWSS3Dao();
   const url = await dao.getFileUrl("users/a.png");
-  expect(url).toBe("s3://unit-bucket/users/a.png");
+  expect(url).toBe("https://unit-bucket.s3.amazonaws.com/users/a.png");
 });
 
 test("AWSS3Dao.uploadFile issues put and returns file URL", async () => {
@@ -30,7 +30,7 @@ test("AWSS3Dao.uploadFile issues put and returns file URL", async () => {
   );
   expect(captured.Bucket).toBe("unit-bucket");
   expect(captured.Key).toBe("users/a.png");
-  expect(url).toBe("s3://unit-bucket/users/a.png");
+  expect(url).toBe("https://unit-bucket.s3.amazonaws.com/users/a.png");
 });
 
 test("AWSS3Dao.fileExists returns false when head throws", async () => {
