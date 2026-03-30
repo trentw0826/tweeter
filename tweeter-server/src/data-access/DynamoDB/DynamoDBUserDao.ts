@@ -21,7 +21,7 @@ type AuthTokenItem = {
   timestamp: number;
 };
 
-const DEFAULT_AUTH_TOKEN_INACTIVITY_MINUTES = 0.2; // 12 seconds, for testing purposes
+const DEFAULT_AUTH_TOKEN_INACTIVITY_MINUTES = 30;
 const AUTH_TOKEN_INACTIVITY_MINUTES_ENV = "AUTH_TOKEN_INACTIVITY_MINUTES";
 
 /**
