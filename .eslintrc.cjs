@@ -31,6 +31,7 @@ module.exports = {
     "**/.aws-sam/**",
     "**/node_modules/**",
     "**/*.svg",
+    "**/scripts/**",
   ],
   overrides: [
     {
