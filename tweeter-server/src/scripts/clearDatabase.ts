@@ -259,8 +259,8 @@ function isThrottleError(error: unknown): boolean {
 }
 
 function backoffWithJitter(attempt: number): number {
-  const exponential = BASE_DELAY_MS * 2 ** (attempt - 1);
-  const jitter = Math.floor(Math.random() * BASE_DELAY_MS);
+  const exponential = INITIAL_BACKOFF_MS * 2 ** (attempt - 1);
+  const jitter = Math.floor(Math.random() * INITIAL_BACKOFF_MS);
   return exponential + jitter;
 }
 
