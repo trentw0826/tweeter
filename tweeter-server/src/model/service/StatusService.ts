@@ -1,19 +1,17 @@
 import type { StatusDto } from "tweeter-shared";
-import type TweeterService from "./TweeterService.js";
+import { AuthenticatedService } from "./AuthenticatedService.js";
 import { assertAlias, assertPageSize, assertStatusDto } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
-import type { FollowDao, StatusDao, UserDao } from "../../data-access/index.js";
-import { requireAuthenticatedAlias } from "./Authentication.js";
+import type { FollowDao, StatusDao } from "../../data-access/index.js";
 
-export class StatusService implements TweeterService {
+export class StatusService extends AuthenticatedService {
   private readonly statusDao: StatusDao;
   private readonly followDao: FollowDao;
-  private readonly userDao: UserDao;
 
   public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
+    super(daoFactory);
     this.statusDao = daoFactory.getStatusDao();
     this.followDao = daoFactory.getFollowDao();
-    this.userDao = daoFactory.getUserDao();
   }
 
   public async retrievePageOfFeedItems(
@@ -27,8 +25,7 @@ export class StatusService implements TweeterService {
     if (lastItem !== null) {
       assertStatusDto(lastItem, "lastItem");
     }
-
-    await requireAuthenticatedAlias(this.userDao, token);
+    await this.requireAuthenticatedAlias(token);
 
     const page = await this.statusDao.getFeedPage(
       userAlias,
@@ -50,8 +47,7 @@ export class StatusService implements TweeterService {
     if (lastItem !== null) {
       assertStatusDto(lastItem, "lastItem");
     }
-
-    await requireAuthenticatedAlias(this.userDao, token);
+    await this.requireAuthenticatedAlias(token);
 
     const page = await this.statusDao.getStoryPage(
       userAlias,
@@ -65,7 +61,7 @@ export class StatusService implements TweeterService {
   public async postStatus(token: string, newStatus: StatusDto): Promise<void> {
     assertStatusDto(newStatus, "newStatus");
 
-    const postingAlias = await requireAuthenticatedAlias(this.userDao, token);
+    const postingAlias = await this.requireAuthenticatedAlias(token);
 
     if (postingAlias !== newStatus.user.alias) {
       throw new Error("[bad-request] Token does not match posting user");
