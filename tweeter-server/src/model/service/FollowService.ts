@@ -1,24 +1,17 @@
 import type { UserDto } from "tweeter-shared";
-import type TweeterService from "./TweeterService.js";
-import {
-  assertAlias,
-  assertPageSize,
-  assertToken,
-  assertUserDto,
-} from "./Validation.js";
+import { AuthenticatedService } from "./AuthenticatedService.js";
+import { assertAlias, assertPageSize, assertUserDto } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
 import type { FollowDao } from "../../data-access/index.js";
-import type { UserDao } from "../../data-access/index.js";
 import type { StatusDao } from "../../data-access/index.js";
 
-export class FollowService implements TweeterService {
+export class FollowService extends AuthenticatedService {
   private followDao: FollowDao;
-  private userDao: UserDao;
   private statusDao: StatusDao;
 
   public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
+    super(daoFactory);
     this.followDao = daoFactory.getFollowDao();
-    this.userDao = daoFactory.getUserDao();
     this.statusDao = daoFactory.getStatusDao();
   }
 
@@ -28,12 +21,12 @@ export class FollowService implements TweeterService {
     pageSize: number,
     lastFollower: UserDto | null,
   ): Promise<[UserDto[], boolean]> {
-    assertToken(token);
     assertAlias(userAlias, "userAlias");
     assertPageSize(pageSize);
     if (lastFollower !== null) {
       assertUserDto(lastFollower, "lastFollower");
     }
+    await this.requireAuthenticatedAlias(token);
 
     const page = await this.followDao.getFollowersPage(
       userAlias,
@@ -58,12 +51,12 @@ export class FollowService implements TweeterService {
     pageSize: number,
     lastFollowee: UserDto | null,
   ): Promise<[UserDto[], boolean]> {
-    assertToken(token);
     assertAlias(userAlias, "userAlias");
     assertPageSize(pageSize);
     if (lastFollowee !== null) {
       assertUserDto(lastFollowee, "lastFollowee");
     }
+    await this.requireAuthenticatedAlias(token);
 
     const page = await this.followDao.getFolloweesPage(
       userAlias,
@@ -83,10 +76,9 @@ export class FollowService implements TweeterService {
   }
 
   public async follow(token: string, userToFollow: UserDto): Promise<void> {
-    assertToken(token);
     assertUserDto(userToFollow, "userToFollow");
 
-    const currentUserAlias = await this.getAliasFromTokenOrThrow(token);
+    const currentUserAlias = await this.requireAuthenticatedAlias(token);
     if (currentUserAlias === userToFollow.alias) {
       throw new Error("[bad-request] Cannot follow yourself");
     }
@@ -101,10 +93,9 @@ export class FollowService implements TweeterService {
   }
 
   public async unfollow(token: string, userToUnfollow: UserDto): Promise<void> {
-    assertToken(token);
     assertUserDto(userToUnfollow, "userToUnfollow");
 
-    const currentUserAlias = await this.getAliasFromTokenOrThrow(token);
+    const currentUserAlias = await this.requireAuthenticatedAlias(token);
     await this.followDao.removeFollow(currentUserAlias, userToUnfollow.alias);
     await this.userDao.updateFolloweeCount(currentUserAlias, -1);
     await this.userDao.updateFollowerCount(userToUnfollow.alias, -1);
@@ -112,14 +103,5 @@ export class FollowService implements TweeterService {
       currentUserAlias,
       userToUnfollow.alias,
     );
-  }
-
-  private async getAliasFromTokenOrThrow(token: string): Promise<string> {
-    const alias = await this.userDao.getAliasByAuthToken(token);
-    if (alias === null) {
-      throw new Error("[unauthorized] Invalid auth token");
-    }
-
-    return alias;
   }
 }

@@ -1,21 +1,19 @@
 import type { UserDto } from "tweeter-shared";
-import type TweeterService from "./TweeterService.js";
-import { assertAlias, assertToken, assertUserDto } from "./Validation.js";
+import { AuthenticatedService } from "./AuthenticatedService.js";
+import { assertAlias, assertUserDto } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
-import type { UserDao } from "../../data-access/index.js";
 import type { FollowDao } from "../../data-access/index.js";
 
-export class UserService implements TweeterService {
-  private userDao: UserDao;
+export class UserService extends AuthenticatedService {
   private followDao: FollowDao;
 
   public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
-    this.userDao = daoFactory.getUserDao();
+    super(daoFactory);
     this.followDao = daoFactory.getFollowDao();
   }
 
   public async getUser(token: string, alias: string): Promise<UserDto | null> {
-    assertToken(token);
+    await this.requireAuthenticatedAlias(token);
     assertAlias(alias);
 
     return this.userDao.getUser(alias);
@@ -26,7 +24,7 @@ export class UserService implements TweeterService {
     user: UserDto,
     selectedUser: UserDto,
   ): Promise<boolean> {
-    assertToken(token);
+    await this.requireAuthenticatedAlias(token);
     assertUserDto(user, "user");
     assertUserDto(selectedUser, "selectedUser");
 
@@ -34,14 +32,14 @@ export class UserService implements TweeterService {
   }
 
   public async getFolloweeCount(token: string, user: UserDto): Promise<number> {
-    assertToken(token);
+    await this.requireAuthenticatedAlias(token);
     assertUserDto(user, "user");
 
     return this.userDao.getFolloweeCount(user.alias);
   }
 
   public async getFollowerCount(token: string, user: UserDto): Promise<number> {
-    assertToken(token);
+    await this.requireAuthenticatedAlias(token);
     assertUserDto(user, "user");
 
     return this.userDao.getFollowerCount(user.alias);
