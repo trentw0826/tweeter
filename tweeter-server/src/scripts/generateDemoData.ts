@@ -1,11 +1,5 @@
 import type { StatusDto, UserDto } from "tweeter-shared";
-import {
-  DaoFactory,
-  DynamoDBUserDao,
-  DynamoDBStatusDao,
-  DynamoDBFollowDao,
-} from "../data-access/index.js";
-import type { BucketDao, DaoDependencies } from "../data-access/index.js";
+import { DaoFactory } from "../data-access/index.js";
 import { AuthService } from "../model/service/AuthService.js";
 import { StatusService } from "../model/service/StatusService.js";
 import { FollowService } from "../model/service/FollowService.js";
@@ -13,49 +7,6 @@ import { FollowService } from "../model/service/FollowService.js";
 const USER_COUNT = 100;
 const STATUSES_PER_USER = 5;
 const PASSWORD = "password";
-
-class LocalBucketDao implements BucketDao {
-  async initialize(): Promise<void> {
-    // No-op for local demo data generation.
-  }
-
-  async close(): Promise<void> {
-    // No-op for local demo data generation.
-  }
-
-  async uploadFile(
-    key: string,
-    _fileData: Buffer | string,
-    _contentType: string,
-  ): Promise<string> {
-    return this.getFileUrl(key);
-  }
-
-  async downloadFile(_key: string): Promise<Buffer> {
-    return Buffer.alloc(0);
-  }
-
-  async deleteFile(_key: string): Promise<void> {
-    // No-op
-  }
-
-  async getFileUrl(key: string): Promise<string> {
-    return `s3://local-demo-bucket/${key}`;
-  }
-
-  async fileExists(_key: string): Promise<boolean> {
-    return true;
-  }
-}
-
-function createLocalDependencies(): DaoDependencies {
-  return {
-    userDao: new DynamoDBUserDao(),
-    statusDao: new DynamoDBStatusDao(),
-    followDao: new DynamoDBFollowDao(),
-    bucketDao: new LocalBucketDao(),
-  };
-}
 
 async function generateUsers(
   authService: AuthService,
@@ -178,7 +129,14 @@ async function generateFollows(
 async function main(): Promise<void> {
   console.log("Starting Tweeter demo data generation...");
 
-  const daoFactory = new DaoFactory(createLocalDependencies());
+  if (!process.env.BUCKET_NAME) {
+    throw new Error(
+      "BUCKET_NAME must be set to your deployed public media bucket before running this script.",
+    );
+  }
+
+  // Use default dependencies so image uploads go through AWSS3Dao.
+  const daoFactory = new DaoFactory();
   await daoFactory.initialize();
 
   try {
