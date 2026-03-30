@@ -15,7 +15,7 @@ Globals:
       Variables:
         USERS_TABLE: !Ref usersTable
         AUTH_TOKENS_TABLE: !Ref authTokensTable
-        AUTH_TOKEN_INACTIVITY_MINUTES: "30"
+        AUTH_TOKEN_INACTIVITY_MINUTES: "1"
         FOLLOWS_TABLE: !Ref followsTable
         STORY_TABLE: !Ref storyTable
         FEED_TABLE: !Ref feedTable

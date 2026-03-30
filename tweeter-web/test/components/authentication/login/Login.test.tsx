@@ -7,6 +7,22 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import "@testing-library/jest-dom";
 import { LoginPresenter } from "../../../../src/presenter/LoginPresenter";
 import { instance, mock, verify } from "@typestrong/ts-mockito";
+import { consumeUnauthorizedToastMessage } from "../../../../src/session/AuthSession";
+
+const displayInfoMessageMock = jest.fn();
+
+jest.mock("../../../../src/components/toaster/messageHooks", () => ({
+  useMessageActions: () => ({
+    displayErrorMessage: jest.fn(),
+    displayInfoMessage: displayInfoMessageMock,
+    deleteMessage: jest.fn(),
+    deleteAllMessages: jest.fn(),
+  }),
+}));
+
+jest.mock("../../../../src/session/AuthSession", () => ({
+  consumeUnauthorizedToastMessage: jest.fn(),
+}));
 
 library.add(fab);
 
@@ -47,11 +63,13 @@ describe("Login Component", () => {
   };
 
   it("starts with the sign-in button disabled", () => {
+    (consumeUnauthorizedToastMessage as jest.Mock).mockReturnValue(null);
     const { signInButton } = setup();
     expect(signInButton).toBeDisabled();
   });
 
   it("enables the sign-in button when both alias and password have text", async () => {
+    (consumeUnauthorizedToastMessage as jest.Mock).mockReturnValue(null);
     const { user, signInButton, aliasField, passwordField } = setup();
 
     await enterValidCredentials(user, aliasField, passwordField);
@@ -60,6 +78,7 @@ describe("Login Component", () => {
   });
 
   it("disables the sign-in button when alias is empty", async () => {
+    (consumeUnauthorizedToastMessage as jest.Mock).mockReturnValue(null);
     const { user, signInButton, aliasField, passwordField } = setup();
 
     await enterValidCredentials(user, aliasField, passwordField);
@@ -69,6 +88,7 @@ describe("Login Component", () => {
   });
 
   it("disables the sign-in button when password is empty", async () => {
+    (consumeUnauthorizedToastMessage as jest.Mock).mockReturnValue(null);
     const { user, signInButton, aliasField, passwordField } = setup();
 
     await enterValidCredentials(user, aliasField, passwordField);
@@ -78,6 +98,7 @@ describe("Login Component", () => {
   });
 
   it("calls the presenter's login method with the correct credentials when the sign-in button is clicked", async () => {
+    (consumeUnauthorizedToastMessage as jest.Mock).mockReturnValue(null);
     const mockPresenter = mock<LoginPresenter>();
     const mockPresenterInstance = instance(mockPresenter);
 
@@ -92,5 +113,19 @@ describe("Login Component", () => {
     verify(
       mockPresenter.login(alias, password, false, alternateOriginalUrl),
     ).once();
+  });
+
+  it("displays a toast when an unauthorized session message is present", () => {
+    (consumeUnauthorizedToastMessage as jest.Mock).mockReturnValue(
+      "Session expired. Please sign in again.",
+    );
+
+    setup();
+
+    expect(displayInfoMessageMock).toHaveBeenCalledWith(
+      "Session expired. Please sign in again.",
+      4000,
+      "text-bg-warning",
+    );
   });
 });

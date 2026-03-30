@@ -1,9 +1,10 @@
 import type { UserDto } from "tweeter-shared";
 import type TweeterService from "./TweeterService.js";
-import { assertAlias, assertToken, assertUserDto } from "./Validation.js";
+import { assertAlias, assertUserDto } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
 import type { UserDao } from "../../data-access/index.js";
 import type { FollowDao } from "../../data-access/index.js";
+import { requireAuthenticatedAlias } from "./Authentication.js";
 
 export class UserService implements TweeterService {
   private userDao: UserDao;
@@ -15,8 +16,8 @@ export class UserService implements TweeterService {
   }
 
   public async getUser(token: string, alias: string): Promise<UserDto | null> {
-    assertToken(token);
     assertAlias(alias);
+    await requireAuthenticatedAlias(this.userDao, token);
 
     return this.userDao.getUser(alias);
   }
@@ -26,23 +27,23 @@ export class UserService implements TweeterService {
     user: UserDto,
     selectedUser: UserDto,
   ): Promise<boolean> {
-    assertToken(token);
     assertUserDto(user, "user");
     assertUserDto(selectedUser, "selectedUser");
+    await requireAuthenticatedAlias(this.userDao, token);
 
     return this.followDao.isFollowing(user.alias, selectedUser.alias);
   }
 
   public async getFolloweeCount(token: string, user: UserDto): Promise<number> {
-    assertToken(token);
     assertUserDto(user, "user");
+    await requireAuthenticatedAlias(this.userDao, token);
 
     return this.userDao.getFolloweeCount(user.alias);
   }
 
   public async getFollowerCount(token: string, user: UserDto): Promise<number> {
-    assertToken(token);
     assertUserDto(user, "user");
+    await requireAuthenticatedAlias(this.userDao, token);
 
     return this.userDao.getFollowerCount(user.alias);
   }

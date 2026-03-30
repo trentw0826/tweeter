@@ -1,13 +1,9 @@
 import type { StatusDto } from "tweeter-shared";
 import type TweeterService from "./TweeterService.js";
-import {
-  assertAlias,
-  assertPageSize,
-  assertStatusDto,
-  assertToken,
-} from "./Validation.js";
+import { assertAlias, assertPageSize, assertStatusDto } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
 import type { FollowDao, StatusDao, UserDao } from "../../data-access/index.js";
+import { requireAuthenticatedAlias } from "./Authentication.js";
 
 export class StatusService implements TweeterService {
   private readonly statusDao: StatusDao;
@@ -26,12 +22,13 @@ export class StatusService implements TweeterService {
     pageSize: number,
     lastItem: StatusDto | null,
   ): Promise<[StatusDto[], boolean]> {
-    assertToken(token);
     assertAlias(userAlias, "userAlias");
     assertPageSize(pageSize);
     if (lastItem !== null) {
       assertStatusDto(lastItem, "lastItem");
     }
+
+    await requireAuthenticatedAlias(this.userDao, token);
 
     const page = await this.statusDao.getFeedPage(
       userAlias,
@@ -48,12 +45,13 @@ export class StatusService implements TweeterService {
     pageSize: number,
     lastItem: StatusDto | null,
   ): Promise<[StatusDto[], boolean]> {
-    assertToken(token);
     assertAlias(userAlias, "userAlias");
     assertPageSize(pageSize);
     if (lastItem !== null) {
       assertStatusDto(lastItem, "lastItem");
     }
+
+    await requireAuthenticatedAlias(this.userDao, token);
 
     const page = await this.statusDao.getStoryPage(
       userAlias,
@@ -65,13 +63,9 @@ export class StatusService implements TweeterService {
   }
 
   public async postStatus(token: string, newStatus: StatusDto): Promise<void> {
-    assertToken(token);
     assertStatusDto(newStatus, "newStatus");
 
-    const postingAlias = await this.userDao.getAliasByAuthToken(token);
-    if (postingAlias === null) {
-      throw new Error("[unauthorized] Invalid auth token");
-    }
+    const postingAlias = await requireAuthenticatedAlias(this.userDao, token);
 
     if (postingAlias !== newStatus.user.alias) {
       throw new Error("[bad-request] Token does not match posting user");
