@@ -1,61 +1,15 @@
 import type { StatusDto, UserDto } from "tweeter-shared";
-import {
-  DaoFactory,
-  DynamoDBUserDao,
-  DynamoDBStatusDao,
-  DynamoDBFollowDao,
-} from "../data-access/index.js";
-import type { BucketDao, DaoDependencies } from "../data-access/index.js";
+import { readFileSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+import { DaoFactory } from "../data-access/index.js";
 import { AuthService } from "../model/service/AuthService.js";
 import { StatusService } from "../model/service/StatusService.js";
 import { FollowService } from "../model/service/FollowService.js";
 
-const USER_COUNT = 100;
-const STATUSES_PER_USER = 5;
+const USER_COUNT = 20;
+const STATUSES_PER_USER = 3;
 const PASSWORD = "password";
-
-class LocalBucketDao implements BucketDao {
-  async initialize(): Promise<void> {
-    // No-op for local demo data generation.
-  }
-
-  async close(): Promise<void> {
-    // No-op for local demo data generation.
-  }
-
-  async uploadFile(
-    key: string,
-    _fileData: Buffer | string,
-    _contentType: string,
-  ): Promise<string> {
-    return this.getFileUrl(key);
-  }
-
-  async downloadFile(_key: string): Promise<Buffer> {
-    return Buffer.alloc(0);
-  }
-
-  async deleteFile(_key: string): Promise<void> {
-    // No-op
-  }
-
-  async getFileUrl(key: string): Promise<string> {
-    return `s3://local-demo-bucket/${key}`;
-  }
-
-  async fileExists(_key: string): Promise<boolean> {
-    return true;
-  }
-}
-
-function createLocalDependencies(): DaoDependencies {
-  return {
-    userDao: new DynamoDBUserDao(),
-    statusDao: new DynamoDBStatusDao(),
-    followDao: new DynamoDBFollowDao(),
-    bucketDao: new LocalBucketDao(),
-  };
-}
 
 async function generateUsers(
   authService: AuthService,
@@ -73,8 +27,11 @@ async function generateUsers(
     return { users, tokens };
   }
 
-  const placeholderImageBase64 =
-    Buffer.from("demo-image-bytes").toString("base64");
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  const imagePath = join(__dirname, "../../assets/missing-profile-photo.png");
+  const imageBuffer = readFileSync(imagePath);
+  const placeholderImageBase64 = imageBuffer.toString("base64");
   const imageExtension = "png";
 
   for (let i = 1; i <= USER_COUNT; i += 1) {
@@ -95,6 +52,7 @@ async function generateUsers(
       users.push(user);
       tokens.push(authToken.token);
       console.log(`Registered ${alias}`);
+      console.log("  Response:", JSON.stringify({ user, authToken }, null, 2));
     } catch (error) {
       console.error(`Failed to register ${alias}:`, error);
     }
@@ -127,8 +85,9 @@ async function generateStatuses(
       };
 
       try {
-        await statusService.postStatus(token, status);
+        const statusResponse = await statusService.postStatus(token, status);
         console.log(`Posted status ${j + 1} for ${user.alias}`);
+        console.log("  Response:", JSON.stringify(statusResponse, null, 2));
       } catch (error) {
         console.error(`Failed to post status for ${user.alias}:`, error);
       }
@@ -163,8 +122,12 @@ async function generateFollows(
       const userToFollow = users[followeeIndex];
 
       try {
-        await followService.follow(followerToken, userToFollow);
+        const followResponse = await followService.follow(
+          followerToken,
+          userToFollow,
+        );
         console.log(`${follower.alias} now follows ${userToFollow.alias}`);
+        console.log("  Response:", JSON.stringify(followResponse, null, 2));
       } catch (error) {
         console.error(
           `Failed follow from ${follower.alias} to ${userToFollow.alias}:`,
@@ -178,7 +141,14 @@ async function generateFollows(
 async function main(): Promise<void> {
   console.log("Starting Tweeter demo data generation...");
 
-  const daoFactory = new DaoFactory(createLocalDependencies());
+  if (!process.env.BUCKET_NAME) {
+    throw new Error(
+      "BUCKET_NAME must be set to your deployed public media bucket before running this script.",
+    );
+  }
+
+  // Use default dependencies so image uploads go through AWSS3Dao.
+  const daoFactory = new DaoFactory();
   await daoFactory.initialize();
 
   try {
