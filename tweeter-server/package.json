@@ -14,7 +14,10 @@
     "compile": "npm run clean && tsc",
     "clean": "rimraf dist",
     "sam:build": "npm run prepare:shared && sam build --template-file template.yaml",
-    "sam:deploy": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env default"
+    "sam:deploy": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env default",
+    "sam:deploy:dev": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env dev",
+    "sam:deploy:prod": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env prod",
+    "sam:local:start-api": "npm run sam:build && sam local start-api --template-file .aws-sam/build/template.yaml --parameter-overrides ApiStageName=dev"
   },
   "keywords": [],
   "author": "",

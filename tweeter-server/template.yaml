@@ -2,6 +2,16 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: SAM config for Tweeter server
 
+Parameters:
+  ApiStageName:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+      - local
+    Description: Deployment stage name used for the API Gateway stage and resource name suffixes.
+
 #
 # Global Lambda function properties. These apply to every Lambda function.
 #
@@ -15,7 +25,7 @@ Globals:
       Variables:
         USERS_TABLE: !Ref usersTable
         AUTH_TOKENS_TABLE: !Ref authTokensTable
-        AUTH_TOKEN_INACTIVITY_MINUTES: "1"
+        AUTH_TOKEN_INACTIVITY_MINUTES: "30"
         FOLLOWS_TABLE: !Ref followsTable
         STORY_TABLE: !Ref storyTable
         FEED_TABLE: !Ref feedTable
@@ -61,7 +71,7 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       Name: tweeterApi
-      StageName: prod
+      StageName: !Ref ApiStageName
       Cors:
         AllowMethods: "'GET,POST,PUT,DELETE'"
         AllowHeaders: "'*'"
@@ -581,7 +591,7 @@ Resources:
   usersTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: tweeter-users
+      TableName: !Sub "tweeter-users-${ApiStageName}"
       AttributeDefinitions:
         - AttributeName: alias
           AttributeType: S
@@ -596,7 +606,7 @@ Resources:
   authTokensTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: tweeter-auth-tokens
+      TableName: !Sub "tweeter-auth-tokens-${ApiStageName}"
       AttributeDefinitions:
         - AttributeName: token
           AttributeType: S
@@ -611,7 +621,7 @@ Resources:
   followsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: tweeter-follows
+      TableName: !Sub "tweeter-follows-${ApiStageName}"
       AttributeDefinitions:
         - AttributeName: followerAlias
           AttributeType: S
@@ -642,7 +652,7 @@ Resources:
   storyTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: tweeter-story
+      TableName: !Sub "tweeter-story-${ApiStageName}"
       AttributeDefinitions:
         - AttributeName: userAlias
           AttributeType: S
@@ -661,7 +671,7 @@ Resources:
   feedTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: tweeter-feed
+      TableName: !Sub "tweeter-feed-${ApiStageName}"
       AttributeDefinitions:
         - AttributeName: ownerAlias
           AttributeType: S
@@ -688,6 +698,7 @@ Resources:
         IgnorePublicAcls: true
         BlockPublicPolicy: false
         RestrictPublicBuckets: false
+      BucketName: !Sub "tweeter-media-${ApiStageName}-${AWS::AccountId}"
       VersioningConfiguration:
         Status: Suspended
 
@@ -704,3 +715,12 @@ Resources:
             Action:
               - "s3:GetObject"
             Resource: !Sub "${mediaBucket.Arn}/*"
+
+Outputs:
+  ApiBaseUrl:
+    Description: Base URL for the Tweeter API stage.
+    Value: !Sub "https://${tweeterApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStageName}"
+
+  MediaBucketName:
+    Description: Name of the S3 bucket used for media assets.
+    Value: !Ref mediaBucket

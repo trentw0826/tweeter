@@ -59,7 +59,7 @@ jobs:
         run: npm run build:all
 
   deploy:
-    name: Deploy AWS infrastructure
+    name: Deploy backend and frontend
     runs-on: ubuntu-latest
     needs: verify
     if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
@@ -122,3 +122,33 @@ jobs:
             --s3-prefix "${EFFECTIVE_SAM_S3_PREFIX}" \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset
+
+      - name: Resolve API base URL from stack outputs
+        id: resolve-api-url
+        env:
+          EFFECTIVE_AWS_REGION: ${{ github.event.inputs.aws_region || env.AWS_REGION }}
+          EFFECTIVE_SAM_STACK_NAME: ${{ github.event.inputs.sam_stack_name || env.SAM_STACK_NAME }}
+        run: |
+          API_URL=$(aws cloudformation describe-stacks \
+            --stack-name "${EFFECTIVE_SAM_STACK_NAME}" \
+            --region "${EFFECTIVE_AWS_REGION}" \
+            --query "Stacks[0].Outputs[?OutputKey=='ApiBaseUrl'].OutputValue" \
+            --output text)
+
+          if [ -z "${API_URL}" ] || [ "${API_URL}" = "None" ]; then
+            echo "Failed to resolve ApiBaseUrl output from stack ${EFFECTIVE_SAM_STACK_NAME}" >&2
+            exit 1
+          fi
+
+          echo "Resolved ApiBaseUrl=${API_URL}"
+          echo "api_base_url=${API_URL}" >> "$GITHUB_OUTPUT"
+
+      - name: Build frontend with resolved API URL
+        env:
+          VITE_API_BASE_URL: ${{ steps.resolve-api-url.outputs.api_base_url }}
+        run: |
+          npm --workspace tweeter-web run build
+
+      # NOTE: Frontend artifact upload/deploy (e.g., to S3/CloudFront or container registry)
+      # is intentionally left to the deployment environment. The build output is in
+      # tweeter-web/dist and can be published using your chosen hosting strategy.

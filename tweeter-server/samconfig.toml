@@ -9,6 +9,7 @@ profile = "tweeter-dev"
 confirm_changeset = true
 capabilities = "CAPABILITY_NAMED_IAM"
 image_repositories = []
+parameter_overrides = "ApiStageName=dev"
 
 [default.global.parameters]
 region = "us-east-1"
@@ -21,6 +22,33 @@ region = "us-east-1"
 confirm_changeset = false
 capabilities = "CAPABILITY_NAMED_IAM"
 image_repositories = []
+parameter_overrides = "ApiStageName=prod"
 
 [ci.global.parameters]
+region = "us-east-1"
+
+[dev.deploy.parameters]
+stack_name = "tweeter-server-dev"
+resolve_s3 = true
+s3_prefix = "tweeter-server-dev"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM"
+image_repositories = []
+parameter_overrides = "ApiStageName=dev"
+
+[dev.global.parameters]
+region = "us-east-1"
+
+[prod.deploy.parameters]
+stack_name = "tweeter-server-prod"
+resolve_s3 = true
+s3_prefix = "tweeter-server-prod"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM"
+image_repositories = []
+parameter_overrides = "ApiStageName=prod"
+
+[prod.global.parameters]
 region = "us-east-1"
