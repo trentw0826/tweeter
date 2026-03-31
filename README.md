@@ -48,3 +48,33 @@ The server deployment uses multiple SAM config environments defined in [tweeter-
 - `ci`: used by GitHub Actions, currently targeting the prod-style configuration.
 
 The CloudFormation stack exposes an `ApiBaseUrl` output that the CI workflow reads and injects into the frontend build as `VITE_API_BASE_URL`.
+
+## Docker Compose Preview (Built Frontend)
+
+Docker Compose lets you describe one or more containers in a single YAML file, then start and stop them with one command. In this project, Compose is useful for a simple production-like frontend preview: it builds the Vite app once, serves static files through Nginx, and runs on a stable local port.
+
+What this gives you:
+
+- A repeatable preview environment for teammates (same commands, same containerized runtime).
+- A closer match to deployment behavior than `vite` dev mode.
+- A clean way to add more services later (for example, local API simulation, reverse proxy, or observability tools).
+
+Files:
+
+- `docker-compose.yml`: defines the `frontend-preview` service.
+- `tweeter-web/Dockerfile`: multi-stage build (Node build stage, Nginx runtime stage).
+- `.env.docker-preview.example`: example `VITE_API_BASE_URL` for Compose builds.
+
+Quick start:
+
+1. Optionally copy `.env.docker-preview.example` to `.env` at the repo root and set `VITE_API_BASE_URL`.
+2. Build and start the preview container:
+   - `docker compose up --build -d frontend-preview`
+3. Open the app at `http://localhost:4173`.
+4. Stop it when done:
+   - `docker compose down`
+
+Notes:
+
+- `VITE_API_BASE_URL` is a build-time variable for Vite. If you change it, rebuild the image.
+- If you are also running `sam local start-api`, you can leave the default and use `http://127.0.0.1:3000`.

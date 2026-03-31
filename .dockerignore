@@ -1,0 +1,16 @@
+# Dependency caches
+node_modules
+**/node_modules
+
+# Build output
+**/dist
+**/.aws-sam
+coverage
+
+# Git/editor
+.git
+.gitignore
+.vscode
+
+# OS files
+.DS_Store
