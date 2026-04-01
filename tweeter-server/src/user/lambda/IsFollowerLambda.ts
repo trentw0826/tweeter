@@ -1,7 +1,8 @@
 import type { IsFollowerRequest, IsFollowerResponse } from "tweeter-shared";
 import { UserService } from "../../model/service/UserService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (
+const isFollower = async (
   request: IsFollowerRequest,
 ): Promise<IsFollowerResponse> => {
   const userService = new UserService();
@@ -17,3 +18,8 @@ export const handler = async (
     isFollower: isFollower,
   };
 };
+
+export const handler = createApiGatewayHandler<
+  IsFollowerRequest,
+  IsFollowerResponse
+>(isFollower);

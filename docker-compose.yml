@@ -1,4 +1,29 @@
 services:
+  sam-local-api:
+    image: public.ecr.aws/sam/build-nodejs20.x:latest
+    network_mode: host
+    working_dir: /workspace/tweeter-server
+    command: >-
+      sh -lc "
+      npm --workspace tweeter-server run sam:build
+      && sam local start-api
+      --template-file .aws-sam/build/template.yaml
+      --host 0.0.0.0
+      --port 3000
+      --parameter-overrides ApiStageName=dev
+      "
+    environment:
+      AWS_PROFILE: ${AWS_PROFILE:-tweeter-dev}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      AWS_DEFAULT_REGION: ${AWS_REGION:-us-east-1}
+      SAM_CLI_TELEMETRY: 0
+      SAM_CLI_CONTAINER_CONNECTION_TIMEOUT: 120
+    volumes:
+      - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${HOME}/.aws:/root/.aws:ro
+    restart: unless-stopped
+
   frontend-preview:
     build:
       context: .
@@ -7,6 +32,8 @@ services:
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://127.0.0.1:3000}
     image: tweeter-frontend-preview:latest
+    depends_on:
+      - sam-local-api
     ports:
       - "4173:80"
     restart: unless-stopped

@@ -1,9 +1,8 @@
 import type { LogoutRequest, VoidResponse } from "tweeter-shared";
 import { AuthService } from "../../model/service/AuthService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (
-  request: LogoutRequest,
-): Promise<VoidResponse> => {
+const logout = async (request: LogoutRequest): Promise<VoidResponse> => {
   const authService = new AuthService();
   await authService.logout(request.token);
 
@@ -12,3 +11,7 @@ export const handler = async (
     message: null,
   };
 };
+
+export const handler = createApiGatewayHandler<LogoutRequest, VoidResponse>(
+  logout,
+);

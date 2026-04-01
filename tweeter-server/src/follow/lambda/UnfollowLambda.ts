@@ -1,7 +1,8 @@
 import type { FollowActionRequest, VoidResponse } from "tweeter-shared";
 import { FollowService } from "../../model/service/FollowService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (
+const unfollow = async (
   request: FollowActionRequest,
 ): Promise<VoidResponse> => {
   const followService = new FollowService();
@@ -12,3 +13,8 @@ export const handler = async (
     message: null,
   };
 };
+
+export const handler = createApiGatewayHandler<
+  FollowActionRequest,
+  VoidResponse
+>(unfollow);

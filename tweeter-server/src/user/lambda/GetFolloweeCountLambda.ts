@@ -3,8 +3,9 @@ import type {
   GetFollowCountResponse,
 } from "tweeter-shared";
 import { UserService } from "../../model/service/UserService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (
+const getFolloweeCount = async (
   request: GetFollowCountRequest,
 ): Promise<GetFollowCountResponse> => {
   const userService = new UserService();
@@ -16,3 +17,8 @@ export const handler = async (
     count: count,
   };
 };
+
+export const handler = createApiGatewayHandler<
+  GetFollowCountRequest,
+  GetFollowCountResponse
+>(getFolloweeCount);

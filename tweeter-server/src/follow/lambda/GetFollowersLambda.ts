@@ -3,8 +3,9 @@ import type {
   PagedUserItemResponse,
 } from "tweeter-shared";
 import { FollowService } from "../../model/service/FollowService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (
+const getFollowers = async (
   request: PagedUserItemRequest,
 ): Promise<PagedUserItemResponse> => {
   const followService = new FollowService();
@@ -22,3 +23,8 @@ export const handler = async (
     hasMore: hasMore,
   };
 };
+
+export const handler = createApiGatewayHandler<
+  PagedUserItemRequest,
+  PagedUserItemResponse
+>(getFollowers);

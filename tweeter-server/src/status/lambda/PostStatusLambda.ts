@@ -1,7 +1,8 @@
 import type { PostStatusRequest, VoidResponse } from "tweeter-shared";
 import { StatusService } from "../../model/service/StatusService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (
+const postStatus = async (
   request: PostStatusRequest,
 ): Promise<VoidResponse> => {
   const statusService = new StatusService();
@@ -12,3 +13,7 @@ export const handler = async (
     message: null,
   };
 };
+
+export const handler = createApiGatewayHandler<PostStatusRequest, VoidResponse>(
+  postStatus,
+);

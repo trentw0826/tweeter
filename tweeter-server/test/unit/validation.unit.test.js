@@ -40,6 +40,22 @@ async function assertRejectsBadRequest(action, messageFragment) {
   });
 }
 
+async function assertLambdaBadRequest(
+  lambdaHandler,
+  requestBody,
+  messageFragment,
+) {
+  const response = await lambdaHandler({ body: JSON.stringify(requestBody) });
+
+  assert.equal(response.statusCode, 400);
+  const payload = JSON.parse(response.body);
+  assert.match(payload.message ?? "", /\[bad-request\]/i);
+
+  if (messageFragment) {
+    assert.match(payload.message ?? "", messageFragment);
+  }
+}
+
 test("AuthService.login rejects a blank alias", async () => {
   const authService = new AuthService();
 
@@ -109,35 +125,36 @@ test("StatusService.postStatus rejects blank post text", async () => {
 });
 
 test("Login lambda rejects invalid requests with a bad-request error", async () => {
-  await assertRejectsBadRequest(
-    () => loginHandler({ alias: "", password: "password" }),
+  await assertLambdaBadRequest(
+    loginHandler,
+    { alias: "", password: "password" },
     /Invalid alias/i,
   );
 });
 
 test("GetFollowees lambda rejects invalid page sizes", async () => {
-  await assertRejectsBadRequest(
-    () =>
-      getFolloweesHandler({
-        token: getValidToken(),
-        userAlias: getValidUser().alias,
-        pageSize: 0,
-        lastItem: null,
-      }),
+  await assertLambdaBadRequest(
+    getFolloweesHandler,
+    {
+      token: getValidToken(),
+      userAlias: getValidUser().alias,
+      pageSize: 0,
+      lastItem: null,
+    },
     /Invalid pageSize/i,
   );
 });
 
 test("PostStatus lambda rejects blank status posts", async () => {
-  await assertRejectsBadRequest(
-    () =>
-      postStatusHandler({
-        token: getValidToken(),
-        newStatus: {
-          ...getValidStatus(),
-          post: "   ",
-        },
-      }),
+  await assertLambdaBadRequest(
+    postStatusHandler,
+    {
+      token: getValidToken(),
+      newStatus: {
+        ...getValidStatus(),
+        post: "   ",
+      },
+    },
     /Invalid newStatus\.post/i,
   );
 });

@@ -3,8 +3,9 @@ import type {
   PagedStatusItemResponse,
 } from "tweeter-shared";
 import { StatusService } from "../../model/service/StatusService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (
+const getStoryItems = async (
   request: PagedStatusItemRequest,
 ): Promise<PagedStatusItemResponse> => {
   const statusService = new StatusService();
@@ -22,3 +23,8 @@ export const handler = async (
     hasMore: hasMore,
   };
 };
+
+export const handler = createApiGatewayHandler<
+  PagedStatusItemRequest,
+  PagedStatusItemResponse
+>(getStoryItems);

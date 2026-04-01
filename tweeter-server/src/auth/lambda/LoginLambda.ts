@@ -1,7 +1,8 @@
 import type { LoginRequest, AuthResponse } from "tweeter-shared";
 import { AuthService } from "../../model/service/AuthService.js";
+import { createApiGatewayHandler } from "../../lambda/ApiGatewayAdapter.js";
 
-export const handler = async (request: LoginRequest): Promise<AuthResponse> => {
+const login = async (request: LoginRequest): Promise<AuthResponse> => {
   const authService = new AuthService();
   const [user, authToken] = await authService.login(
     request.alias,
@@ -15,3 +16,7 @@ export const handler = async (request: LoginRequest): Promise<AuthResponse> => {
     authToken: authToken,
   };
 };
+
+export const handler = createApiGatewayHandler<LoginRequest, AuthResponse>(
+  login,
+);

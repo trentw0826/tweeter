@@ -33,7 +33,7 @@ Rebuild either module of the project (tweeter-shared or tweeter-web) by running 
 
 1. Deploy the dev stack at least once so that dev DynamoDB tables and the media bucket exist.
 2. From the repository root, start the local API:
-   - `npm run dev:api` (runs `sam local start-api` with `ApiStageName=dev`).
+   - `npm run dev:api` (runs `sam build/start-api` from the main `tweeter-server/template.yaml` with `ApiStageName=dev`).
 3. In another terminal, start the frontend:
    - `npm run dev:web` (runs the Vite dev server in `tweeter-web`).
 4. Ensure `tweeter-web/.env.local` points at `http://127.0.0.1:3000`.
@@ -61,20 +61,25 @@ What this gives you:
 
 Files:
 
-- `docker-compose.yml`: defines the `frontend-preview` service.
+- `docker-compose.yml`: defines `sam-local-api` and `frontend-preview` services.
 - `tweeter-web/Dockerfile`: multi-stage build (Node build stage, Nginx runtime stage).
 - `.env.docker-preview.example`: example `VITE_API_BASE_URL` for Compose builds.
 
 Quick start:
 
 1. Optionally copy `.env.docker-preview.example` to `.env` at the repo root and set `VITE_API_BASE_URL`.
-2. Build and start the preview container:
+2. Start SAM Local API in Docker Compose:
+   - `docker compose up --build -d sam-local-api`
+3. Start the frontend preview (which depends on the local API service):
    - `docker compose up --build -d frontend-preview`
-3. Open the app at `http://localhost:4173`.
-4. Stop it when done:
+4. Open the app at `http://localhost:4173`.
+5. Stop everything when done:
    - `docker compose down`
 
 Notes:
 
 - `VITE_API_BASE_URL` is a build-time variable for Vite. If you change it, rebuild the image.
-- If you are also running `sam local start-api`, you can leave the default and use `http://127.0.0.1:3000`.
+- `sam-local-api` uses your local AWS credentials (`${HOME}/.aws`) and defaults to `AWS_PROFILE=tweeter-dev`.
+- `sam-local-api` uses host networking for reliable Lambda runtime connectivity on Linux.
+- To use a different profile/region, export variables before starting Compose, for example:
+  - `AWS_PROFILE=your-profile AWS_REGION=us-east-1 docker compose up --build -d sam-local-api frontend-preview`
