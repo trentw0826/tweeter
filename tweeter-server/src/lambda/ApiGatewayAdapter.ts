@@ -8,6 +8,7 @@ type ApiGatewayResponse = {
     "Access-Control-Allow-Origin": string;
     "Content-Type": string;
   };
+  isBase64Encoded: boolean;
   body: string;
 };
 
@@ -34,6 +35,7 @@ const jsonResponse = (
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   },
+  isBase64Encoded: false,
   body: JSON.stringify(payload),
 });
 
