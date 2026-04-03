@@ -1,28 +1,41 @@
 services:
-  sam-local-api:
-    image: public.ecr.aws/sam/build-nodejs20.x:latest
-    network_mode: host
-    working_dir: /workspace/tweeter-server
-    command: >-
-      sh -lc "
-      npm --workspace tweeter-server run sam:build
-      && sam local start-api
-      --template-file .aws-sam/build/template.yaml
-      --host 0.0.0.0
-      --port 3000
-      --parameter-overrides ApiStageName=dev
-      "
+  localstack:
+    image: localstack/localstack:3.5.0
+    ports:
+      - "4566:4566"
     environment:
-      AWS_PROFILE: ${AWS_PROFILE:-tweeter-dev}
+      SERVICES: dynamodb,s3,sts
+      AWS_DEFAULT_REGION: ${AWS_REGION:-us-east-1}
+      DEBUG: ${LOCALSTACK_DEBUG:-0}
+      LOCALSTACK_ACKNOWLEDGE_ACCOUNT_REQUIREMENT: ${LOCALSTACK_ACKNOWLEDGE_ACCOUNT_REQUIREMENT:-1}
+      LOCALSTACK_AUTH_TOKEN: ${LOCALSTACK_AUTH_TOKEN:-}
+    volumes:
+      - localstack-data:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  localstack-init:
+    image: amazon/aws-cli:2.27.45
+    entrypoint: ["sh", "-c", "sh ./docker/localstack/init-localstack.sh"]
+    depends_on:
+      localstack:
+        condition: service_healthy
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
       AWS_REGION: ${AWS_REGION:-us-east-1}
       AWS_DEFAULT_REGION: ${AWS_REGION:-us-east-1}
-      SAM_CLI_TELEMETRY: 0
-      SAM_CLI_CONTAINER_CONNECTION_TIMEOUT: 120
+      LOCALSTACK_ENDPOINT: http://localstack:4566
+      API_STAGE_NAME: ${API_STAGE_NAME:-local}
+      LOCALSTACK_ACCOUNT_ID: ${LOCALSTACK_ACCOUNT_ID:-000000000000}
     volumes:
       - .:/workspace
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${HOME}/.aws:/root/.aws:ro
-    restart: unless-stopped
+    working_dir: /workspace
 
   frontend-preview:
     build:
@@ -32,8 +45,9 @@ services:
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://127.0.0.1:3000}
     image: tweeter-frontend-preview:latest
-    depends_on:
-      - sam-local-api
     ports:
       - "4173:80"
     restart: unless-stopped
+
+volumes:
+  localstack-data:

@@ -40,6 +40,19 @@ parameter_overrides = "ApiStageName=dev"
 [dev.global.parameters]
 region = "us-east-1"
 
+[local.deploy.parameters]
+stack_name = "tweeter-server-local"
+resolve_s3 = true
+s3_prefix = "tweeter-server-local"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_NAMED_IAM"
+image_repositories = []
+parameter_overrides = "ApiStageName=local"
+
+[local.global.parameters]
+region = "us-east-1"
+
 [prod.deploy.parameters]
 stack_name = "tweeter-server-prod"
 resolve_s3 = true

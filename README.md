@@ -29,14 +29,19 @@ Rebuild either module of the project (tweeter-shared or tweeter-web) by running 
 2. Ensure `.env.local` has a `VITE_API_BASE_URL` value.
 3. Run `npm start` to launch the Vite dev server.
 
-### Local development with SAM (frontend + local Lambda, cloud dev data)
+### Local development with LocalStack + SAM (frontend + local Lambda + local AWS services)
 
-1. Deploy the dev stack at least once so that dev DynamoDB tables and the media bucket exist.
-2. From the repository root, start the local API:
-   - `npm run dev:api` (runs `sam build/start-api` from the main `tweeter-server/template.yaml` with `ApiStageName=dev`).
-3. In another terminal, start the frontend:
-   - `npm run dev:web` (runs the Vite dev server in `tweeter-web`).
-4. Ensure `tweeter-web/.env.local` points at `http://127.0.0.1:3000`.
+This repo now supports a local AWS-emulated path that still reuses the same SAM template used for deploys.
+
+1. Start LocalStack and bootstrap resources (tables and media bucket):
+   - `npm run local:api`
+2. In another terminal, start the frontend dev server:
+   - `npm run dev:web`
+3. Ensure `tweeter-web/.env.local` points at `http://127.0.0.1:3000`.
+
+The LocalStack-backed API path uses `ApiStageName=local`, so local resource names mirror the SAM template naming pattern without maintaining a second template.
+
+This keeps SAM local invocation on the host (most reliable for this repo) while LocalStack emulates the backing AWS services.
 
 ## SAM Deploy Config
 
@@ -61,25 +66,23 @@ What this gives you:
 
 Files:
 
-- `docker-compose.yml`: defines `sam-local-api` and `frontend-preview` services.
+- `docker-compose.yml`: defines `localstack`, `localstack-init`, and `frontend-preview` services.
 - `tweeter-web/Dockerfile`: multi-stage build (Node build stage, Nginx runtime stage).
 - `.env.docker-preview.example`: example `VITE_API_BASE_URL` for Compose builds.
 
 Quick start:
 
 1. Optionally copy `.env.docker-preview.example` to `.env` at the repo root and set `VITE_API_BASE_URL`.
-2. Start SAM Local API in Docker Compose:
-   - `docker compose up --build -d sam-local-api`
-3. Start the frontend preview (which depends on the local API service):
-   - `docker compose up --build -d frontend-preview`
+2. Start the local infrastructure + frontend preview containers:
+   - `npm run local:preview`
+3. Start the local API (host SAM local against LocalStack):
+   - `npm run local:api`
 4. Open the app at `http://localhost:4173`.
 5. Stop everything when done:
-   - `docker compose down`
+   - `npm run local:down`
 
 Notes:
 
 - `VITE_API_BASE_URL` is a build-time variable for Vite. If you change it, rebuild the image.
-- `sam-local-api` uses your local AWS credentials (`${HOME}/.aws`) and defaults to `AWS_PROFILE=tweeter-dev`.
-- `sam-local-api` uses host networking for reliable Lambda runtime connectivity on Linux.
-- To use a different profile/region, export variables before starting Compose, for example:
-  - `AWS_PROFILE=your-profile AWS_REGION=us-east-1 docker compose up --build -d sam-local-api frontend-preview`
+- Local API traffic still goes through host SAM local (`http://127.0.0.1:3000`) and uses LocalStack endpoints via environment variables.
+- To use a different region, export `AWS_REGION` before starting Compose.

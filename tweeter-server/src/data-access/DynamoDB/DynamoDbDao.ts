@@ -9,6 +9,7 @@ import {
   type QueryCommandInput,
 } from "@aws-sdk/lib-dynamodb";
 import type { Dao, PagedResult } from "../Dao.js";
+import { getDynamoDbClientConfig } from "../../config/AwsClientConfig.js";
 
 export type DynamoItem = Record<string, unknown>;
 type BatchWriteRequest = {
@@ -27,7 +28,7 @@ export abstract class DynamoDbDao implements Dao {
 
   protected get client(): DynamoDBDocumentClient {
     if (DynamoDbDao.documentClient === null) {
-      const nativeClient = new DynamoDBClient({});
+      const nativeClient = new DynamoDBClient(getDynamoDbClientConfig());
       DynamoDbDao.documentClient = DynamoDBDocumentClient.from(nativeClient, {
         marshallOptions: {
           removeUndefinedValues: true,

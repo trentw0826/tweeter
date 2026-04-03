@@ -5,6 +5,7 @@ import {
   ScanCommand,
   type ScanCommandOutput,
 } from "@aws-sdk/lib-dynamodb";
+import { getDynamoDbClientConfig } from "../config/AwsClientConfig.js";
 
 type WriteRequest = Record<string, any>;
 import { TABLE_DEFAULT } from "../data-access/DynamoDB/TableNames.js";
@@ -46,7 +47,7 @@ function calculateBackoffMs(attempt: number): number {
 }
 
 async function clearDatabase(): Promise<void> {
-  const nativeClient = new DynamoDBClient({});
+  const nativeClient = new DynamoDBClient(getDynamoDbClientConfig());
   const documentClient = DynamoDBDocumentClient.from(nativeClient, {
     marshallOptions: {
       removeUndefinedValues: true,

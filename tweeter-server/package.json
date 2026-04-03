@@ -17,7 +17,9 @@
     "sam:deploy": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env default",
     "sam:deploy:dev": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env dev",
     "sam:deploy:prod": "npm run sam:build && sam deploy --config-file samconfig.toml --config-env prod",
-    "sam:local:start-api": "npm run sam:build && sam local start-api --template-file .aws-sam/build/template.yaml --parameter-overrides ApiStageName=dev"
+    "sam:local:start-api": "npm run sam:build && sam local start-api --template-file .aws-sam/build/template.yaml --parameter-overrides ApiStageName=dev",
+    "sam:local:start-api:localstack": "AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_REGION=${AWS_REGION:-us-east-1} AWS_DEFAULT_REGION=${AWS_REGION:-us-east-1} AWS_ENDPOINT_URL=http://127.0.0.1:4566 AWS_ENDPOINT_URL_DYNAMODB=http://127.0.0.1:4566 AWS_ENDPOINT_URL_S3=http://127.0.0.1:4566 AWS_S3_PUBLIC_URL_BASE=http://127.0.0.1:4566 AWS_S3_FORCE_PATH_STYLE=true npm run sam:build && sam local start-api --template-file .aws-sam/build/template.yaml --parameter-overrides ApiStageName=local",
+    "test:local-env": "node test/localEnvironmentSmoke.mjs"
   },
   "keywords": [],
   "author": "",

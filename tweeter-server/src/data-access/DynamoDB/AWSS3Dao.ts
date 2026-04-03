@@ -6,6 +6,10 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import type { BucketDao } from "../BucketDao.js";
+import {
+  getS3ClientConfig,
+  getS3PublicBaseUrl,
+} from "../../config/AwsClientConfig.js";
 
 /**
  * AWS S3 implementation of BucketDao.
@@ -16,7 +20,7 @@ export class AWSS3Dao implements BucketDao {
 
   private get client(): S3Client {
     if (AWSS3Dao.client === null) {
-      AWSS3Dao.client = new S3Client({});
+      AWSS3Dao.client = new S3Client(getS3ClientConfig());
     }
 
     return AWSS3Dao.client;
@@ -78,7 +82,12 @@ export class AWSS3Dao implements BucketDao {
   }
 
   async getFileUrl(key: string): Promise<string> {
-    // Use virtual-hosted–style HTTPS URL so browsers can load images directly.
+    const localBaseUrl = getS3PublicBaseUrl();
+    if (localBaseUrl) {
+      return `${localBaseUrl}/${this.bucketName}/${key}`;
+    }
+
+    // Use virtual-hosted-style HTTPS URL so browsers can load images directly.
     return `https://${this.bucketName}.s3.amazonaws.com/${key}`;
   }
 
