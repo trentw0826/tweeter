@@ -1,46 +1,46 @@
 {
-  "name": "tweeter",
-  "version": "1.0.0",
-  "workspaces": [
-    "tweeter-shared",
-    "tweeter-web",
-    "tweeter-server"
-  ],
-  "author": "trentw0826",
-  "license": "ISC",
-  "scripts": {
-    "build": "npm run build --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
-    "test:ci": "npm run test --workspaces --if-present",
-    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
-    "lint": "eslint tweeter-web/src tweeter-web/test tweeter-shared/src tweeter-server/src --ext .ts,.tsx",
-    "lint:fix": "npm run lint -- --fix",
-    "build:all": "npm --workspace tweeter-shared run compile && npm --workspace tweeter-web run build && npm --workspace tweeter-server run compile",
-    "dev:web": "npm --workspace tweeter-web run start",
-    "dev:api": "npm --workspace tweeter-server run sam:local:start-api",
-    "local:api": "docker compose up -d localstack localstack-init && npm --workspace tweeter-server run sam:local:start-api:localstack",
-    "test:local-env": "npm --workspace tweeter-server run test:local-env",
-    "local:preview": "docker compose up --build -d localstack localstack-init frontend-preview",
-    "local:down": "docker compose down"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "eslint": "^8.57.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "prettier": "^3.8.1"
-  },
-  "description": "A starter project for the Tweeter Web application.",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trentw0826/tweeter.git"
-  },
-  "keywords": [],
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/trentw0826/tweeter/issues"
-  },
-  "homepage": "https://github.com/trentw0826/tweeter#readme"
+	"name": "tweeter",
+	"version": "1.0.0",
+	"workspaces": [
+		"tweeter-shared",
+		"tweeter-web",
+		"tweeter-server"
+	],
+	"author": "trentw0826",
+	"license": "ISC",
+	"scripts": {
+		"build": "npm run build --workspaces --if-present",
+		"test": "npm run test --workspaces --if-present",
+		"test:ci": "npm run test --workspaces --if-present",
+		"format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+		"lint": "eslint tweeter-web/src tweeter-web/test tweeter-shared/src tweeter-server/src --ext .ts,.tsx",
+		"lint:fix": "npm run lint -- --fix",
+		"build:all": "npm --workspace tweeter-shared run compile && npm --workspace tweeter-web run build && npm --workspace tweeter-server run compile",
+		"dev:web": "npm --workspace tweeter-web run start",
+		"dev:api": "npm --workspace tweeter-server run sam:local:start-api",
+		"local:api": "docker compose up -d localstack localstack-init && npm --workspace tweeter-server run sam:local:start-api:localstack",
+		"test:local-env": "npm --workspace tweeter-server run test:local-env",
+		"local:preview": "docker compose up --build -d localstack localstack-init frontend-preview",
+		"local:down": "docker compose down"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^7.18.0",
+		"@typescript-eslint/parser": "^7.18.0",
+		"eslint": "^8.57.1",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^4.6.2",
+		"prettier": "^3.8.1"
+	},
+	"description": "A starter project for the Tweeter Web application.",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/trentw0826/tweeter.git"
+	},
+	"keywords": [],
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/trentw0826/tweeter/issues"
+	},
+	"homepage": "https://github.com/trentw0826/tweeter#readme"
 }
