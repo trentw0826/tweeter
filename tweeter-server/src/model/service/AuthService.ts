@@ -4,9 +4,9 @@ import type TweeterService from "./TweeterService.js";
 import {
   assertAlias,
   assertNonEmptyString,
-  assertToken,
   normalizeAlias,
 } from "./Validation.js";
+import { requireAuthenticatedAlias } from "./Authentication.js";
 import { DaoFactory } from "../../data-access/index.js";
 import type { UserDao } from "../../data-access/index.js";
 import type { BucketDao } from "../../data-access/index.js";
@@ -100,7 +100,7 @@ export class AuthService implements TweeterService {
   }
 
   public async logout(token: string): Promise<void> {
-    assertToken(token);
+    await requireAuthenticatedAlias(this.userDao, token);
 
     await this.userDao.deleteAuthToken(token);
   }
