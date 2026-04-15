@@ -1,4 +1,9 @@
 import { ServerFacade } from "../../src/network/ServerFacade";
+import { handleUnauthorizedSession } from "../../src/session/AuthSession";
+
+jest.mock("../../src/session/AuthSession", () => ({
+  handleUnauthorizedSession: jest.fn(),
+}));
 
 describe("ServerFacade", () => {
   const baseUrl = "https://api.example.com/prod";
@@ -288,6 +293,18 @@ describe("ServerFacade", () => {
     await expect(
       facade.login({ alias: "@testuser", password: "password" }),
     ).rejects.toThrow("Server error: 500");
+  });
+
+  it("handles unauthorized responses by triggering centralized session recovery", async () => {
+    fetchMock.mockResolvedValue(
+      mockFetchResponse(false, 401, { error: "Invalid auth token" }),
+    );
+
+    await expect(
+      facade.login({ alias: "@testuser", password: "password" }),
+    ).rejects.toThrow("Invalid auth token");
+
+    expect(handleUnauthorizedSession).toHaveBeenCalledTimes(1);
   });
 
   it("throws the response message when the server returns success false", async () => {

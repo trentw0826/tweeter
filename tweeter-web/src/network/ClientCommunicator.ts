@@ -1,4 +1,5 @@
 import { TweeterResponse } from "tweeter-shared";
+import { handleUnauthorizedSession } from "../session/AuthSession";
 
 export class ClientCommunicator {
   private readonly serverUrl: string;
@@ -32,8 +33,20 @@ export class ClientCommunicator {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error ?? `Server error: ${response.status}`);
+      let errorMessage = `Server error: ${response.status}`;
+
+      try {
+        const error = await response.json();
+        errorMessage = error.error ?? errorMessage;
+      } catch {
+        // Keep fallback message when server does not return JSON.
+      }
+
+      if (response.status === 401) {
+        handleUnauthorizedSession();
+      }
+
+      throw new Error(errorMessage);
     }
 
     const data: Res = await response.json();

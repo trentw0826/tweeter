@@ -2,16 +2,14 @@ import type { StatusDto } from "tweeter-shared";
 import { AuthenticatedService } from "./AuthenticatedService.js";
 import { assertAlias, assertPageSize, assertStatusDto } from "./Validation.js";
 import { DaoFactory } from "../../data-access/index.js";
-import type { FollowDao, StatusDao } from "../../data-access/index.js";
+import type { StatusDao } from "../../data-access/index.js";
 
 export class StatusService extends AuthenticatedService {
   private readonly statusDao: StatusDao;
-  private readonly followDao: FollowDao;
 
   public constructor(daoFactory: DaoFactory = DaoFactory.getInstance()) {
     super(daoFactory);
     this.statusDao = daoFactory.getStatusDao();
-    this.followDao = daoFactory.getFollowDao();
   }
 
   public async retrievePageOfFeedItems(
@@ -69,8 +67,13 @@ export class StatusService extends AuthenticatedService {
 
     await this.statusDao.saveStatus(newStatus);
     await this.statusDao.addStatusToFeed(postingAlias, newStatus);
+  }
 
-    const followerAliases = await this.followDao.getAllFollowers(postingAlias);
-    await this.statusDao.addStatusToFeeds(followerAliases, newStatus);
+  public async addStatusToFeeds(
+    followerAliases: string[],
+    status: StatusDto,
+  ): Promise<void> {
+    assertStatusDto(status, "status");
+    await this.statusDao.addStatusToFeeds(followerAliases, status);
   }
 }

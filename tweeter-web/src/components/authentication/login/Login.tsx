@@ -9,6 +9,7 @@ import { useMessageActions } from "../../toaster/messageHooks";
 import { AuthView } from "../../../presenter/AuthPresenter";
 import { LoginPresenter } from "../../../presenter/LoginPresenter";
 import { AuthToken, User } from "tweeter-shared";
+import { consumeUnauthorizedToastMessage } from "../../../session/AuthSession";
 
 interface Props {
   originalUrl?: string;
@@ -23,7 +24,14 @@ const Login = (props: Props) => {
 
   const navigate = useNavigate();
   const { updateUserInfo } = useUserInfoActions();
-  const { displayErrorMessage } = useMessageActions();
+  const { displayErrorMessage, displayInfoMessage } = useMessageActions();
+
+  useEffect(() => {
+    const message = consumeUnauthorizedToastMessage();
+    if (message) {
+      displayInfoMessage(message, 4000, "text-bg-warning");
+    }
+  }, [displayInfoMessage]);
 
   const listener: AuthView = {
     setIsLoading: (value: boolean) => setIsLoading(value),

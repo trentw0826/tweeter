@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMessageActions } from "../toaster/messageHooks";
@@ -45,33 +45,38 @@ function ItemScroller<T, U extends Service>(props: Props<T, U>) {
   useEffect(() => {
     if (
       authToken &&
+      displayedUser &&
       displayedUserAliasParam &&
-      displayedUserAliasParam != displayedUser!.alias
+      displayedUserAliasParam != displayedUser.alias
     ) {
       presenterRef
-        .current!.getUser(authToken!, displayedUserAliasParam!)
+        .current!.getUser(authToken, displayedUserAliasParam)
         .then((toUser) => {
           if (toUser) {
             setDisplayedUser(toUser);
           }
         });
     }
-  }, [displayedUserAliasParam]);
+  }, [authToken, displayedUser, displayedUserAliasParam, setDisplayedUser]);
+
+  const reset = useCallback(async () => {
+    setItems(() => []);
+    presenterRef.current!.reset();
+  }, []);
+
+  const loadMoreItems = useCallback(async () => {
+    if (!authToken || !displayedUser) {
+      return;
+    }
+
+    presenterRef.current!.loadMoreItems(authToken, displayedUser.alias);
+  }, [authToken, displayedUser]);
 
   // Initialize the component whenever the displayed user changes
   useEffect(() => {
-    reset();
-    loadMoreItems();
-  }, [displayedUser]);
-
-  const reset = async () => {
-    setItems(() => []);
-    presenterRef.current!.reset();
-  };
-
-  const loadMoreItems = async () => {
-    presenterRef.current!.loadMoreItems(authToken!, displayedUser!.alias);
-  };
+    void reset();
+    void loadMoreItems();
+  }, [displayedUser, loadMoreItems, reset]);
 
   return (
     <div className="container px-0 overflow-visible vh-100">
