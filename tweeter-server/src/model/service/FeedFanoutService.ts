@@ -25,6 +25,8 @@ type FeedUpdateMessage = {
   followerAliases: string[];
 };
 
+const SQS_BATCH_ID_MAX_LENGTH = 80;
+
 function chunkArray<T>(items: T[], batchSize: number): T[][] {
   if (!Number.isInteger(batchSize) || batchSize <= 0) {
     throw new Error("Invalid batchSize: expected a positive integer");
@@ -43,7 +45,18 @@ function chunkArray<T>(items: T[], batchSize: number): T[][] {
 }
 
 function buildQueueMessageId(status: StatusDto, startIndex: number): string {
-  return `${status.user.alias}-${status.timestamp}-${startIndex}`;
+  const safeAlias = status.user.alias
+    .replace(/[^A-Za-z0-9_-]/g, "_")
+    .replace(/^_+/, "")
+    .slice(0, 40);
+  const aliasPart = safeAlias.length > 0 ? safeAlias : "user";
+  const id = `${aliasPart}-${status.timestamp}-${startIndex}`;
+
+  if (id.length <= SQS_BATCH_ID_MAX_LENGTH) {
+    return id;
+  }
+
+  return id.slice(0, SQS_BATCH_ID_MAX_LENGTH);
 }
 
 export class FeedFanoutService {

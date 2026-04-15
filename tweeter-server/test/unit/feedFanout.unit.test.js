@@ -164,6 +164,11 @@ test("FeedFanoutService pages followers and batches queue writes", async () => {
   expect(queueBatchCalls).toHaveLength(2);
   expect(queueBatchCalls[0].queueUrl).toBe("https://queue.example/update-feed");
   expect(queueBatchCalls[0].messages).toHaveLength(2);
+  for (const batchCall of queueBatchCalls) {
+    for (const message of batchCall.messages) {
+      expect(message.id).toMatch(/^[A-Za-z0-9_-]{1,80}$/);
+    }
+  }
   expect(
     JSON.parse(queueBatchCalls[0].messages[0].body).followerAliases,
   ).toEqual(["@f1", "@f2"]);

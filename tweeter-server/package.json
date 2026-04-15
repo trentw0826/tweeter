@@ -8,6 +8,7 @@
     "build": "npm run prepare:shared && npm run compile",
     "generate-demo-data": "npm run build && node dist/scripts/generateDemoData.js",
     "generate-test-data": "npm run build && node dist/scripts/generateTestData.js",
+    "seed-popular-user": "npm run build && node dist/scripts/seedPopularUserFollowers.js",
     "clear-database": "npm run build && node dist/scripts/clearDatabase.js",
     "test": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs test/unit",
     "test:integration": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs test/integration",

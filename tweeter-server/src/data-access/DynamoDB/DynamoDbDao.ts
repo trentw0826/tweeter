@@ -17,6 +17,28 @@ type BatchWriteRequest = {
 };
 
 const MAX_BATCH_WRITE = 25;
+const MAX_BATCH_WRITE_RETRIES = 6;
+const INITIAL_RETRY_BACKOFF_MS = 100;
+const MAX_QUERY_RETRIES = 6;
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function isRetryableDynamoError(error: unknown): boolean {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  const name = error.name;
+  return (
+    name === "ProvisionedThroughputExceededException" ||
+    name === "ThrottlingException" ||
+    name === "RequestLimitExceeded"
+  );
+}
 
 /**
  * Shared base class for all DynamoDB DAOs.
@@ -92,7 +114,27 @@ export abstract class DynamoDbDao implements Dao {
     input: QueryCommandInput,
     mapItem: (item: DynamoItem) => TItem,
   ): Promise<PagedResult<TItem>> {
-    const result = await this.client.send(new QueryCommand(input));
+    let result;
+    for (let attempt = 1; attempt <= MAX_QUERY_RETRIES; attempt += 1) {
+      try {
+        result = await this.client.send(new QueryCommand(input));
+        break;
+      } catch (error) {
+        if (!isRetryableDynamoError(error) || attempt === MAX_QUERY_RETRIES) {
+          throw error;
+        }
+
+        const jitterMs = Math.floor(Math.random() * 50);
+        const backoffMs =
+          INITIAL_RETRY_BACKOFF_MS * 2 ** (attempt - 1) + jitterMs;
+        await sleep(backoffMs);
+      }
+    }
+
+    if (result === undefined) {
+      throw new Error("Failed to query DynamoDB page");
+    }
+
     const items = (result.Items ?? []).map(mapItem);
 
     return {
@@ -109,12 +151,31 @@ export abstract class DynamoDbDao implements Dao {
     let exclusiveStartKey = input.ExclusiveStartKey;
 
     do {
-      const page = await this.client.send(
-        new QueryCommand({
-          ...input,
-          ExclusiveStartKey: exclusiveStartKey,
-        }),
-      );
+      let page;
+      for (let attempt = 1; attempt <= MAX_QUERY_RETRIES; attempt += 1) {
+        try {
+          page = await this.client.send(
+            new QueryCommand({
+              ...input,
+              ExclusiveStartKey: exclusiveStartKey,
+            }),
+          );
+          break;
+        } catch (error) {
+          if (!isRetryableDynamoError(error) || attempt === MAX_QUERY_RETRIES) {
+            throw error;
+          }
+
+          const jitterMs = Math.floor(Math.random() * 50);
+          const backoffMs =
+            INITIAL_RETRY_BACKOFF_MS * 2 ** (attempt - 1) + jitterMs;
+          await sleep(backoffMs);
+        }
+      }
+
+      if (page === undefined) {
+        throw new Error("Failed to query DynamoDB pages");
+      }
 
       for (const item of page.Items ?? []) {
         items.push(mapItem(item));
@@ -135,14 +196,45 @@ export abstract class DynamoDbDao implements Dao {
     }
 
     for (let index = 0; index < requests.length; index += MAX_BATCH_WRITE) {
-      const chunk = requests.slice(index, index + MAX_BATCH_WRITE);
-      await this.client.send(
-        new BatchWriteCommand({
-          RequestItems: {
-            [tableName]: chunk,
-          },
-        }),
-      );
+      let pendingRequests = requests.slice(index, index + MAX_BATCH_WRITE);
+
+      for (
+        let attempt = 1;
+        pendingRequests.length > 0 && attempt <= MAX_BATCH_WRITE_RETRIES;
+        attempt += 1
+      ) {
+        try {
+          const response = await this.client.send(
+            new BatchWriteCommand({
+              RequestItems: {
+                [tableName]: pendingRequests,
+              },
+            }),
+          );
+
+          pendingRequests =
+            (response.UnprocessedItems?.[tableName] as BatchWriteRequest[]) ??
+            [];
+          if (pendingRequests.length === 0) {
+            break;
+          }
+        } catch (error) {
+          if (attempt === MAX_BATCH_WRITE_RETRIES) {
+            throw error;
+          }
+        }
+
+        const jitterMs = Math.floor(Math.random() * 50);
+        const backoffMs =
+          INITIAL_RETRY_BACKOFF_MS * 2 ** (attempt - 1) + jitterMs;
+        await sleep(backoffMs);
+      }
+
+      if (pendingRequests.length > 0) {
+        throw new Error(
+          `Batch write failed for ${pendingRequests.length} unprocessed items in ${tableName}.`,
+        );
+      }
     }
   }
 }

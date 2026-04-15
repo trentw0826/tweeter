@@ -41,7 +41,7 @@ export class AWSSqsPublisher implements SqsPublisher {
       return;
     }
 
-    await this.client.send(
+    const response = await this.client.send(
       new SendMessageBatchCommand({
         QueueUrl: queueUrl,
         Entries: messages.map((message) => ({
@@ -50,5 +50,12 @@ export class AWSSqsPublisher implements SqsPublisher {
         })),
       }),
     );
+
+    if ((response.Failed?.length ?? 0) > 0) {
+      const details = response.Failed?.map(
+        (entry) => `${entry.Id ?? "unknown"}:${entry.Code ?? "unknown"}`,
+      ).join(", ");
+      throw new Error(`SQS batch send failed for ${details}`);
+    }
   }
 }
