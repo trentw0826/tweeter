@@ -11,6 +11,7 @@
     "clear-database": "npm run build && node dist/scripts/clearDatabase.js",
     "test": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs test/unit",
     "test:integration": "npm run build && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs test/integration",
+    "test:integration:deployed": "bash ./scripts/testIntegrationDeployed.sh",
     "test:all": "npm run test && npm run test:integration",
     "compile": "npm run clean && tsc",
     "clean": "rimraf dist",
