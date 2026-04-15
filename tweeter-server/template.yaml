@@ -20,6 +20,8 @@ Globals:
         STORY_TABLE: !Ref storyTable
         FEED_TABLE: !Ref feedTable
         BUCKET_NAME: !Ref mediaBucket
+        POST_STATUS_QUEUE_URL: !Ref postStatusQueue
+        UPDATE_FEED_QUEUE_URL: !Ref updateFeedQueue
 
 #
 # Reusable blocks of configuration. These are referenced throughout the template to avoid duplication.
@@ -446,6 +448,40 @@ Resources:
       Handler: tweeter-server/src/status/lambda/PostStatusLambda.handler
       Policies: *commonPolicies
 
+  postUpdateFeedMessagesFunction:
+    Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
+    Properties:
+      Description: Expands a posted status into follower feed update batches.
+      FunctionName: postUpdateFeedMessagesFunction
+      Handler: tweeter-server/src/status/lambda/PostUpdateFeedMessagesLambda.handler
+      Timeout: 60
+      Policies: *commonPolicies
+      Events:
+        SQSTrigger:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt postStatusQueue.Arn
+            BatchSize: 1
+            Enabled: true
+
+  updateFeedsFunction:
+    Type: AWS::Serverless::Function
+    Metadata: *commonFunctionMetadata
+    Properties:
+      Description: Writes queued feed batches to DynamoDB.
+      FunctionName: updateFeedsFunction
+      Handler: tweeter-server/src/status/lambda/UpdateFeedsLambda.handler
+      Timeout: 60
+      Policies: *commonPolicies
+      Events:
+        SQSTrigger:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt updateFeedQueue.Arn
+            BatchSize: 10
+            Enabled: true
+
   getFolloweesPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -470,21 +506,35 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/follow/follow
 
-  unfollowPermission:
-    Type: AWS::Lambda::Permission
+  postStatusDeadLetterQueue:
+    Type: AWS::SQS::Queue
     Properties:
-      Action: lambda:InvokeFunction
-      FunctionName: !Ref unfollowFunction
-      Principal: apigateway.amazonaws.com
-      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/follow/unfollow
+      QueueName: tweeter-post-status-dlq
+      MessageRetentionPeriod: 1209600
 
-  getUserPermission:
-    Type: AWS::Lambda::Permission
+  postStatusQueue:
+    Type: AWS::SQS::Queue
     Properties:
-      Action: lambda:InvokeFunction
-      FunctionName: !Ref getUserFunction
-      Principal: apigateway.amazonaws.com
-      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${tweeterApi}/*/POST/user/get
+      QueueName: tweeter-post-status
+      VisibilityTimeout: 120
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt postStatusDeadLetterQueue.Arn
+        maxReceiveCount: 5
+
+  updateFeedDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: tweeter-update-feed-dlq
+      MessageRetentionPeriod: 1209600
+
+  updateFeedQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: tweeter-update-feed
+      VisibilityTimeout: 120
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt updateFeedDeadLetterQueue.Arn
+        maxReceiveCount: 5
 
   isFollowerPermission:
     Type: AWS::Lambda::Permission
