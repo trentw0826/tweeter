@@ -49,14 +49,18 @@ const UserInfo = () => {
   }
 
   useEffect(() => {
+    if (!authToken || !currentUser || !displayedUser) {
+      return;
+    }
+
     presenterRef.current!.loadFollowerStatus(
-      authToken!,
-      currentUser!,
-      displayedUser!,
+      authToken,
+      currentUser,
+      displayedUser,
     );
-    presenterRef.current!.loadFolloweeCount(authToken!, displayedUser!);
-    presenterRef.current!.loadFollowerCount(authToken!, displayedUser!);
-  }, [displayedUser]);
+    presenterRef.current!.loadFolloweeCount(authToken, displayedUser);
+    presenterRef.current!.loadFollowerCount(authToken, displayedUser);
+  }, [authToken, currentUser, displayedUser]);
 
   const switchToLoggedInUser = (event: React.MouseEvent): void => {
     event.preventDefault();

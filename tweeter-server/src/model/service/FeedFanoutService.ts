@@ -78,8 +78,9 @@ export class FeedFanoutService {
 
     let lastFollowerAlias: string | null = null;
     let messagesWritten = 0;
+    let hasMoreFollowers = true;
 
-    while (true) {
+    while (hasMoreFollowers) {
       const page = await this.followDao.getFollowersPage(
         status.user.alias,
         this.followersPageSize,
@@ -119,11 +120,10 @@ export class FeedFanoutService {
 
       messagesWritten += queueMessages.length;
       lastFollowerAlias = page.items[page.items.length - 1] ?? null;
-
-      if (!page.hasMore) {
-        return messagesWritten;
-      }
+      hasMoreFollowers = page.hasMore;
     }
+
+    return messagesWritten;
   }
 }
 
